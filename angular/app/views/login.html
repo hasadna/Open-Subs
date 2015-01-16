@@ -1,15 +1,15 @@
 
-<h3>Please login</h3>
+<h3>כניסה למערכת</h3>
 
 <form novalidate>
   <div class="form-group">
-    <label for="loginusername">User Name</label>
-    <input class="form-control" id="loginusername" ng-model="credentials.username" type="text" placeholder="User Name"/>
+    <label for="loginusername">שם משתמש</label>
+    <input class="form-control" id="loginusername" ng-model="credentials.username" type="text" placeholder="שם משתמש"/>
   </div>
   <div class="form-group">
-    <label for="loginpassword">Password</label>
-    <input class="form-control" id="loginpassword" ng-model="credentials.password" type="password" placeholder="Password"/>
+    <label for="loginpassword">סיסמה</label>
+    <input class="form-control" id="loginpassword" ng-model="credentials.password" type="password" placeholder="סיסמה"/>
   </div>
-  <button class="btn btn-primary" ng-click="login(credentials)" type="button">Login</button>
-  <button class="btn btn-default" ng-click="cancel()" type="button">Cancel</button>
+  <button class="btn btn-primary" ng-click="login(credentials)" type="button">כניסה</button>
+  <button class="btn btn-default" ng-click="cancel()" type="button">ביטול</button>
 </form>
