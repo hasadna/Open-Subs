@@ -13,7 +13,7 @@ angular
     'angular-jwt'
   ])
 
-  .controller('AppController', function($scope, USER, MESSAGES, $rootScope) {
+  .controller('AppController', function($scope, USER, MESSAGES, $rootScope, $location) {
     $scope.user = USER.get();
     $scope.MESSAGES = MESSAGES;
     $scope.logout = function() {
@@ -22,12 +22,18 @@ angular
     };
     $rootScope.$on('USER.change', function(){
       $scope.user = USER.get();
+      if (!$scope.user) {
+        $location.path('/login');
+      }
     })
   })
 
   .config(function ($routeProvider) {
     $routeProvider
-      .when('/', {
+      .when('/splash', {
+        templateUrl: 'views/splash.html'
+      })
+      .when('/home', {
         templateUrl: 'views/home.html',
         controller: 'HomeController'
       })
@@ -40,7 +46,7 @@ angular
         controller: 'MyProfileController'
       })
       .otherwise({
-        redirectTo: '/'
+        redirectTo: '/splash'
       });
   })
 
