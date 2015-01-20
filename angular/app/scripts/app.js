@@ -41,6 +41,10 @@ angular
         templateUrl: 'views/login.html',
         controller: 'LoginController'
       })
+      .when('/login/:token', {
+        template: '',
+        controller: 'LoginTokenController'
+      })
       .when('/my-profile', {
         templateUrl: 'views/my-profile.html',
         controller: 'MyProfileController'
