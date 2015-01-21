@@ -57,7 +57,7 @@ angular.module('app')
   }])
 
   .controller('LoginController', function($scope, USER, MESSAGES, $window, $location, SETTINGS, $sce) {
-    $scope.iframe_src = $sce.trustAsResourceUrl(SETTINGS.backend+'/users/login/?is_iframe=1&next=/users/login-redirect-opensubs');
+    $scope.iframe_src = $sce.trustAsResourceUrl(SETTINGS.backend+'/users/login/?is_iframe=1&next=/users/login-redirect/opensubs/');
     $(window).on("message", function(e) {
       USER.loginToken(e.originalEvent.data);
       $window.location.href = '/#/home';
