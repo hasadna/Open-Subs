@@ -9,7 +9,8 @@ angular.module('app')
         var payload = jwtHelper.decodeToken($window.sessionStorage.userToken);
         return {
           'username': payload.username,
-          'isCandidate': payload.isCandidate
+          'user_id': payload.user_id,
+          'email': payload.email
         };
       } else {
         return false;
@@ -50,9 +51,9 @@ angular.module('app')
       },
       responseError: function (response) {
         if (response.status === 401) {
-          MESSAGES.add('global', 'danger', 'Your login token is expired, <a onClick="window.location.reload()">Click here to re-login</a>.');
+          MESSAGES.add('global', 'danger', 'פג תוקף הכניסה למערכת, <a onClick="window.location.reload()">ליחצו כאן להיכנס שוב</a>.');
         } else if (response.status == 0) {
-          MESSAGES.add('global', 'danger', 'Failed to contact the backend server at <a href="'+SETTINGS.backend+'">'+SETTINGS.backend+'</a>');
+          MESSAGES.add('global', 'danger', 'שגיאת חיבור לשרת <a href="'+SETTINGS.backend+'">'+SETTINGS.backend+'</a>');
         }
         return response || $q.when(response);
       }
@@ -71,13 +72,13 @@ angular.module('app')
     };
     $scope.login = function(credentials) {
       USER.login(credentials).then(function() {
-        MESSAGES.addAfterLocation('/', 'global', 'info', 'Successfully logged in.');
+        MESSAGES.addAfterLocation($window.sessionStorage.afterlogin ? $window.sessionStorage.afterlogin : '/', 'global', 'info', 'כניסה למערכת בוצעה בהצלחה');
       }).catch(function() {
-        MESSAGES.add('global', 'danger', 'Invalid username or password.');
+        MESSAGES.add('global', 'danger', 'שם משתמש או סיסמה שגויים');
       });
     };
     $scope.cancel = function() {
-      $location.path('/');
+      $location.path($window.sessionStorage.afterlogin ? $window.sessionStorage.afterlogin : '/');
     }
   })
 

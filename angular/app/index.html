@@ -9,6 +9,7 @@
     <!-- build:css(.) styles/vendor.css -->
     <!-- bower:css -->
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="bower_components/bootstrap-rtl/dist/css/bootstrap-rtl.css" />
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css(.tmp) styles/main.css -->
@@ -23,11 +24,11 @@
     <!-- Add your site or application content here -->
     <div class="container">
       <div class="header">
-        <ul class="nav nav-pills pull-right">
-          <li class="active"><a ng-href="#/">Home</a></li>
-          <li><a ng-click="logout()">Logout</a></li>
+        <ul class="nav nav-pills pull-left">
+          <!--<li class="active"><a ng-href="#/">Home</a></li>-->
+          <li><a ng-click="logout()">יציאה</a></li>
         </ul>
-        <h3 class="text-muted">Open Knesset</h3>
+        <h3 class="text-muted">כנסת פתוחה - משחקי הבחירות</h3>
       </div>
 
       <div class="global-alerts">
@@ -40,7 +41,7 @@
       <div ng-view=""></div>
 
       <div class="footer">
-        <p><span class="glyphicon glyphicon-heart"></span>עוד חשמביר מבית הסדנא לידע ציבורי</p>
+        <p><span class="glyphicon glyphicon-heart"></span> עוד חשמביר מבית הסדנא לידע ציבורי</p>
       </div>
     </div>
 
@@ -85,6 +86,8 @@
     <script src="scripts/settings.js"></script>
     <script src="scripts/user.js"></script>
     <script src="scripts/home.js"></script>
+    <script src="scripts/my-profile.js"></script>
+    <script src="scripts/open_knesset.js"></script>
     <!-- endbuild -->
 </body>
 </html>
