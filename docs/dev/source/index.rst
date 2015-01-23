@@ -6,18 +6,17 @@
 Welcome to Open-Subs Developers documentation!
 ===================================================
 
-Open Subs's lets commoners elect a team chair persons and ladies
+Open Subs's lets commoners elect a team of chair persons
 for the committees of the house of commons.
 
-The game is based on an Israeli road trip trick where you urgently wake
-a friend in the middle him of the night, telling him that all
-the friends are drawning and asks him "Where are the submarine keys?"
+The game plot is based on a high school road trip trick where you urgently wake
+a friend in the middle of the night, telling him that your friends
+are drawning and asks him "Where are the submarine keys?"
 
 In Level I, you need to construct the key. The key has 11 teeth, each
-representing an committe chair. The player is led teeth-by-teeth, electing
-his representitve in each committee.
-
-In Level II you unlock your sub and drive it in a defender_ style arcade.
+representing a committe chair, i.e. first tooth is the head of
+`Finance and Services Committee`_. The player is led teeth-by-teeth, electing
+his representitve for each committee.
 
 The project is is purely javascript and the forntend is AngularJS_.
 
@@ -29,6 +28,7 @@ Contents:
     github
     env
     workflow
+    links
 
 Indices and tables
 ==================
@@ -36,21 +36,4 @@ Indices and tables
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
-
-Some useful project links:
-
-* `Our code repository`_
-* docs can be found in the `drive folder`_
-* stuff to do in the `huboard`_ (bugs, tasks etc.)
-* discussion in the `open knesset forum`_
-* `Hasadna`_ site (our parent organization)
-
-.. _AngularJS: https://www.codeschool.com/courses/shaping-up-with-angular-js
-.. _Our code repository: https://github.com/hasadna/Open-Subs/
-.. _huboard: https://huboard.com/hasadna/Open-Subs/
-.. _drive folder: https://drive.google.com/open?id=0B1rAe9zy7m-PSzZaUGxJVzlxVjQ&authuser=0
-.. _open knesset forum: http://forum.hasadna.org.il/c/5-category/12-category
-.. _Hasadna: http://www.hasadna.org.il/
-.. _defender: https://en.wikipedia.org/wiki/Defender_%28video_game%29
-
 
