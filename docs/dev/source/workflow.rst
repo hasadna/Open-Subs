@@ -15,12 +15,12 @@ request getting accepted:
 
 - No big Pull Requests. It makes reviewing and ensuring correctness hard. If
   possible, break it to smaller commits/pulls, each related to a specific issue.
-- Always work on a specific issue from our `issue tracker`_. Open new issue if
+- Always work on a specific issue from our huboard_. Open new issue if
   needed and claim it in the comments.
-- Discuss big things in the `Open Knesset Category`_.
+- Discuss big things in the `open knesset forum`_.
 
-.. _issue tracker: https://github.com/hasadna/Open-Subs/issues?state=open
-.. _Open Knesset Category: http://forum.hasadna.org.il/c/5-category/12-category
+.. _huboard: https://huboard.com/hasadna/Open-Subs/
+.. _open knesset forum: http://forum.hasadna.org.il/c/5-category/12-category
 
 Before Coding
 ==========================
@@ -34,7 +34,7 @@ We need to make sure we're in sync with changes done by others (upstream).
 Update the code and requirements
 --------------------------------------
 
-Enter the `osubs` directory, and add the `hasadna` respoitory:
+Enter your `Open-Subs` directory, and add the `hasadna` respoitory:
 
 .. code-block:: sh
 
@@ -53,10 +53,11 @@ Pull upstream changes to your fork just before you start coding:
 
     git pull https://github.com/hasadna/Open-Subs.git master
 
-If `requirements.txt` was modified, make sure all of them are installed (no harm
-running this command even in case of no changes):
+Refresh your code base by running:
 
-    `pip install -r requirements.txt`
+.. code-block:: sh
+
+    npm install; bower install
 
 
 Testing
@@ -64,7 +65,7 @@ Testing
 
 .. code-block:: sh
 
-    python tests.py
+    TBD
 
 
 See :ref:`devel_tips` for a few bash functions that may help.
@@ -75,21 +76,27 @@ While Coding
 General
 ---------
 
-- Write tests for everything that you code.
-- Keep performance in mind.
+The General Guide is in PEP20_.
 
+When an issue is done
+~~~~~~~~~~~~~~~~~~~~~~~
 
-After you code
-~~~~~~~~~~~~~~~~
+.. code-block:: sh
 
-- ``python tests.py`` # make sure you didn't break anything
-- ``git status`` # to see what changes you made
-- ``git diff filename`` # to see what changed in a specific file
-- ``git add filename`` # for each file you changed/added.
-- ``git commit -m "commit message"`` 
-  
-  Please write a sensible commit message, and include "fix#: [number]" of the issue number you're working on (if any).
-- ``git push`` # push changes to git repo
-- go to github.com and send a "pull request" so your code will be reviewed and
+    git status # to see what changes you made
+    git diff filename # to see what changed in a specific file
+    git add filename # for each file you changed/added.
+    git commit -m 'Initial docs #7'
+    git push # pushes changes to your mirror in the clouds
+
+.. note::
+
+    Please write a sensible commit message, and include "#[number]"
+    of the issue number you're working on (if any).
+
+Go to github.com and send a "pull request" so your code will be reviewed and
   pulled into the main branch, make sure the base repo is
-  **hasadna/Open-Subs**.
+  `hasadna/Open-Subs`_.
+
+.. _PEP20: https://www.python.org/dev/peps/pep-0020/
+.. _hasadna/Open-Subs: http://github.com/hasadna/Open-Subs

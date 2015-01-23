@@ -6,29 +6,20 @@
 Welcome to Open-Subs Developers documentation!
 ===================================================
 
-Open Subs's aim is allowing israelies elect candidates rather than
-parties. The project is AngularJS_ at the front and Python_ and 
-Flask_ at the back.
+Open Subs's lets commoners elect a team chair persons and ladies
+for the committees of the house of commons.
 
-Some useful project links:
+The game is based on an Israeli road trip trick where you urgently wake
+a friend in the middle him of the night, telling him that all
+the friends are drawning and asks him "Where are the submarine keys?"
 
-* The Mockup_
-* The `drive folder`_
-* `Our code repository`_
-* `The issue tracker`_ (bugs, tasks etc.)
-* The `forum thread`_
-* `Hasadna`_ site (our parent organization)
+In Level I, you need to construct the key. The key has 11 teeth, each
+representing an committe chair. The player is led teeth-by-teeth, electing
+his representitve in each committee.
 
-.. _AngularJS: https://www.codeschool.com/courses/shaping-up-with-angular-js
-.. _Python: http://www.python.org/
-.. _Flask: http://flask.pocoo.org/
-.. _Our code repository: https://github.com/hasadna/Open-Subs/
-.. _The issue tracker: https://github.com/hasadna/Open-Subs/issues/
-.. _Mockup: http://yeda.us/subs
-.. _Drive Folder: https://drive.google.com/open?id=0B1rAe9zy7m-PSzZaUGxJVzlxVjQ&authuser=0
-.. _Forum Thread: http://forum.hasadna.org.il/t/topic/346
-.. _Hasadna: http://www.hasadna.org.il/
+In Level II you unlock your sub and drive it in a defender_ style arcade.
 
+The project is is purely javascript and the forntend is AngularJS_.
 
 Contents:
 
@@ -36,11 +27,8 @@ Contents:
     :maxdepth: 2
 
     github
-    environment/index
+    env
     workflow
-    tips
-    browsertests
-    front_end
 
 Indices and tables
 ==================
@@ -48,4 +36,21 @@ Indices and tables
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
+
+Some useful project links:
+
+* `Our code repository`_
+* docs can be found in the `drive folder`_
+* stuff to do in the `huboard`_ (bugs, tasks etc.)
+* discussion in the `open knesset forum`_
+* `Hasadna`_ site (our parent organization)
+
+.. _AngularJS: https://www.codeschool.com/courses/shaping-up-with-angular-js
+.. _Our code repository: https://github.com/hasadna/Open-Subs/
+.. _huboard: https://huboard.com/hasadna/Open-Subs/
+.. _drive folder: https://drive.google.com/open?id=0B1rAe9zy7m-PSzZaUGxJVzlxVjQ&authuser=0
+.. _open knesset forum: http://forum.hasadna.org.il/c/5-category/12-category
+.. _Hasadna: http://www.hasadna.org.il/
+.. _defender: https://en.wikipedia.org/wiki/Defender_%28video_game%29
+
 

@@ -1,3 +1,5 @@
+  TL;DR : `Open Subs repository`_
+
 ========================
 GitHub and Source Code
 ========================
