@@ -71,7 +71,7 @@ Testing
 
 .. code-block:: sh
 
-    TBD
+    grunt test
 
 
 See :ref:`devel_tips` for a few bash functions that may help.
@@ -82,7 +82,7 @@ While Coding
 General
 ---------
 
-The General Guide is in PEP20_.
+Follow this style guide: https://github.com/johnpapa/angularjs-styleguide
 
 When an issue is done
 ~~~~~~~~~~~~~~~~~~~~~~~
