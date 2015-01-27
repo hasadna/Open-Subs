@@ -10,7 +10,8 @@ angular
     'ngRoute',
     'ngSanitize',
     'ngTouch',
-    'angular-jwt'
+    'angular-jwt',
+    'app.settings'
   ])
 
   .controller('AppController', function($scope, USER, MESSAGES, $rootScope, $location) {
