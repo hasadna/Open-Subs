@@ -5,7 +5,13 @@ Development Workflow
 =========================
 
 Congratulations, we have everything installed, now it's time to start working on
-the project. Here are some guidelines and scenarios to help you get started.
+the project. Run the local server using: 
+
+.. code-block:: sh
+
+    grunt serve
+
+Here are some guidelines and scenarios to show the flow.
 
 Commits and Pull Requests
 ========================================
