@@ -36,7 +36,7 @@ Updating node and bower modules
 
 .. code-block:: sh
 
-    cd Open-Knesset/angular
+    cd Open-Subs/angular
     npm install
     bower install
 
@@ -48,7 +48,7 @@ The angular local settings contains the url to the django backend server:
 
 .. code-block:: sh
 
-  cd Open-Knesset/angular/app
+  cd Open-Subs/angular/app/scripts
   cp settings.js.dist settings.js
 
 This sets up the address of the Open-Knesset API server at localhost:8000)
