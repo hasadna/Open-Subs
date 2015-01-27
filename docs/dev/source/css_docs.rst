@@ -5,27 +5,7 @@ Working on CSS and Documentation
 CSS
 =========
 
-We're using LESS_ (no direct editing of CSS). If you'd like to contribute to the
-design efforts:
-
-Before first run, and only once, you'll need::
-
-    git submodule init
-    git submodule update
-
-
-You'll need to have `Node.js`_ installed. After that make sure you have less
-installed::
-
-    sudo npm install -g less
-
-Make your changes to the files in the ``less`` directory, and compile the using
-(assuming you're in the ``Open-Knesset`` directory)::
-
-    lessc less/app.less static/css/app.css
-
-.. _Node.js: http://nodejs.org/
-.. _LESS: http://lesscss.org/#-server-side-usage
+Our grunt tasks handle the compilation and aggregation of css files. Just edit the app/styles/main.scss
 
 
 Documentation
