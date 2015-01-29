@@ -10,6 +10,7 @@ angular
     'ngRoute',
     'ngSanitize',
     'ngTouch',
+    'ngResource',
     'angular-jwt',
     'app.settings'
   ])
@@ -50,11 +51,18 @@ angular
         templateUrl: 'views/my-profile.html',
         controller: 'MyProfileController'
       })
+      .when('/candidate/:id', {
+        templateUrl: 'views/candidate-feed.html',
+        controller: 'CandidateController'
+      })
       .otherwise({
         redirectTo: '/splash'
       });
   })
-
+  .config(function($resourceProvider) {
+    // Don't strip trailing slashes from calculated URLs
+    $resourceProvider.defaults.stripTrailingSlashes = false;
+    })
   .factory('MESSAGES', function($rootScope, $sce, $location) {
     var clearOnRouteChange = true;
     var scopes = {};
