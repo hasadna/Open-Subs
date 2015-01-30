@@ -7,6 +7,9 @@
 // use this if you want to recursively match all subfolders:
 // 'test/spec/**/*.js'
 
+var fs = require('fs');
+var gruntLocal = (fs.existsSync(__dirname+'/Gruntfile_local.js')) ? require(__dirname+'/Gruntfile_local.js') : false;
+
 module.exports = function (grunt) {
 
   // Load grunt tasks automatically
@@ -70,6 +73,7 @@ module.exports = function (grunt) {
     // The actual grunt server settings
     connect: {
       options: {
+        protocol: (gruntLocal && gruntLocal.connect_protocol) ? gruntLocal.connect_protocol : 'http',
         port: 9000,
         // Change this to '0.0.0.0' to access the server from outside.
         hostname: 'localhost',

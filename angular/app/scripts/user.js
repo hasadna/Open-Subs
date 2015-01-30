@@ -64,9 +64,4 @@ angular.module('app')
     });
   })
 
-  .controller('LoginTokenController', function($scope, $routeParams, USER, $location) {
-    USER.loginToken($routeParams.token);
-    $location.path('/home');
-  })
-
 ;

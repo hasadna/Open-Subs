@@ -32,7 +32,16 @@ angular
   .config(function ($routeProvider) {
     $routeProvider
       .when('/splash', {
-        templateUrl: 'views/splash.html'
+        templateUrl: 'views/splash.html',
+        controller: function($scope, $location, $window, SETTINGS) {
+          $scope.go = function() {
+            if ($window.sessionStorage.isFacebook) {
+              $window.location.href = SETTINGS.backend+'/users/login-redirect-facebook-canvas-start/opensubs/';
+            } else {
+              $location.path('/home');
+            }
+          }
+        }
       })
       .when('/home', {
         templateUrl: 'views/home.html',
@@ -42,17 +51,43 @@ angular
         templateUrl: 'views/login.html',
         controller: 'LoginController'
       })
-      .when('/login/:token', {
-        template: '',
-        controller: 'LoginTokenController'
-      })
       .when('/my-profile', {
         templateUrl: 'views/my-profile.html',
         controller: 'MyProfileController'
       })
+      .when('/login/:token', {
+        template: '',
+        // this is called from the backend - after the user is authenticated
+        // in this case we login the user, then redirect to the homepage
+        controller: function($scope, $routeParams, USER, $location) {
+          USER.loginToken($routeParams.token);
+          $location.path('/home');
+        }
+      })
+      .when('/facebook/login/:token', {
+        template: '',
+        // this is called from the backend - inside the facebook canvas iframe
+        // in this case we login the user, mark the user as facebook user, then redirect to the homepage
+        controller: function($routeParams, USER, $location, $window) {
+          console.log('123');
+          $window.sessionStorage.isFacebook = true;
+          USER.loginToken($routeParams.token);
+          $location.path('/home');
+        }
+      })
+      .when('/facebook/splash', {
+        template: '',
+        // this is called from the backend - inside the facebook canvas iframe
+        // in this case we just save that the user is from facebook, then show the normal splash screen
+        controller: function($window, $location) {
+          $window.sessionStorage.isFacebook = true;
+          $location.path('/splash');
+        }
+      })
       .otherwise({
         redirectTo: '/splash'
-      });
+      })
+    ;
   })
 
   .factory('MESSAGES', function($rootScope, $sce, $location) {
