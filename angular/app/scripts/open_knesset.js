@@ -1,15 +1,17 @@
 'use strict';
 
 angular.module('app')
-  .factory('OPEN_KNESSET', function($q, $http, SETTINGS) {
+  .factory('OPEN_KNESSET', function($q, $resource, SETTINGS) {
     var OPEN_KNESSET = {
-      get_person: function(user) {
-        return $q(function(resolve, reject) {
-          $http.get(SETTINGS.backend + '/api/v2/person/?user_id='+user.user_id).success(function(data) {
-            resolve(data.objects[0]);
-          });
-        });
-      }
+      /*
+       * use Open_KNESSET.Person to get information on persons
+       * for example:
+       *   OPEN_KNESSET.Person.get({id: id}, function (person) {
+       *        $scope.person = person;
+       *      });
+       */
+      Person: $resource(SETTINGS.oknesset+'/api/v2/person/:id/',
+                          {id:'@id'}),
     };
     return OPEN_KNESSET;
   })

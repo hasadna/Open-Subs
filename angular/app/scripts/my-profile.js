@@ -8,7 +8,7 @@ angular.module('app')
       $location.path('/login');
     } else {
       $scope.person = false;
-      OPEN_KNESSET.get_person(USER.get()).then(function(person) {
+      OPEN_KNESSET.Person.get({id: USER.get().id} , function(person) {
         $scope.person = person;
       });
     }

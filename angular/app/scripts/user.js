@@ -24,7 +24,7 @@ angular.module('app')
     };
     USER.logout = function() {
       delete $window.sessionStorage.userToken;
-      $http.get(SETTINGS.backend+'/users/logout').then(function() {
+      $http.get(SETTINGS.oknesset+'/users/logout').then(function() {
         $rootScope.$broadcast('USER.change');
         $window.location.href = '/#/login';
       });
@@ -45,7 +45,7 @@ angular.module('app')
         if (response.status === 401) {
           MESSAGES.add('global', 'danger', 'פג תוקף הכניסה למערכת, <a onClick="window.location.reload()">ליחצו כאן להיכנס שוב</a>.');
         } else if (response.status == 0) {
-          MESSAGES.add('global', 'danger', 'שגיאת חיבור לשרת <a href="'+SETTINGS.backend+'">'+SETTINGS.backend+'</a>');
+          MESSAGES.add('global', 'danger', 'שגיאת חיבור לשרת <a href="'+SETTINGS.oknesset+'">'+SETTINGS.oknesset+'</a>');
         }
         return response || $q.when(response);
       }
@@ -57,7 +57,7 @@ angular.module('app')
   }])
 
   .controller('LoginController', function($scope, USER, MESSAGES, $window, $location, SETTINGS, $sce) {
-    $scope.iframe_src = $sce.trustAsResourceUrl(SETTINGS.backend+'/users/login/?is_iframe=1&next=/users/login-redirect/opensubs/');
+    $scope.iframe_src = $sce.trustAsResourceUrl(SETTINGS.oknesset+'/users/login/?is_iframe=1&next=/users/login-redirect/opensubs/');
     $(window).on("message", function(e) {
       USER.loginToken(e.originalEvent.data);
       $window.location.href = '/#/home';
