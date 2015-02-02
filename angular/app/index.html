@@ -24,18 +24,7 @@
     <!-- Add your site or application content here -->
     <div class="container">
       <div class="header">
-        <ul class="nav nav-pills pull-left">
-          <!--<li class="active"><a ng-href="#/">Home</a></li>-->
-          <li><a ng-click="logout()">יציאה</a></li>
-        </ul>
         <h3 class="text-muted">כנסת פתוחה - משחקי הבחירות</h3>
-      </div>
-
-      <div class="global-alerts">
-        <div class="alert alert-dismissible" ng-class="'alert-'+alert.type" role="alert" ng-repeat="alert in MESSAGES.get('global')">
-          <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <span ng-bind-html="alert.msg"></span>
-        </div>
       </div>
 
       <div ng-view=""></div>
@@ -45,17 +34,6 @@
       </div>
     </div>
 
-
-    <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
-     <!--<script>-->
-       <!--(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){-->
-       <!--(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),-->
-       <!--m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)-->
-       <!--})(window,document,'script','//www.google-analytics.com/analytics.js','ga');-->
-
-       <!--ga('create', 'UA-XXXXX-X');-->
-       <!--ga('send', 'pageview');-->
-    <!--</script>-->
 
     <!-- build:js(.) scripts/oldieshim.js -->
     <!--[if lt IE 9]>
@@ -78,17 +56,18 @@
     <script src="bower_components/angular-touch/angular-touch.js"></script>
     <script src="bower_components/angular-jwt/dist/angular-jwt.js"></script>
     <script src="bower_components/angular-route/angular-route.js"></script>
+    <script src="bower_components/angular-easyfb/angular-easyfb.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
     <script src="scripts/settings.js"></script>
 
     <!-- build:js({.tmp,app}) scripts/scripts.js -->
+    <!-- include: "type": "js", "files": "scripts/**/*.js" -->
     <script src="scripts/app.js"></script>
-    <script src="scripts/user.js"></script>
-    <script src="scripts/home.js"></script>
-    <script src="scripts/my-profile.js"></script>
     <script src="scripts/open_knesset.js"></script>
+    <script src="scripts/settings.js"></script>
+    <!-- /include -->
     <!-- endbuild -->
 </body>
 </html>
