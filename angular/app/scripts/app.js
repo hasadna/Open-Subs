@@ -11,97 +11,73 @@ angular
     'ngSanitize',
     'ngTouch',
     'angular-jwt',
-    'app.settings'
+    'app.settings',
+    'ezfb'
   ])
 
-  .controller('AppController', function($scope, USER, MESSAGES, $rootScope, $location) {
-    $scope.user = USER.get();
-    $scope.MESSAGES = MESSAGES;
-    $scope.logout = function() {
-      USER.logout();
-      MESSAGES.add('global', 'info', 'Successfully logged out.');
-    };
-    $rootScope.$on('USER.change', function(){
-      $scope.user = USER.get();
-      if (!$scope.user) {
-        $location.path('/login');
-      }
-    })
-  })
-
-  .config(function ($routeProvider) {
+  .config(function ($routeProvider, $resourceProvider, ezfbProvider) {
+    $resourceProvider.defaults.stripTrailingSlashes = false;
+    ezfbProvider.setInitParams({
+      appId      : window.OPEN_SUBS_FB_APP_ID,
+      xfbml      : true,
+      version    : 'v2.2'
+    });
     $routeProvider
       .when('/splash', {
-        templateUrl: 'views/splash.html'
+        templateUrl: 'views/splash.html',
+        controller: function($scope, USER, $location) {
+          $scope.go = function() {
+            USER.login(function(status) {
+              if (status) {
+                $location.path('/home');
+              } else {
+                alert('please login');
+              }
+            });
+          }
+        }
       })
       .when('/home', {
-        templateUrl: 'views/home.html',
-        controller: 'HomeController'
-      })
-      .when('/login', {
-        templateUrl: 'views/login.html',
-        controller: 'LoginController'
-      })
-      .when('/login/:token', {
-        template: '',
-        controller: 'LoginTokenController'
-      })
-      .when('/my-profile', {
-        templateUrl: 'views/my-profile.html',
-        controller: 'MyProfileController'
+        templateUrl: 'views/home.html'
       })
       .otherwise({
         redirectTo: '/splash'
-      });
+      })
+    ;
   })
 
-  .factory('MESSAGES', function($rootScope, $sce, $location) {
-    var clearOnRouteChange = true;
-    var scopes = {};
-    // clear all messages when route changes
-    $rootScope.$on("$routeChangeSuccess", function() {
-      if (clearOnRouteChange) {
-        scopes = {};
-      } else {
-        clearOnRouteChange = true;
-      }
-    });
+  .factory('USER', function(ezfb, $q) {
     return {
-      add: function(scope, type, msg, isHtml) {
-        if (!scopes[scope]) scopes[scope] = [];
-        var obj = {'type': type, 'msg': msg};
-        if (isHtml) obj.isHtml = true;
-        var exists = false;
-        angular.forEach(scopes[scope], function(aobj) {
-          if (aobj.type == obj.type && aobj.msg == obj.msg) {
-            exists = true;
+      login: function(callback) {
+        ezfb.getLoginStatus(function (res) {
+          if (res.status == 'connected') {
+            callback(true, res);
+          } else {
+            ezfb.login(function(res) {
+              callback(res.status == 'connected', res);
+            }, {scope: 'public_profile,email'});
           }
         });
-        if (!exists) {
-          if (obj.isHtml) {
-            obj.msg = $sce.trustAsHtml(obj.msg);
-          }
-          scopes[scope].push(obj);
-        }
       },
-      get: function(scope) {
-        if (!scopes[scope]) {
-          scopes[scope] = [];
-        }
-        return scopes[scope];
-      },
-      addAfterLocation: function(path, scope, type, msg, isHtml) {
-        this.setClearOnRouteChange(false);
-        this.add(scope, type, msg, isHtml);
-        $location.path(path);
-      },
-      setClearOnRouteChange: function(what) {
-        clearOnRouteChange = ((typeof(what) == 'undefined') ? true : what);
-      },
-      clear: function(scope) {
-        scopes[scope] = [];
+      fbapi: function(url) {
+        var self = this;
+        return $q(function(resolve, reject) {
+          self.login(function(status, res) {
+            if (status) {
+              ezfb.api(url, {access_token: res.authResponse.accessToken}, function(response) {
+                resolve(response);
+              });
+            } else {
+              reject();
+            }
+          });
+        });
       }
     };
+  })
+
+  .controller('AppController', function($scope, ezfb) {
+
   })
 
 ;
