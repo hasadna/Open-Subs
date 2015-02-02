@@ -2,7 +2,7 @@
 
 angular.module('app')
 
-  .controller('CandidateController', function($log, $scope, $routeParams, OPEN_KNESSET) {
+  .controller('CandidateController', function($log, $scope, $routeParams, OPEN_KNESSET, ezfb) {
     OPEN_KNESSET.Person.get({id:$routeParams.id}, function (person) {
       $scope.person = person;
       var i, fb_page = "";
@@ -24,13 +24,11 @@ angular.module('app')
         var parts = fb_page.split('/'),
             fb_id = parts[parts.length - 1];
         $log.debug(fb_id);
-        FB.api("/"+fb_id+"/posts",
-            {access_token: "CAAEjpAqEyXcBAFJJvPisrbohjMMCQUJ414J9SkCrBhAEz9sfe5D1WVti10Sv2xhZCGH6TNEkZBzPRDbCL8sZAIfahEMyZB23db2s0jTcPMWZAVoL1Fcesi2Ch5bB4ZAgrA09SYwMZBtTrZBbEx2MkWulVktppUJNoVGsvYwmRv5coBoYbjAwk8kxCxWrkuvSoMZBn1dfZAQszxNgZDZD" },
+        ezfb.api("/"+fb_id+"/posts",
+            {access_token: "CAAEjpAqEyXcBAEWjVamVN4S1LumbfJ7BLZBF2ZAj8L91jH1kqk3rw80eZAgDds5yXWxdmU9KqXI7F8QPKXSo5jbJZAsEtO7b76OvtvJfMTE5iZAUXDiq6s9ZA1SKFSGorJ8AiZCGr92oxJ2jlF6XYFqPR8BtJN9aNNMqMWZBmOBKZBBQawbAZAKviW4UtvuBFHT2lXLAngFzfTXAZDZD" },
             function (response) {
-          if (response && !response.error) {
-            $scope.feed = response.data;
-          }
-        });
+              $scope.feed = response;
+            });
       }
     });
   });

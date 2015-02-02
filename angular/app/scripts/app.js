@@ -12,7 +12,8 @@ angular
     'ngTouch',
     'ngResource',
     'angular-jwt',
-    'app.settings'
+    'app.settings',
+    'ezfb'
   ])
 
   .controller('AppController', function($scope, USER, MESSAGES, $rootScope, $location) {
@@ -62,7 +63,14 @@ angular
   .config(function($resourceProvider) {
     // Don't strip trailing slashes from calculated URLs
     $resourceProvider.defaults.stripTrailingSlashes = false;
+  })
+  .config(function (ezfbProvider) {
+    ezfbProvider.setInitParams({
+          appId      : '320662434793847',
+          xfbml      : true,
+          version    : 'v2.2'
     })
+  })
   .factory('MESSAGES', function($rootScope, $sce, $location) {
     var clearOnRouteChange = true;
     var scopes = {};
