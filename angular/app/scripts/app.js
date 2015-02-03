@@ -50,6 +50,10 @@ angular
         templateUrl: 'views/my-profile.html',
         controller: 'MyProfileController'
       })
+      .when('/committee/:id', {
+        templateUrl: 'views/committee.html',
+        controller: 'CommitteeController'
+      })
       .otherwise({
         redirectTo: '/splash'
       });

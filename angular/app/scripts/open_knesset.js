@@ -10,6 +10,14 @@ angular.module('app')
           });
         });
       },
+      get_committee: function (id) {
+        var url = "/committee/"+id+"/"
+        for (var i=0; i < OPEN_KNESSET.committees.length; i++) {
+          if (OPEN_KNESSET.committees[i].absolute_url == url)
+            return OPEN_KNESSET.committees[i]
+        }
+        return -1;
+      },
       committees: [
     {
         "absolute_url": "/committee/2/", 
