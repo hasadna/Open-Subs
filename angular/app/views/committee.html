@@ -1,0 +1,16 @@
+<h1>{{committee.name}}</h1>
+<p>{{committee.description}}</p>
+<angucomplete id="chair"
+              placeholder="בחר יושב)ת( ראש"
+              pause="100"
+              selectedobject="selectedChair"
+              localdata="candidates"
+              searchfields="name"
+              titlefield="name"
+              minlength="1"
+              inputclass="form-control form-control-small"/>
+<ul class="candidates">
+  <li ng-repeat="candidate in candidates | orderBy:name">
+    {{candidate.name}}
+  </li>
+</ul>

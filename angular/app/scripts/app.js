@@ -11,7 +11,8 @@ angular
     'ngSanitize',
     'ngTouch',
     'angular-jwt',
-    'app.settings'
+    'app.settings',
+    'angucomplete'
   ])
 
   .controller('AppController', function($scope, USER, MESSAGES, $rootScope, $location) {

@@ -1,15 +1,17 @@
 'use strict';
 
 angular.module('app')
-  .factory('OPEN_KNESSET', function($q, $http, SETTINGS) {
+  .factory('OPEN_KNESSET', function($resource, $http, SETTINGS) {
     var OPEN_KNESSET = {
-      get_person: function(user) {
-        return $q(function(resolve, reject) {
-          $http.get(SETTINGS.backend + '/api/v2/person/?user_id='+user.user_id).success(function(data) {
-            resolve(data.objects[0]);
-          });
-        });
-      },
+      /*
+       * use Open_KNESSET.Person to get information on persons
+       * for example:
+       *   OPEN_KNESSET.Person.get({id: id}, function (person) {
+       *        $scope.person = person;
+       *      });
+       */
+      Person: $resource(SETTINGS.oknesset+'/api/v2/person/:id/',
+                          {id:'@id'}),
       get_committee: function (id) {
         var url = "/committee/"+id+"/"
         for (var i=0; i < OPEN_KNESSET.committees.length; i++) {
@@ -85,7 +87,12 @@ angular.module('app')
         "name": "\u05d5\u05e2\u05d3\u05d4 \u05dc\u05d6\u05db\u05d5\u05d9\u05d5\u05ea \u05d4\u05d9\u05dc\u05d3", 
         "resource_uri": "/api/v2/committee/15/"
     }
-]
+],
+      get_candidates: function () {
+        return $http.get("http://127.0.0.1:8000/api/v2/person/",
+                  {cache: true,
+                   params: {roles__org: "הבחירות לכנסת ה-20"}})
+      }
     };
     return OPEN_KNESSET;
   })
