@@ -1,7 +1,8 @@
 <h1>{{committee.name}}</h1>
 <p>{{committee.description}}</p>
+<form>
 <angucomplete id="chair"
-              placeholder="בחר יושב)ת( ראש"
+              placeholder="בחר יושב(ת) ראש"
               pause="100"
               selectedobject="selectedChair"
               localdata="candidates"
@@ -9,8 +10,9 @@
               titlefield="name"
               minlength="1"
               inputclass="form-control form-control-small"/>
+</form>
 <ul class="candidates">
   <li ng-repeat="candidate in candidates | orderBy:name">
-    {{candidate.name}}
+  <a href="" ng-click="elect(candidate.id)">{{candidate.name}}</a>
   </li>
 </ul>
