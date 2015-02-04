@@ -14,4 +14,3 @@ before_script:
   - 'cp app/scripts/settings.js{.dist,}'
   - 'sed -i "s/offline:false/offline:true/" app/scripts/settings.js'
   - 'sed -i "s/noFacebook:false/noFacebook:true/" app/scripts/settings.js'
-  - 'grunt test'
