@@ -9,6 +9,7 @@ angular
       candidates: OPEN_KNESSET.get_candidates()
     }).then(function(res) {
       $scope.committee = res.committee;
+      $scope.candidatesArray = $.map(res.candidates, function(v){return v;});
       $scope.candidates = res.candidates;
     });
     $scope.$watch(function (scope) { return scope.selectedChair; },

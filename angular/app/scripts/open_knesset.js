@@ -4,26 +4,17 @@
 
 angular.module('app')
   .factory('OPEN_KNESSET', function ($resource, $http, SETTINGS, $q) {
-    
-    // sometimes backend returns an object with id: obj, ..
-    // this confuses the angucomplete library, so we convert it to array
-    var _toArray = function(arrobj) {
-      if ($.isArray(arrobj)) {
-        return arrobj;
-      } else {
-        return $.map(arrobj, function(v){return v;});
-      }
-    };
 
     var _getCandidatesPage = function(relurl, candidates) {
-      if (!candidates) candidates = [];
+      if (!candidates) candidates = {};
       return $q(function(resolve) {
-        $http.get(SETTINGS.backend+relurl, {cache: true, params: {roles__org: "הבחירות לכנסת ה-20"}}).success(function(data) {
+        var url = SETTINGS.offline ? (relurl.indexOf('limit') === -1 ? '/fakedata/persons.json' : '/fakedata/persons2.json') : SETTINGS.backend+relurl;
+        $http.get(url, {cache: true, params: {roles__org: "הבחירות לכנסת ה-20"}}).success(function(data) {
           angular.forEach(data.objects, function(candidate) {
             if (!candidate.img_url && candidate.mk) {
               candidate.img_url = candidate.mk.img_url;
             }
-            candidates.push(candidate);
+            candidates[candidate.id] = candidate;
           });
           if (data.meta.next) {
             _getCandidatesPage(data.meta.next, candidates).then(function() {
@@ -39,8 +30,19 @@ angular.module('app')
     var OPEN_KNESSET = {
       get_person: function(id) {
         return $q(function(resolve, reject) {
-          $http.get(SETTINGS.backend+'/api/v2/person/'+id+'/').success(function(person) {
-            resolve(person);
+          OPEN_KNESSET.get_candidates().then(function(candidates) {
+            if (candidates[id]) {
+              resolve(candidates[id]);
+            } else {
+              if (SETTINGS.offline) {
+                // TODO: implement for persons which are not candidates
+                reject();
+              } else {
+                $http.get(SETTINGS.backend+'/api/v2/person/'+id+'/').success(function(person) {
+                  resolve(person);
+                });
+              }
+            }
           });
         });
       },
