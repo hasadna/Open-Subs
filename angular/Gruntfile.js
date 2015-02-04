@@ -431,14 +431,6 @@ module.exports = function (grunt) {
         configFile: "test/e2e/e2e.conf.js"
       },
       test: {
-        options: {
-          args: function() {
-            var args = {};
-            if (process.env.SAUCE_USERNAME) args['sauceUser'] = process.env.SAUCE_USERNAME;
-            if (process.env.SAUCE_ACCESS_KEY) args['sauceKey'] = process.env.SAUCE_ACCESS_KEY;
-            return args;
-          }
-        }
       }
     },
 
