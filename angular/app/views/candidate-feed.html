@@ -1,0 +1,10 @@
+<div class="candidate">
+  <img src="{{person.img_url}}" alt="picture of {{person.name}}" />
+  {{person.name}}
+</div>
+<ul class="feed">
+  <li ng-repeat="status in feed.data">
+    {{status.message}}
+  </li>
+</ul>
+
