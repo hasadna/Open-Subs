@@ -11,6 +11,7 @@ angular
     $scope.$watch(function (scope) { return scope.selectedChair; },
                   function (new_value, old_value) {
       if (new_value) {
+        //TODO: code a factory for chairs
         $window.sessionStorage.setItem('chair'+committee_id,
               new_value.originalObject.id);
         $location.path('/home');

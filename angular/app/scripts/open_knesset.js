@@ -97,13 +97,37 @@ angular.module('app')
         "name": "\u05d5\u05e2\u05d3\u05d4 \u05dc\u05d6\u05db\u05d5\u05d9\u05d5\u05ea \u05d4\u05d9\u05dc\u05d3", 
         "resource_uri": "/api/v2/committee/15/"
     }
-],
+      ],
       get_candidates: function () {
         return $http.get("http://127.0.0.1:8000/api/v2/person/",
                   {cache: true,
                    params: {roles__org: "הבחירות לכנסת ה-20"}})
-      }
+                    .success(function (data) {
+                      // create the local cache
+                      if (OPEN_KNESSET.candidates === undefined) {
+                        var candidates = {};
+                        for (var i=0; i < data.meta.total_count; i++) {
+                          // create a new candidate, starting with server data
+                          var c = data.objects[i];
+                          // add access methods
+                          c.getImgUrl = function () {
+                            if (this.img_url !== undefined)
+                              return this.img_url;
+                            if (this.mk !== undefined)
+                              return this.mk.img_url;
+                          }
+                          candidates [c.id]  = c;
+                        }
+                        OPEN_KNESSET.candidates = candidates;
+                      }
+                    }
+        );
+     },
+     ready: function () {
+       return OPEN_KNESSET.candidates !== undefined;
+     }
     };
+    OPEN_KNESSET.get_candidates();
     return OPEN_KNESSET;
   })
 ;
