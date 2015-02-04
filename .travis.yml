@@ -11,4 +11,7 @@ before_script:
   - 'npm install -g bower grunt-cli'
   - 'npm install'
   - 'bower install'
+  - 'cp app/scripts/settings.js{.dist,}'
+  - 'sed -i "s/offline:false/offline:true/" app/scripts/settings.js'
+  - 'sed -i "s/noFacebook:false/noFacebook:true/" app/scripts/settings.js'
   - 'grunt test'
