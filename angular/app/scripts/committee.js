@@ -2,11 +2,14 @@
 
 angular
   .module('app')
-  .controller('CommitteeController', function($location, $scope, $window, OPEN_KNESSET, $routeParams) {
-    var committee_id = $routeParams.id
-    $scope.committee = OPEN_KNESSET.get_committee(committee_id);
-    OPEN_KNESSET.get_candidates().success(function(data) {
-      $scope.candidates = data.objects;
+  .controller('CommitteeController', function($location, $scope, $window, OPEN_KNESSET, $routeParams, $q) {
+    var committee_id = $routeParams.id;
+    $q.all({
+      committee: OPEN_KNESSET.get_committee(committee_id),
+      candidates: OPEN_KNESSET.get_candidates()
+    }).then(function(res) {
+      $scope.committee = res.committee;
+      $scope.candidates = res.candidates;
     });
     $scope.$watch(function (scope) { return scope.selectedChair; },
                   function (new_value, old_value) {
