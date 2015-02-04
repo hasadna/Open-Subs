@@ -51,5 +51,36 @@ The angular local settings contains the url to the django backend server:
   cd Open-Subs/angular/app/scripts
   cp settings.js.dist settings.js
 
-This sets up the address of the Open-Knesset API server at localhost:8000)
+This sets up the address of the Open-Knesset API server at http://localhost:8000
 
+Setting up for testing on facebook
+==================================
+
+.. code-block:: text
+
+    Create a test app on facebook - this app will be used both for Open Knesset and for Open Subs
+
+    Add the Canvas platform and set the Secure Canvas URL to https://localhost:8000/users/login-redirect-facebook-canvas/opensubs/
+    Add the Website platform and set the Site URL to https://localhost:8000/
+
+    add the following to your local_settings.py file:
+    SOCIAL_AUTH_FACEBOOK_KEY = 'YOUR APP KEY'
+    SOCIAL_AUTH_FACEBOOK_SECRET = 'YOUR APP SECRET'
+    OPENSUBS_FACEBOOK_CANVAS_APP_URL = 'YOU APP CANVAS PAGE URL'
+
+    Setup your backend server to use ssl:
+    pip install django-sslserver
+    add the following to your local_settings.py file:
+    EXTRA_INSTALLED_APPS = ('sslserver',)
+    then, run it using:
+    manage.py runsslserver
+
+    Setup your frontend server to use ssl:
+    add a file: angular/Gruntfile_local.js with the following content:
+    'use strict';
+    module.exports = {
+      connect_protocol: 'https'
+    };
+    edit app/scripts/settings.js - modify the backend server protocol to https
+
+    That's it, you can now browse to your canvas app page!
