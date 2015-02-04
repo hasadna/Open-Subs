@@ -11,7 +11,8 @@ angular
     'ngSanitize',
     'ngTouch',
     'angular-jwt',
-    'app.settings'
+    'app.settings',
+    'angucomplete'
   ])
 
   .controller('AppController', function($scope, USER, MESSAGES, $rootScope, $location) {
@@ -49,6 +50,10 @@ angular
       .when('/my-profile', {
         templateUrl: 'views/my-profile.html',
         controller: 'MyProfileController'
+      })
+      .when('/committee/:id', {
+        templateUrl: 'views/committee.html',
+        controller: 'CommitteeController'
       })
       .otherwise({
         redirectTo: '/splash'
