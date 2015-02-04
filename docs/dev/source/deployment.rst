@@ -29,6 +29,8 @@ As long as the settings.js.dist file doesn't change it only needs to be done onc
 
 Then, setup a web server to serve static files from that directory - make sure it serves on https as this is required by facebook
 
+The server should support POST requests - when it gets them it should just treat them as GET requests
+
 That's it.
 
 Setting up facebook
@@ -36,16 +38,4 @@ Setting up facebook
 
 Create an Open-Subs app on facebook
 
-Add the Canvas platform and set the Secure Canvas URL to https://oknesset.org/users/login-redirect-facebook-canvas/opensubs/
-
-Changes in Open-Knesset
-=======================
-
-In the local_settings.py file:
-
-.. code-block:: sh
-
-    OPENSUBS_LOGIN_URL = 'https://opensubs.org/#/login/'
-    OPENSUBS_FACEBOOK_CANVAS_LOGIN_URL = 'https://opensubs.org/#/facebook/login/'
-    OPENSUBS_FACEBOOK_CANVAS_SPLASH_URL = 'https://opensubs.org/#/facebook/splash'
-    OPENSUBS_FACEBOOK_CANVAS_APP_URL = 'THE OPEN-SUBS FACEBOOK APP CANVAS PAGE URL'
+Add the Canvas platform and set the Secure Canvas URL to point to your server: https://opensubs.org/
