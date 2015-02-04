@@ -3,8 +3,9 @@
   {{person.name}}
 </div>
 <ul class="feed">
-  <li ng-repeat="status in feed.data">
-    {{status.message}}
+  <li ng-repeat="status in feed.data" ng-if="status.name">
+    <strong>{{status.name}}</strong>
+    <p>{{status.description}}</p>
   </li>
 </ul>
 
