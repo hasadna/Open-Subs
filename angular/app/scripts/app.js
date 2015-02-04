@@ -56,18 +56,22 @@ angular
     ;
   })
 
-  .factory('USER', function(ezfb, $q) {
+  .factory('USER', function(ezfb, $q, SETTINGS) {
     return {
       login: function(callback) {
-        ezfb.getLoginStatus(function (res) {
-          if (res.status == 'connected') {
-            callback(true, res);
-          } else {
-            ezfb.login(function(res) {
-              callback(res.status == 'connected', res);
-            }, {scope: 'public_profile,email'});
-          }
-        });
+        if (SETTINGS.noFacebook) {
+          callback(true);
+        } else {
+          ezfb.getLoginStatus(function (res) {
+            if (res.status == 'connected') {
+              callback(true, res);
+            } else {
+              ezfb.login(function(res) {
+                callback(res.status == 'connected', res);
+              }, {scope: 'public_profile,email'});
+            }
+          });
+        }
       },
       fbapi: function(url) {
         var self = this;
