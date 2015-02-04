@@ -3,7 +3,7 @@
 angular.module('app')
 
   .controller('CandidateController', function($log, $scope, $routeParams, OPEN_KNESSET, USER) {
-    OPEN_KNESSET.Person.get({id:$routeParams.id}, function (person) {
+    OPEN_KNESSET.get_person($routeParams.id).then(function(person) {
       $scope.person = person;
       var i, fb_page = "";
       if (person.links) {
