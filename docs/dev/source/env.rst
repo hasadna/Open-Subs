@@ -71,3 +71,41 @@ Setting up for testing on facebook
     Add the Website platform and set the Site URL to https://localhost:9000/
 
     That's it, you can now browse to your canvas app page!
+
+Running the tests
+=================
+
+We use protractor for browser testing
+
+For the tests to run properly you should run without a backend server and without facebook.
+
+Just set in your settings.js: offline: true, noFacebook: true
+
+To run the complete testing suite, run:
+
+.. code-block:: sh
+
+    $ node_modules/grunt-protractor-runner/node_modules/.bin/webdriver-manager update
+    $ grunt test
+
+To debug the tests:
+
+.. code-block:: sh
+
+    $ npm install protractor -g
+    $ webdriver-manager update
+
+    # in the background - run the server
+
+    $ grunt serve
+
+    # then, you can run protractor directly
+
+    $ protractor test/e2e/e2e.conf.js --baseUrl "https://localhost:9000"
+
+    # you can run a single spec:
+
+    $ protractor test/e2e/e2e.conf.js --baseUrl "https://localhost:9000" --specs test/e2e/specs/main.js
+
+    # Some useful optional arguments:
+    # --verbose  --pause-on-error

@@ -426,10 +426,18 @@ module.exports = function (grunt) {
 
     // end-to-end / integration tests using protractor
     protractor: {
+      options: {
+        keepAlive: true,
+        configFile: "test/e2e/e2e.conf.js"
+      },
       test: {
         options: {
-          keepAlive: true,
-          configFile: "test/e2e/e2e.conf.js"
+          args: function() {
+            var args = {};
+            if (process.env.SAUCE_USERNAME) args['sauceUser'] = process.env.SAUCE_USERNAME;
+            if (process.env.SAUCE_ACCESS_KEY) args['sauceKey'] = process.env.SAUCE_ACCESS_KEY;
+            return args;
+          }
         }
       }
     },

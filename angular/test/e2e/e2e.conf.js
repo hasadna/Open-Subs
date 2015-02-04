@@ -8,4 +8,6 @@ exports.config = {
   jasmineNodeOpts: {
     showColors: true
   }
+  //sauceUser: 'OpenKnesset',
+  //sauceKey: ''
 };
