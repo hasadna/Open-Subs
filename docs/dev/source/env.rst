@@ -52,7 +52,9 @@ The angular local settings contains the url to the django backend server:
 
 This sets up the address of the Open-Knesset API server at https://localhost:8000
 
-make sure to run your local open knesset on https by using manage.py runsslserver
+If you want to run without a backend - set offline: true in the settings.js file
+
+if you are running open knesset, make sure to run your local open knesset on https by using manage.py runsslserver
 
 Important! - you will need to approve security exception to allow running on https - this is OK, you are running locally..
 

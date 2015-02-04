@@ -12,7 +12,8 @@ angular
       for (var i=0; i < res.committees.length; i++) {
         var c = res.committees[i];
         var electedId = $window.sessionStorage.getItem('chair'+c.id);
-        $scope.chairs.push ({name: c.name, absolute_url: c.absolute_url,
+        $scope.chairs.push ({
+          name: c.name, absolute_url: c.absolute_url,
           chosen: res.candidates[electedId]
         });
       }
