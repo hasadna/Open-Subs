@@ -1,11 +1,20 @@
 'use strict';
 
-angular.module('app.settings', [])
+if (!window.SETTINGS_LOADED) {
 
-  .factory('SETTINGS', function() {
-    return {
-      'backend': 'http://localhost:8000'
-    }
-  })
+  window.SETTINGS_LOADED = true;
 
-;
+  // we set this on the window because we need it in the app config
+  window.OPEN_SUBS_FB_APP_ID = '';
+
+  angular.module('app.settings', [])
+
+    .factory('SETTINGS', function() {
+      return {
+        // you should run open knesset on ssl because otherwise facebook might cause problems
+        'backend': 'https://localhost:8000'
+      }
+    })
+  ;
+
+}

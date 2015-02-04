@@ -23,10 +23,29 @@ Copy the contents of the Open-Subs/angular/dist directory to the server.
 
 Copy Open-Subs/angular/app/scripts/settings.js.dist into scripts/settings.js on the server
 
-Then, edit it to point to the correct open knesset backend server.
+Then, edit it to point to the correct open knesset backend server - make sure to use the https protocol!
 
 As long as the settings.js.dist file doesn't change it only needs to be done once, not every deployment.
 
-Then, setup a web server to serve static files from that directory.
+Then, setup a web server to serve static files from that directory - make sure it serves on https as this is required by facebook
 
 That's it.
+
+Setting up facebook
+===================
+
+Create an Open-Subs app on facebook
+
+Add the Canvas platform and set the Secure Canvas URL to https://oknesset.org/users/login-redirect-facebook-canvas/opensubs/
+
+Changes in Open-Knesset
+=======================
+
+In the local_settings.py file:
+
+.. code-block:: sh
+
+    OPENSUBS_LOGIN_URL = 'https://opensubs.org/#/login/'
+    OPENSUBS_FACEBOOK_CANVAS_LOGIN_URL = 'https://opensubs.org/#/facebook/login/'
+    OPENSUBS_FACEBOOK_CANVAS_SPLASH_URL = 'https://opensubs.org/#/facebook/splash'
+    OPENSUBS_FACEBOOK_CANVAS_APP_URL = 'THE OPEN-SUBS FACEBOOK APP CANVAS PAGE URL'
