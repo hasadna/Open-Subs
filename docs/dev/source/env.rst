@@ -54,6 +54,10 @@ This sets up the address of the Open-Knesset API server at https://localhost:800
 
 make sure to run your local open knesset on https by using manage.py runsslserver
 
+Important! - you will need to approve security exception to allow running on https - this is OK, you are running locally..
+
+Be sure to add an exception for your local open knesset by going to https://localhost:8000/ and approving the exception
+
 Setting up for testing on facebook
 ==================================
 
