@@ -1,26 +1,26 @@
 <!-- TODO: refactor to a <loading> directive -->
 <div ng-if="loading" class="loading">
   <h2>רגע... טוענים</h2>
-  <p>
-    אם אתה מחכה מעל 10 שניות, נסה לרפרש.  אם גם לא עוזר,
+  <strong>
+    אם אתם מחכים מעל 10 שניות, נסו לרפרש.  אם גם לא עוזר,
     <a href="mailto:support@hasadna.org.il">ספר לנו</a>
-  </p>
+  </strong>
 </div>
 
-  <div ng-repeat="chair in chairs">
+<ul class="committees">
+  <li ng-repeat="chair in chairs">
     <a href="#{{chair.absolute_url}}">
       {{chair.name}}
     </a>
-    <!-- TODO: this doesn't work. need to code an <avatar> directive
-    <section ng-show="chair.chosen.getImgUrl" class="chosen">
-      <img src="{{chair.chosen.getImgUrl}}" alt="avatar for {{chair.chosen.name}}"/>
-    </section>
-    -->
-    <!-- TODO: code the profile controller and view -->
+    <!-- TODO: code the profile directive -->
     <a ng-show="chair.chosen" href="#/candidate/{{chair.chosen.id}}">
       <p class="chosen">
         בראשות {{chair.chosen.name}}
       </p>
     </a>
+    <section ng-if="chair.chosen.img_url" class="chosen">
+      <img src="{{chair.chosen.img_url}}" alt="avatar for {{chair.chosen.name}}"/>
+    </section>
+    <!-- end of profile directive -->
   </li>
-</ol>
+</ul>

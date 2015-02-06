@@ -25,6 +25,7 @@ body {
 /* Custom page header */
 .header {
   border-bottom: 1px solid #e5e5e5;
+  text-align: center;
 
   /* Make the masthead heading the same height as the navigation */
   h3 {
@@ -90,4 +91,19 @@ body {
   }
 }
 //
-.chosen { font-weight: bold; }
+li { list-style: none; }
+p { text-align: right; }
+.chosen { font-weight: bold; text-align:center;}
+.container { text-align: center; }
+.committees { margin-bottom: 0.5em; }
+.committees li {
+  float: right;
+  height: 14em;
+  width: 11em;
+  padding-top: 0em;
+  border: 1px solid;
+  margin: 0.2em;
+  text-align: center;
+}
+#chair-form { width: 30em; margin: 0.5em auto;}
+.footer { margin-top: 1em; clear: both; }
