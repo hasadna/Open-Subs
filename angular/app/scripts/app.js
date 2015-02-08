@@ -46,6 +46,7 @@ angular
         templateUrl: 'views/committee.html',
         controller: 'CommitteeController'
       })
+      // TODO: refactor to /person/:id
       .when('/candidate/:id', {
         templateUrl: 'views/candidate-feed.html',
         controller: 'CandidateController'
