@@ -13,7 +13,8 @@ angular
     'angular-jwt',
     'app.settings',
     'angucomplete',
-    'ezfb'
+    'ezfb',
+    'timer'
   ])
 
   .config(function ($routeProvider, $resourceProvider, ezfbProvider) {

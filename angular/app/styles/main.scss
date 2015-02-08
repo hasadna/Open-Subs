@@ -113,6 +113,10 @@ p { text-align: right; }
 }
 #chair-form { width: 30em; margin: 0.5em auto;}
 .footer { margin-top: 1em; clear: both; }
+.timer {
+  float:left;
+  span { font-size: 150%; }
+}
 .candidates {
   li { display: inline; }
   .ord1 {font-size: 150%; }

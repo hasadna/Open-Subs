@@ -25,6 +25,12 @@
     <!-- Add your site or application content here -->
     <div class="container">
       <div class="header">
+        <div class="timer">
+          <header>זמן עד...</header>
+          <timer end-time="1429203600000" max-time-unit="'day'" interval="1000">
+            <span>{{days}}:{{hhours}}:{{mminutes}}</span>
+          </timer>
+        </div>
         <h3 class="text-muted">איפה המפתחות של הצוללת?</h3>
       </div>
 
@@ -58,6 +64,7 @@
     <script src="bower_components/angular-jwt/dist/angular-jwt.js"></script>
     <script src="bower_components/angular-route/angular-route.js"></script>
     <script src="bower_components/angular-easyfb/angular-easyfb.js"></script>
+    <script src="bower_components/angular-timer/dist/angular-timer.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
