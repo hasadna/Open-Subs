@@ -11,8 +11,11 @@
               minlength="1"
               inputclass="form-control form-control-small"></angucomplete>
 </form>
-<ul class="candidates">
-  <li ng-repeat="candidate in candidates | orderBy:name">
-  <a href="" ng-click="elect(candidate.id)">{{candidate.name}}</a>
-  </li>
-</ul>
+  <div ng-repeat="(group, members) in candidates">
+    <ul class="candidates">
+      <li ng-repeat="candidate in members">
+      <i ng-hide="$last" class="glyphicon glyphicon-user"></i>
+      <a class="ord{{candidate.ord}}" href="" ng-click="elect(candidate.id)">{{candidate.name}}</a>
+      </li>
+    </ul>
+  </div>

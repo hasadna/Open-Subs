@@ -13,14 +13,14 @@
       {{chair.name}}
     </a>
     <!-- TODO: code the profile directive -->
-    <a ng-show="chair.chosen" href="#/candidate/{{chair.chosen.id}}">
+    <a ng-show="chair.chosen" class="chosen" href="#/candidate/{{chair.chosen.id}}">
+      <section ng-if="chair.chosen.img_url" class="chosen">
+        <img src="{{chair.chosen.img_url}}" alt="avatar for {{chair.chosen.name}}"/>
+      </section>
       <p class="chosen">
         בראשות {{chair.chosen.name}}
       </p>
     </a>
-    <section ng-if="chair.chosen.img_url" class="chosen">
-      <img src="{{chair.chosen.img_url}}" alt="avatar for {{chair.chosen.name}}"/>
-    </section>
     <!-- end of profile directive -->
   </li>
 </ul>

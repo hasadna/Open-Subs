@@ -93,17 +93,30 @@ body {
 //
 li { list-style: none; }
 p { text-align: right; }
-.chosen { font-weight: bold; text-align:center;}
 .container { text-align: center; }
-.committees { margin-bottom: 0.5em; }
-.committees li {
-  float: right;
-  height: 14em;
-  width: 11em;
-  padding-top: 0em;
-  border: 1px solid;
-  margin: 0.2em;
-  text-align: center;
+.committees {
+  li {
+    float: right;
+    height: 14em;
+    width: 11em;
+    padding-top: 0em;
+    border: 1px solid;
+    margin: 0.2em;
+    text-align: center;
+  }
+  a.chosen { display: block; padding: 0.5em; }
+  .chosen {
+    p { font-weight: bold; text-align:center;}
+    section img {width:75px; height:110px; }
+  }
+
 }
 #chair-form { width: 30em; margin: 0.5em auto;}
 .footer { margin-top: 1em; clear: both; }
+.candidates {
+  li { display: inline; }
+  .ord1 {font-size: 150%; }
+  .ord2, .ord3 {font-size: 130%; }
+  .ord4, .ord5, .ord6, .ord7 {font-weight: bold; }
+  i {color:darkgreen;}
+}
