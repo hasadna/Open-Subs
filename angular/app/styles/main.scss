@@ -124,3 +124,8 @@ p { text-align: right; }
   .ord4, .ord5, .ord6, .ord7 {font-weight: bold; }
   i {color:darkgreen;}
 }
+.candidate {
+  text-align: center;
+  img {display: block; float: right; }
+  // button { display: block; padding: 1em; clear:both; }
+}

@@ -13,9 +13,29 @@
 </form>
   <div ng-repeat="(group, members) in candidates">
     <ul class="candidates">
-      <li ng-repeat="candidate in members">
+      <li ng-repeat="candidate in members" id="candidate-{{candidate.id}}">
       <i ng-hide="$last" class="glyphicon glyphicon-user"></i>
-      <a class="ord{{candidate.ord}}" href="" ng-click="elect(candidate.id)">{{candidate.name}}</a>
+      <a class="ord{{candidate.ord}}" href="" ng-click="expand()">{{candidate.name}}</a>
       </li>
     </ul>
   </div>
+  <script id="candidate-template" type="text/html">
+    <section class="well">
+      <div class="candidate">
+        <img ng-if="candidate.img_url" ng-src="{{candidate.img_url}}" alt="picture of {{candidate.name}}" />
+        {{candidate.name}}
+        <div class="clearfix">
+          <button class="btn btn-default btn-lg" ng-click="elect()">
+            מנו לראשות {{committee.name}}
+          </button>
+        </div>
+        <ul class="feed">
+          <li ng-repeat="status in feed.data" ng-if="status.name">
+            <strong>{{status.name}}</strong>
+            <p>{{status.description}}</p>
+          </li>
+        </ul>
+      </div>
+    </section>
+  </script>
+

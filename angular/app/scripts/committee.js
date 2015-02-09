@@ -2,7 +2,9 @@
 
 angular
   .module('app')
-  .controller('CommitteeController', function($location, $scope, $window, OPEN_KNESSET, $routeParams, $q) {
+  .controller('CommitteeController', function($location, $scope, $window,
+                                              OPEN_KNESSET, $routeParams, $q,
+                                              $compile) {
     var committee_id = $routeParams.id;
     $q.all({
       committee: OPEN_KNESSET.get_committee(committee_id),
@@ -54,9 +56,15 @@ angular
         $location.path('/home');
       }
     });
-    $scope.elect = function (id) {
-        $window.sessionStorage.setItem('chair'+committee_id, id);
+    $scope.elect = function () {
+        $window.sessionStorage.setItem('chair'+committee_id, this.candidate.id);
         $location.path('/home');
+    };
+    $scope.expand = function () {
+        var node = $('#candidate-template').html()
+        $compile(node)(this, function(elm, scope) {
+          $('#candidate-'+scope.candidate.id).append(elm);
+        });
     };
 
   })
