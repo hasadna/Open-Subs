@@ -6,7 +6,6 @@ angular
     $scope.loading = true;
     $scope.chairs = [];
     $scope.reset = function () {
-      alert("OK to reset or F5");
       for (var i=0; i < this.chairs.length; i++) {
         $window.sessionStorage.setItem('chair'+this.chairs[i].id, null);
         $scope.chairs[i].chosen = null;
