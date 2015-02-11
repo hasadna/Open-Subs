@@ -31,4 +31,31 @@ angular.module('app')
         });
       }
     });
-  });
+  })
+  .directive('candidate', function() {
+      return {
+              restrict: 'E',
+              replace: 'true',
+              templateUrl: '/views/candidate.html',
+              link: function (scope, element) {
+                // packing nicely all the candidate's info
+                var c = scope.candidate,
+                    miss = {};
+
+                /* TODO: add donors & relations....
+                function miss (pack) {
+                  if (pack)
+                    return false;
+                  else {
+                    pack = [];
+                    return true;
+                }
+                miss.relations = miss(c.relations);
+                for (var i=0; miss.relations && i < c.relations.length; i++){
+                  c.relations.push(c.relations);
+                }
+               */
+              }
+              };
+  })
+;

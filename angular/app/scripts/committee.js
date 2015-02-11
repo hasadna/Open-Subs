@@ -61,8 +61,7 @@ angular
         $location.path('/home');
     };
     $scope.expand = function () {
-        var node = $('#candidate-template').html()
-        $compile(node)(this, function(elm, scope) {
+        $compile('<candidate></candidate>')(this, function(elm, scope) {
           $('#candidate-'+scope.candidate.id).append(elm);
         });
     };

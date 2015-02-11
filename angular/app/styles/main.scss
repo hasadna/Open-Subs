@@ -123,8 +123,11 @@ p { text-align: right; }
 }
 .candidate {
   text-align: center;
-  img {display: block; float: right; }
+  img {display: block; float: right; padding: 0.5em; }
   // button { display: block; padding: 1em; clear:both; }
+  .status { float: right; padding-left:0.5em; }
+  .key, .text {font-weight: bold; }
+  .party, .name {display:none; }
 }
 .slide {
   width: 80%;
