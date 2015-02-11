@@ -5,16 +5,12 @@ Setting up the development environment
 Pre-Requisites
 ==============
 
-Open Subs is using Open Knesset as its backend
-
-.. note::
-
-    Soon, we'll have an Open Knesset dev server so the game developers
-    don't have to setup a local dev server.
+Open Subs is using Open Knesset as its backend serving candidates's data.
 
 Instructions were tested on Ubuntu, but should work similarly on any
 Linux flavor, OSX and even Windows.
 Install rvm with stable ruby, follow instructions here: https://rvm.io/rvm/install
+and then run the following commands as root:
 
 .. code-block:: sh
 
@@ -52,7 +48,8 @@ The angular local settings contains the url to the django backend server:
 
 This sets up the address of the Open-Knesset API server at https://localhost:8000
 
-If you want to run without a backend - set offline: true in the settings.js file
+If you want to run without a backend - set `offline` to true in 
+the settings.js file.
 
 if you are running open knesset, make sure to run your local open knesset on https by using manage.py runsslserver
 
