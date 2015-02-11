@@ -1,5 +1,13 @@
-<ul class="committees">
-  <li ng-repeat="chair in chairs">
+<!-- TODO: refactor to a <loading> directive -->
+<div ng-if="loading" class="loading">
+  <h2>רגע... טוענים</h2>
+  <p>
+    אם אתה מחכה מעל 10 שניות, נסה לרפרש.  אם גם לא עוזר,
+    <a href="mailto:support@hasadna.org.il">ספר לנו</a>
+  </p>
+</div>
+
+  <div class="committee" ng-repeat="chair in chairs">
     <a href="#{{chair.absolute_url}}">
       <div class="chair">
       {{chair.name}}
@@ -11,8 +19,7 @@
         </p>
       </div>
     </a>
-  </li>
-</ul>
+  </div>
 <ng-really-click ng-really-click="reset()" ng-really-message="האם לנקות את הכסאות?">
   <i class="glyphicon glyphicon-trash"></i>
 </ng-really-click>

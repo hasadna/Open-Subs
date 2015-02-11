@@ -94,17 +94,15 @@ body {
 li { list-style: none; }
 p { text-align: right; }
 .container { text-align: center; }
-.committees {
-  li {
+.committee {
+  .chair {
+    height: 14em;
+    width: 7em;
     float: right;
     padding-top: 0em;
     border: 1px solid;
     margin: 0.2em;
     text-align: center;
-  }
-  .chair {
-    height: 14em;
-    width: 7em;
     p { font-weight: bold; text-align: center; }
     img {width:75px; height:110px; }
   }
