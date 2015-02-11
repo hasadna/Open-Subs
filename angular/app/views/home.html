@@ -1,26 +1,18 @@
-<!-- TODO: refactor to a <loading> directive -->
-<div ng-if="loading" class="loading">
-  <h2>רגע... טוענים</h2>
-  <strong>
-    אם אתם מחכים מעל 10 שניות, נסו לרפרש.  אם גם לא עוזר,
-    <a href="mailto:support@hasadna.org.il">ספרו לנו</a>
-  </strong>
-</div>
-
 <ul class="committees">
   <li ng-repeat="chair in chairs">
     <a href="#{{chair.absolute_url}}">
       {{chair.name}}
     </a>
     <!-- TODO: code the profile directive -->
-    <a ng-show="chair.chosen" class="chosen" href="#/candidate/{{chair.chosen.id}}">
+    <a ng-if="chair.chosen" class="chosen" href="#/candidate/{{chair.chosen.id}}">
       <section ng-if="chair.chosen.img_url" class="chosen">
         <img src="{{chair.chosen.img_url}}" alt="avatar for {{chair.chosen.name}}"/>
       </section>
       <p class="chosen">
-        בראשות {{chair.chosen.name}}
+        {{chair.chosen.name}}
       </p>
     </a>
     <!-- end of profile directive -->
   </li>
 </ul>
+<i ng-click="reset()" class="glyphicon glyphicon-trash"></i>
