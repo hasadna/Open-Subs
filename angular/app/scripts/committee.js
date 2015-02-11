@@ -66,6 +66,13 @@ angular
           $('#candidate-'+scope.candidate.id).append(elm);
         });
     };
+    // TODO: this code was copied from home.js, need to rinse
+    var firstTime = $window.sessionStorage.getItem('firstTimeCommittee') || true;
+    $scope.firstTime = eval(firstTime);
+    $scope.go = function () {
+      $window.sessionStorage.setItem('firstTimeCommittee', "false");
+      $scope.firstTime = false;
+    }
 
   })
 ;

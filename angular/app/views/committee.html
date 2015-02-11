@@ -1,41 +1,63 @@
-<h1>{{committee.name}}</h1>
-<p>{{committee.description}}</p>
-<form id="chair-form">
-<angucomplete id="chair"
-              placeholder="בחר יושב(ת) ראש"
-              pause="100"
-              selectedobject="selectedChair"
-              localdata="candidatesArray"
-              searchfields="name"
-              titlefield="name"
-              minlength="3"
-              inputclass="form-control form-control-small"></angucomplete>
-</form>
-  <div ng-repeat="(group, members) in candidates">
-    <ul class="candidates">
-      <li ng-repeat="candidate in members" id="candidate-{{candidate.id}}">
-      <i ng-hide="$last" class="glyphicon glyphicon-user"></i>
-      <a class="ord{{candidate.ord}}" href="" ng-click="expand()">{{candidate.name}}</a>
-      </li>
-    </ul>
+<div ng-if="firstTime" class="slide">
+  <h1>מנו יושב ראש!</h1>
+  <p>
+  במסך הבא תוכלו למנות אחת מ 1312 המועמדים לראשות הוועדה.
+  שמות המועמדים נקצרו מאתר ועדת הבחירות המרכזית והמידע עליהם נאסף על ידי
+  תומר אביטל ועוד.
+  </p>
+  <button class="btn btn-default btn-lg" ng-click="go()">
+    ביחרו
+  </button>
+  <h3>בהצלחה!</h3>
+  <!-- loading message -->
+  <div ng-if="loading" class="loading">
+    <h2>רגע... טוענים</h2>
+    <p>
+      אם אתה מחכה מעל 10 שניות, נסה לרפרש.  אם גם לא עוזר,
+      <a href="mailto:support@hasadna.org.il">ספר לנו</a>
+    </p>
   </div>
-  <script id="candidate-template" type="text/html">
-    <section class="well">
-      <div class="candidate">
-        <img ng-if="candidate.img_url" ng-src="{{candidate.img_url}}" alt="picture of {{candidate.name}}" />
-        {{candidate.name}}
-        <div class="clearfix">
-          <button class="btn btn-default btn-lg" ng-click="elect()">
-            מנו לראשות {{committee.name}}
-          </button>
+</div>
+<div ng-hide="firstTime">
+  <h1>{{committee.name}}</h1>
+  <p>{{committee.description}}</p>
+  <form id="chair-form">
+  <angucomplete id="chair"
+                placeholder="בחר יושב(ת) ראש"
+                pause="100"
+                selectedobject="selectedChair"
+                localdata="candidatesArray"
+                searchfields="name"
+                titlefield="name"
+                minlength="3"
+                inputclass="form-control form-control-small"></angucomplete>
+  </form>
+    <div ng-repeat="(group, members) in candidates">
+      <ul class="candidates">
+        <li ng-repeat="candidate in members" id="candidate-{{candidate.id}}">
+        <i ng-hide="$last" class="glyphicon glyphicon-user"></i>
+        <a class="ord{{candidate.ord}}" href="" ng-click="expand()">{{candidate.name}}</a>
+        </li>
+      </ul>
+    </div>
+    <script id="candidate-template" type="text/html">
+      <section class="well">
+        <div class="candidate">
+          <img ng-if="candidate.img_url" ng-src="{{candidate.img_url}}" alt="picture of {{candidate.name}}" />
+          {{candidate.name}}
+          <div class="clearfix">
+            <button class="btn btn-default btn-lg" ng-click="elect()">
+              מנו לראשות {{committee.name}}
+            </button>
+          </div>
+          <ul class="feed">
+            <li ng-repeat="status in feed.data" ng-if="status.name">
+              <strong>{{status.name}}</strong>
+              <p>{{status.description}}</p>
+            </li>
+          </ul>
         </div>
-        <ul class="feed">
-          <li ng-repeat="status in feed.data" ng-if="status.name">
-            <strong>{{status.name}}</strong>
-            <p>{{status.description}}</p>
-          </li>
-        </ul>
-      </div>
-    </section>
-  </script>
+      </section>
+    </script>
+</div>
 

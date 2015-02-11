@@ -1,12 +1,26 @@
 <!-- TODO: refactor to a <loading> directive -->
-<div ng-if="loading" class="loading">
-  <h2>רגע... טוענים</h2>
-  <p>
-    אם אתה מחכה מעל 10 שניות, נסה לרפרש.  אם גם לא עוזר,
-    <a href="mailto:support@hasadna.org.il">ספר לנו</a>
-  </p>
-</div>
 
+<div ng-if="firstTime" class="slide">
+  <h1>ברוכים הבאים לצוללת!</h1>
+  <p>
+
+  מנו את את המועמדים המתאימים ביותר להוביל ולסכם את הדיון הציבורי.
+  המושבים נקבעו על פי הועדות הקבועות בכנסת.
+  </p>
+  <button class="btn btn-default btn-lg" ng-click="go()">
+    סע בן-צור, סע!
+  </button>
+  <h3>בהצלחה!</h3>
+  <!-- loading message -->
+  <div ng-if="loading" class="loading">
+    <h2>רגע... טוענים</h2>
+    <p>
+      אם אתה מחכה מעל 10 שניות, נסה לרפרש.  אם גם לא עוזר,
+      <a href="mailto:support@hasadna.org.il">ספר לנו</a>
+    </p>
+  </div>
+</div>
+<div ng-hide="firstTime">
   <div class="committee" ng-repeat="chair in chairs">
     <a href="#{{chair.absolute_url}}">
       <div class="chair">
@@ -20,6 +34,7 @@
       </div>
     </a>
   </div>
-<ng-really-click ng-really-click="reset()" ng-really-message="האם לנקות את הכסאות?">
-  <i class="glyphicon glyphicon-trash"></i>
-</ng-really-click>
+  <ng-really-click ng-really-click="reset()" ng-really-message="האם לנקות את הכסאות?">
+    <i class="glyphicon glyphicon-trash"></i>
+  </ng-really-click>
+</div>

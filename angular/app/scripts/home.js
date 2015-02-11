@@ -26,5 +26,11 @@ angular
       }
       $scope.loading = false;
     });
+    var firstTime = $window.sessionStorage.getItem('firstTimeHome') || true;
+    $scope.firstTime = eval(firstTime);
+    $scope.go = function () {
+      $window.sessionStorage.setItem('firstTimeHome', "false");
+      $scope.firstTime = false;
+    }
   })
 ;

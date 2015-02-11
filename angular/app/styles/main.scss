@@ -126,3 +126,11 @@ p { text-align: right; }
   img {display: block; float: right; }
   // button { display: block; padding: 1em; clear:both; }
 }
+.slide {
+  width: 80%;
+  margin: 0 auto;
+  padding: 1.5em;
+  border: 2px solid black;
+  border-radius: 10px;
+}
+
