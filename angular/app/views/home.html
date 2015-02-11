@@ -1,18 +1,16 @@
 <ul class="committees">
   <li ng-repeat="chair in chairs">
     <a href="#{{chair.absolute_url}}">
+      <div class="chair">
       {{chair.name}}
+        <section ng-if="chair.chosen.img_url">
+          <img src="{{chair.chosen.img_url}}" alt="avatar for {{chair.chosen.name}}"/>
+        </section>
+        <p>
+          {{chair.chosen.name}}
+        </p>
+      </div>
     </a>
-    <!-- TODO: code the profile directive -->
-    <a ng-if="chair.chosen" class="chosen" href="#/candidate/{{chair.chosen.id}}">
-      <section ng-if="chair.chosen.img_url" class="chosen">
-        <img src="{{chair.chosen.img_url}}" alt="avatar for {{chair.chosen.name}}"/>
-      </section>
-      <p class="chosen">
-        {{chair.chosen.name}}
-      </p>
-    </a>
-    <!-- end of profile directive -->
   </li>
 </ul>
 <ng-really-click ng-really-click="reset()" ng-really-message="האם לנקות את הכסאות?">
