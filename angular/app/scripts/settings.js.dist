@@ -14,7 +14,7 @@ if (!window.SETTINGS_LOADED) {
         // you should run open knesset on ssl because otherwise facebook might cause problems
         'backend': 'https://localhost:8000',
         // set to true if you want to run without a backend, using fake data
-        offline:false,
+        offline:true,
         // disable facebook integration - useful for automated testing
         noFacebook:false
       }
