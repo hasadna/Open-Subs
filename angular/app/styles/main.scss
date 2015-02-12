@@ -12,6 +12,12 @@
 body {
   padding-top: 20px;
   padding-bottom: 20px;
+  font-family: "Alef Hebrew",
+               “Helvetica Neue”,
+               Helvetica,
+               Arial,
+               sans-serif;
+
 }
 
 /* Everything but the jumbotron gets side spacing for mobile first views */
@@ -92,7 +98,6 @@ body {
 }
 //
 li { list-style: none; }
-p { text-align: right; }
 .container { text-align: center; }
 .committee {
   .chair {
@@ -108,18 +113,20 @@ p { text-align: right; }
   }
 
 }
-#chair-form { width: 30em; margin: 0.5em auto;}
+#chair-form { width: 60%; margin: 0.5em auto;}
 .footer { margin-top: 1em; clear: both; }
 .timer {
   float:left;
   span { font-size: 150%; }
 }
 .candidates {
+  width: 80%;
+  margin: 1em auto;
   li { display: inline; }
-  .ord1 {font-size: 150%; }
+  .ord1 {font-size: 180%; }
   .ord2, .ord3 {font-size: 130%; }
   .ord4, .ord5, .ord6, .ord7 {font-weight: bold; }
-  i {color:darkgreen;}
+  i {color:grey;}
 }
 .candidate {
   text-align: center;
@@ -128,6 +135,7 @@ p { text-align: right; }
   .status { float: right; padding-left:0.5em; }
   .key, .text {font-weight: bold; }
   .party, .name {display:none; }
+  p {text-align: right; }
 }
 .slide {
   width: 80%;

@@ -26,10 +26,12 @@ angular
       }
       $scope.loading = false;
     });
-    var firstTime = $window.sessionStorage.getItem('firstTimeHome') || true;
-    $scope.firstTime = eval(firstTime);
+    var firstTime = $window.sessionStorage.getItem('firstTimeHome') || 1;
+    
+    firstTime = eval(firstTime);
+    $scope.firstTime = firstTime;
     $scope.go = function () {
-      $window.sessionStorage.setItem('firstTimeHome', "false");
+      $window.sessionStorage.setItem('firstTimeHome', "0");
       $scope.firstTime = false;
     }
   })

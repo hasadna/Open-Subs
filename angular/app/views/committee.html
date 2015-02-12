@@ -35,7 +35,7 @@
     <div ng-repeat="(group, members) in candidates">
       <ul class="candidates">
         <li ng-repeat="candidate in members" id="candidate-{{candidate.id}}">
-        <i ng-hide="$last" class="glyphicon glyphicon-user"></i>
+        <i ng-if="(!$first)" class="glyphicon glyphicon-user"></i>
         <a class="ord{{candidate.ord}}" href="" ng-click="expand()">{{candidate.name}}</a>
         </li>
       </ul>
