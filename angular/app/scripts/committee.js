@@ -12,21 +12,24 @@ angular
     }).then(function(res) {
       var candidatesArray = $.map(res.candidates, function(v){return v;});
       // build a candidates array ordered by group and then A-z
-      var i, j, orgs = {}, candidates = {};
+      var i, j, org, orgs = {}, orgCandidatesArray = [];
       for (i=0; i < candidatesArray.length; i++) {
         var c = candidatesArray[i];
         for (j=0; j < c.roles.length; j++) {
           var role = c.roles[j];
           if (role.org == "הבחירות לכנסת ה-20") {
-            var org = role.text.match(/מקום (\d+) ב(.+)/);
+            org = role.text.match(/מקום (\d+) ב(.+)/);
             if (org !== null && org.length == 3){
               c.ord = parseInt(org[1]);
               org = org[2];
               if (org in orgs)
-                candidates[org].push(c)
+                orgs[org]['candidates'].push(c);
               else {
-                orgs[org] = true;;
-                candidates[org] = [c];
+                orgs[org] = {
+                  'org': org,
+                  'candidates': [c]
+                };
+                orgCandidatesArray.push(orgs[org]);
               }
               // finished with this candidates, break to stop looping on roles
               break;
@@ -34,17 +37,17 @@ angular
           }
         }
       }
-      var len = 0
-      for (var org in orgs) {
+      var len = 0;
+      for (org in orgs) {
         // var org = orgs[i];
-        candidates[org].sort(function (a, b) {
+        orgs[org]['candidates'].sort(function (a, b) {
           return a.ord - b.ord;
-        })
+        });
         len++;
       }
-      candidates.length = len;
+      $scope.candidateOrgsLimit = 3;
       $scope.candidatesArray = candidatesArray;
-      $scope.candidates = candidates;
+      $scope.candidates = orgCandidatesArray;
       $scope.committee = res.committee;
     });
     $scope.$watch(function (scope) { return scope.selectedChair; },
@@ -64,6 +67,9 @@ angular
         $compile('<candidate></candidate>')(this, function(elm, scope) {
           $('#candidate-'+scope.candidate.id).append(elm);
         });
+    };
+    $scope.addMoreOrgs = function() {
+      $scope.candidateOrgsLimit += 3;
     };
     // TODO: this code was copied from home.js, need to rinse
     var firstTime = $window.sessionStorage.getItem('firstTimeCommittee') || true;
