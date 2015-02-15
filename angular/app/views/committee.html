@@ -36,7 +36,7 @@
       <ul class="candidates">
         <li ng-repeat="candidate in members" id="candidate-{{candidate.id}}">
         <i ng-if="(!$first)" class="glyphicon glyphicon-user"></i>
-        <a class="ord{{candidate.ord}}" href="" ng-click="expand()">{{candidate.name}}</a>
+        <a class="ord{{candidate.ord}}" href="" ng-click="expand($event)">{{candidate.name}}</a>
         </li>
       </ul>
     </div>

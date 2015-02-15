@@ -60,10 +60,15 @@ angular
         $window.sessionStorage.setItem('chair'+committee_id, this.candidate.id);
         $location.path('/home');
     };
-    $scope.expand = function () {
-        $compile('<candidate></candidate>')(this, function(elm, scope) {
-          $('#candidate-'+scope.candidate.id).append(elm);
-        });
+    $scope.expand = function (ev) {
+        var next = ev.target.nextElementSibling;
+        if (next === null)
+          $compile('<candidate></candidate>')(this, function(elm, scope) {
+            $('#candidate-'+scope.candidate.id).append(elm);
+          })
+        else
+          $(next).toggle();
+
     };
     // TODO: this code was copied from home.js, need to rinse
     var firstTime = $window.sessionStorage.getItem('firstTimeCommittee') || true;
