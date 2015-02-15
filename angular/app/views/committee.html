@@ -40,24 +40,5 @@
         </li>
       </ul>
     </div>
-    <script id="candidate-template" type="text/html">
-      <section class="well">
-        <div class="candidate">
-          <img ng-if="candidate.img_url" ng-src="{{candidate.img_url}}" alt="picture of {{candidate.name}}" />
-          {{candidate.name}}
-          <div class="clearfix">
-            <button class="btn btn-default btn-lg" ng-click="elect()">
-              מנו לראשות {{committee.name}}
-            </button>
-          </div>
-          <ul class="feed">
-            <li ng-repeat="status in feed.data" ng-if="status.name">
-              <strong>{{status.name}}</strong>
-              <p>{{status.description}}</p>
-            </li>
-          </ul>
-        </div>
-      </section>
-    </script>
 </div>
 
