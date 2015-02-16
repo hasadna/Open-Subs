@@ -29,6 +29,11 @@ angular.module('app')
 
     var OPEN_KNESSET = {
       get_person: function(id) {
+        if (typeof id == "string") {
+          var re = new RegExp("\/api\/v2\/person\/([0-9]+)\/");
+          id = id.match(re)[1]
+        }
+        //TODO: 
         return $q(function(resolve, reject) {
           OPEN_KNESSET.get_candidates().then(function(candidates) {
             if (candidates[id]) {
