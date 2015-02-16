@@ -37,8 +37,11 @@
         <li ng-repeat="candidate in members" id="candidate-{{candidate.id}}">
           <i ng-if="(!$first)" class="glyphicon glyphicon-user"></i>
           <a class="ord{{candidate.ord}}" href="" ng-click="candidate.watched=!candidate.watched">{{candidate.name}}</a>
-          <section class="well" ng-if="candidate.watched" ng-include="'/views/candidate.html'">
-          </section>
+          <section class="well"
+             ng-if="candidate.watched"
+             ng-include="'/views/candidate.html'"
+             onload="loaded(candidate)"
+          ></section>
         </li>
       </ul>
     </div>

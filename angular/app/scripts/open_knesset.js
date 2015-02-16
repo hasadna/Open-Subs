@@ -12,19 +12,12 @@ angular.module('app')
         if (!c.img_url && c.mk)
           c.img_url = c.mk.img_url;
         candidates[c.id] = c;
-        if (!c.hasOwnProperty('donors') ||  !c.hasOwnProperty('related'))
-          c.donors = [];
+        if (!c.hasOwnProperty('donor') ||  !c.hasOwnProperty('related'))
+          c.donor = [];
           c.related = [];
           for (var i=0; i < c.relations.length; i++){
             var r = c.relations[i];
-            switch(r.relationship) {
-              case 'donor':
-                c.donors.push(r.with_person);
-                break;
-              case 'related':
-                c.related.push(r.with_person);
-                break;
-            }
+            c[r.relationship].push(r.with_person);
           }
       };
 
@@ -45,10 +38,18 @@ angular.module('app')
 
     var OPEN_KNESSET = {
       get_person: function(id) {
+        var uri = SETTINGS.backend+'/api/v2/person/';
         if (typeof id == "string") {
           var re = new RegExp("\/api\/v2\/person\/([0-9]+)\/");
-          id = id.match(re)[1]
+          var m = id.match(re);
+          if (m)
+            uri += m[1]+'/'
+          else
+            uri += id;
         }
+        else if (id.constructor == Array)
+            uri += '?id__in='+id.join(',');
+
         //TODO: 
         return $q(function(resolve, reject) {
           OPEN_KNESSET.get_candidates().then(function(candidates) {
@@ -59,13 +60,13 @@ angular.module('app')
                 // TODO: implement for persons which are not candidates
                 reject();
               } else {
-                $http.get(SETTINGS.backend+'/api/v2/person/'+id+'/').success(function(person) {
-                  resolve(person);
+                $http.get(uri).success(function(data) {
+                  resolve(data);
                 });
               }
             }
-          });
-        });
+          })
+        })
       },
       get_committee: function(id) {
         return $q(function(resolve, reject) {
