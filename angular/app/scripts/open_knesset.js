@@ -7,15 +7,31 @@ angular.module('app')
 
     var _getCandidatesPage = function(relurl, candidates) {
       if (!candidates) candidates = {};
+
+      function initCandidate(c) {
+        if (!c.img_url && c.mk)
+          c.img_url = c.mk.img_url;
+        candidates[c.id] = c;
+        if (!c.hasOwnProperty('donors') ||  !c.hasOwnProperty('related'))
+          c.donors = [];
+          c.related = [];
+          for (var i=0; i < c.relations.length; i++){
+            var r = c.relations[i];
+            switch(r.relationship) {
+              case 'donor':
+                c.donors.push(r.with_person);
+                break;
+              case 'related':
+                c.related.push(r.with_person);
+                break;
+            }
+          }
+      };
+
       return $q(function(resolve) {
         var url = SETTINGS.offline ? (relurl.indexOf('limit') === -1 ? '/fakedata/persons.json' : '/fakedata/persons2.json') : SETTINGS.backend+relurl;
         $http.get(url, {cache: true, params: {roles__org: "הבחירות לכנסת ה-20"}}).success(function(data) {
-          angular.forEach(data.objects, function(candidate) {
-            if (!candidate.img_url && candidate.mk) {
-              candidate.img_url = candidate.mk.img_url;
-            }
-            candidates[candidate.id] = candidate;
-          });
+          angular.forEach(data.objects, initCandidate);
           if (data.meta.next) {
             _getCandidatesPage(data.meta.next, candidates).then(function() {
               resolve(candidates);

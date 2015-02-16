@@ -1,23 +1,22 @@
-      <section class="well">
         <div class="candidate">
-          <img ng-if="person.img_url" ng-src="{{person.img_url}}" alt="picture of {{person.name}}" />
-          <p ng-repeat="info in person.external_info" class="{{info.key}}">
+          <img ng-if="candidate.img_url" ng-src="{{candidate.img_url}}" alt="picture of {{candidate.name}}" />
+          <p ng-repeat="info in candidate.external_info" class="{{info.key}}">
             <span ng-if="info.key == 'kids' && info.value">+</span>
             <!-- some fields require headers, add below -->
             <span class="key" ng-if="info.key == 'age' && info.value">גיל:</span>
             <span class="key" ng-if="info.key == 'declaration' && info.value">הצהרת הון:</span>
             {{info.value}}
           </p>
-          <p ng-if="donors">
+          <p ng-if="candidate.donors">
             <span class="key">תורמים:</span>
-            <span ng-repeat="donor in donors">
-              {{donor.name}}
+            <span ng-repeat="i in candidate.donors">
+              {{i}}
             </span>
           </p>
-          <p ng-if="related">
+          <p ng-if="candidate.related">
             <span class="key">מקורבים:</span>
-            <span ng-repeat="r in related">
-              {{r.name}}
+            <span ng-repeat="i in candidate.related">
+              {{i}}
             </span>
           </p>
           <div ng-if="committee" class="clearfix">
@@ -32,5 +31,4 @@
             </li>
           </ul>
         </div>
-      </section>
 

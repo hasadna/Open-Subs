@@ -35,8 +35,10 @@
     <div ng-repeat="(group, members) in candidates">
       <ul class="candidates">
         <li ng-repeat="candidate in members" id="candidate-{{candidate.id}}">
-        <i ng-if="(!$first)" class="glyphicon glyphicon-user"></i>
-        <a class="ord{{candidate.ord}}" href="" ng-click="expand($event)">{{candidate.name}}</a>
+          <i ng-if="(!$first)" class="glyphicon glyphicon-user"></i>
+          <a class="ord{{candidate.ord}}" href="" ng-click="candidate.watched=!candidate.watched">{{candidate.name}}</a>
+          <section class="well" ng-if="candidate.watched" ng-include="'/views/candidate.html'">
+          </section>
         </li>
       </ul>
     </div>

@@ -32,27 +32,4 @@ angular.module('app')
       }
     });
   })
-  .directive('candidate', function(OPEN_KNESSET) {
-      return {
-              restrict: 'E',
-              replace: 'true',
-              templateUrl: '/views/candidate.html',
-              controller: function($scope, $element) {
-                // packing nicely all the candidate's info
-                var c = $scope.person,
-                    miss = {};
-
-                if (!c.hasOwnProperty('donors') ||  !c.hasOwnProperty('related'))
-                  $scope.donors = [];
-                  $scope.related = [];
-                  for (var i=0; i < c.relations.length; i++){
-                    var r = c.relations[i];
-                    if (r.relationship === 'donor')
-                      $scope.donors.push(OPEN_KNESSET.get_person(r.with_person));
-                    if (r.relationship === 'related')
-                      $scope.related.push(OPEN_KNESSET.get_person(r.with_person));
-                  }
-              }
-            };
-  })
 ;
