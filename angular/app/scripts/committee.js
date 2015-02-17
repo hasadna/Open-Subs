@@ -63,16 +63,6 @@ angular
         $window.sessionStorage.setItem('chair'+committee_id, this.candidate.id);
         $location.path('/home');
     };
-    $scope.expand = function (ev) {
-        var next = ev.target.nextElementSibling;
-        if (next === null)
-          $compile('<candidate></candidate>')(this, function(elm, scope) {
-            $('#candidate-'+scope.candidate.id).append(elm);
-          })
-        else
-          $(next).toggle();
-
-    };
     $scope.addMoreOrgs = function() {
       $scope.candidateOrgsLimit += 3;
     };
@@ -83,7 +73,28 @@ angular
       $window.sessionStorage.setItem('firstTimeCommittee', "false");
       $scope.firstTime = false;
     }
-
-  })
-;
-
+    $scope.loaded = function (candidate) {
+      // build the query string
+      var ids = [];
+      var re = new RegExp("\/api\/v2\/person\/([0-9]+)\/");
+      var relations = candidate.donor.concat(candidate.related);
+      for (var i=0; i<relations.length; i++) {
+        var id = relations[i].match(re)[1]
+        ids.push(id);
+      };
+      candidate.donor = [];
+      candidate.related = [];
+      OPEN_KNESSET.get_person(ids).then(function (data) {
+        for (var i=0; i<data.objects.length; i++) {
+          var p = data.objects[i];
+          for (var j=0; j<candidate.relations.length; j++) {
+            var r = candidate.relations[j];
+            var id = r.with_person.match(re)[1];
+            if (id == p.id)
+              candidate[r.relationship].push(p)
+          }
+        }
+      })
+    }
+  }
+);

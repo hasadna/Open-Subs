@@ -1,24 +1,36 @@
-      <section class="well">
-        <div class="candidate">
-          <img ng-if="candidate.img_url" ng-src="{{candidate.img_url}}" alt="picture of {{candidate.name}}" />
-          <p ng-repeat="info in candidate.external_info" class="{{info.key}}">
-            <span ng-if="info.key == 'kids' && info.value">+</span>
-            <!-- some fields require headers, add below -->
-            <span class="key" ng-if="info.key == 'age' && info.value">גיל:</span>
-            <span class="key" ng-if="info.key == 'declaration' && info.value">הצהרת הון:</span>
-            {{info.value}}
-          </p>
-          <div class="clearfix">
-            <button class="btn btn-default btn-lg" ng-click="elect()">
-              מנו לראשות {{committee.name}}
-            </button>
-          </div>
-          <ul class="feed">
-            <li ng-repeat="status in feed.data" ng-if="status.name">
-              <strong>{{status.name}}</strong>
-              <p>{{status.description}}</p>
-            </li>
-          </ul>
-        </div>
-      </section>
+<div class="candidate">
+  <img ng-if="candidate.img_url" ng-src="{{candidate.img_url}}" alt="picture of {{candidate.name}}" />
+  <p ng-repeat="info in candidate.external_info" class="{{info.key}}">
+    <span ng-if="info.key == 'kids' && info.value">+</span>
+    <!-- some fields require headers, add below -->
+    <span class="key" ng-if="info.key == 'age' && info.value">גיל:</span>
+    <span class="key" ng-if="info.key == 'declaration' && info.value">הצהרת הון:</span>
+    {{info.value}}
+  </p>
+  <p ng-if="candidate.donor">
+    <span class="key">תורמים:</span>
+    <span class="relation" ng-repeat="i in candidate.donor">
+      {{i.name}}
+      <span ng-if='(!$last)'>,</span>
+    </span>
+  </p>
+  <p ng-if="candidate.related">
+    <span class="key">מקורבים:</span>
+    <span class="relation" ng-repeat="j in candidate.related">
+      {{j.name}}
+      <span ng-if='(!$last)'>,</span>
+    </span>
+  </p>
+  <div ng-if="committee" class="clearfix">
+    <button class="btn btn-default btn-lg" ng-click="elect()">
+      מנו לראשות {{committee.name}}
+    </button>
+  </div>
+  <ul class="feed">
+    <li ng-repeat="status in feed.data" ng-if="status.name">
+      <strong>{{status.name}}</strong>
+      <p>{{status.description}}</p>
+    </li>
+  </ul>
+</div>
 

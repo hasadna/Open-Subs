@@ -7,15 +7,24 @@ angular.module('app')
 
     var _getCandidatesPage = function(relurl, candidates) {
       if (!candidates) candidates = {};
+
+      function initCandidate(c) {
+        if (!c.img_url && c.mk)
+          c.img_url = c.mk.img_url;
+        candidates[c.id] = c;
+        if (!c.hasOwnProperty('donor') ||  !c.hasOwnProperty('related'))
+          c.donor = [];
+          c.related = [];
+          for (var i=0; i < c.relations.length; i++){
+            var r = c.relations[i];
+            c[r.relationship].push(r.with_person);
+          }
+      };
+
       return $q(function(resolve) {
         var url = SETTINGS.offline ? (relurl.indexOf('limit') === -1 ? '/fakedata/persons.json' : '/fakedata/persons2.json') : SETTINGS.backend+relurl;
         $http.get(url, {cache: true, params: {roles__org: "הבחירות לכנסת ה-20"}}).success(function(data) {
-          angular.forEach(data.objects, function(candidate) {
-            if (!candidate.img_url && candidate.mk) {
-              candidate.img_url = candidate.mk.img_url;
-            }
-            candidates[candidate.id] = candidate;
-          });
+          angular.forEach(data.objects, initCandidate);
           if (data.meta.next) {
             _getCandidatesPage(data.meta.next, candidates).then(function() {
               resolve(candidates);
@@ -29,6 +38,19 @@ angular.module('app')
 
     var OPEN_KNESSET = {
       get_person: function(id) {
+        var uri = SETTINGS.backend+'/api/v2/person/';
+        if (typeof id == "string") {
+          var re = new RegExp("\/api\/v2\/person\/([0-9]+)\/");
+          var m = id.match(re);
+          if (m)
+            uri += m[1]+'/'
+          else
+            uri += id;
+        }
+        else if (id.constructor == Array)
+            uri += '?id__in='+id.join(',');
+
+        //TODO: 
         return $q(function(resolve, reject) {
           OPEN_KNESSET.get_candidates().then(function(candidates) {
             if (candidates[id]) {
@@ -38,13 +60,13 @@ angular.module('app')
                 // TODO: implement for persons which are not candidates
                 reject();
               } else {
-                $http.get(SETTINGS.backend+'/api/v2/person/'+id+'/').success(function(person) {
-                  resolve(person);
+                $http.get(uri).success(function(data) {
+                  resolve(data);
                 });
               }
             }
-          });
-        });
+          })
+        })
       },
       get_committee: function(id) {
         return $q(function(resolve, reject) {
