@@ -14,7 +14,8 @@ angular
     'app.settings',
     'angucomplete',
     'ezfb',
-    'timer'
+    'timer',
+    'infinite-scroll'
   ])
 
   .config(function ($routeProvider, $resourceProvider, ezfbProvider) {

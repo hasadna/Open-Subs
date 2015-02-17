@@ -18,7 +18,7 @@
     </p>
   </div>
 </div>
-<div ng-hide="firstTime">
+<div ng-if="!firstTime">
   <h1>{{committee.name}}</h1>
   <p>{{committee.description}}</p>
   <form id="chair-form">
@@ -32,13 +32,32 @@
                 minlength="3"
                 inputclass="form-control form-control-small"></angucomplete>
   </form>
-    <div ng-repeat="(group, members) in candidates">
+  <div infinite-scroll="addMoreOrgs()" infinite-scroll-distance="3">
+    <div ng-repeat="org in candidates|limitTo:candidateOrgsLimit track by org.org">
       <ul class="candidates">
-        <li ng-repeat="candidate in members" id="candidate-{{candidate.id}}">
-        <i ng-if="(!$first)" class="glyphicon glyphicon-user"></i>
-        <a class="ord{{candidate.ord}}" href="" ng-click="expand($event)">{{candidate.name}}</a>
+        <li ng-repeat="candidate in org.candidates" id="candidate-{{candidate.id}}">
+          <i ng-if="(!$first)" class="glyphicon glyphicon-user"></i>
+          <a class="ord{{candidate.ord}}" href="" ng-click="candidate.expanded = !candidate.expanded">{{candidate.name}}</a>
+          <section class="well" ng-if="candidate.expanded">
+            <div class="candidate">
+              <img ng-if="candidate.img_url" ng-src="{{candidate.img_url}}" alt="picture of {{candidate.name}}" />
+              {{candidate.name}}
+              <div class="clearfix">
+                <button class="btn btn-default btn-lg" ng-click="elect()">
+                  מנו לראשות {{committee.name}}
+                </button>
+              </div>
+              <ul class="feed">
+                <li ng-repeat="status in feed.data" ng-if="status.name">
+                  <strong>{{status.name}}</strong>
+                  <p>{{status.description}}</p>
+                </li>
+              </ul>
+            </div>
+          </section>
         </li>
       </ul>
     </div>
+  </div>
 </div>
 
