@@ -114,7 +114,12 @@ li { list-style: none; }
 
 }
 #chair-form { width: 60%; margin: 0.5em auto;}
-.footer { margin-top: 1em; clear: both; }
+.footer {
+  margin-top: 1em;
+  clear: both;
+  text-align: right;
+  .license { float:left; }
+}
 .timer {
   float:left;
   span { font-size: 150%; }

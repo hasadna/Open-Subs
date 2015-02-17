@@ -1,12 +1,14 @@
 <div ng-if="firstTime" class="slide">
-  <h1>מנו יושב ראש!</h1>
+  <h1>מנו&#x05BC; יושב/ת ראש ל{{committee.name}}</h1>
   <p>
-  במסך הבא תוכלו למנות אחת מ 1312 המועמדים לראשות הוועדה.
+  במסך הבא תוכלו למנות אחד מ-1312 המועמדים לראשות הוועדה.
+  </p>
+  <p>
   שמות המועמדים נקצרו מאתר ועדת הבחירות המרכזית והמידע עליהם נאסף על ידי
-  תומר אביטל ועוד.
+  תומר אביטל וכתבי TheMarker.
   </p>
   <button class="btn btn-default btn-lg" ng-click="go()">
-    ביחרו
+    בחרו
   </button>
   <h3>בהצלחה!</h3>
   <!-- loading message -->
@@ -18,7 +20,7 @@
     </p>
   </div>
 </div>
-<div ng-if="!firstTime">
+<div ng-hide="firstTime">
   <h1>{{committee.name}}</h1>
   <p>{{committee.description}}</p>
   <form id="chair-form">
@@ -47,5 +49,6 @@
       </ul>
     </div>
   </div>
+  <i class="glyphicon glyphicon-question-sign" ng-click="firstTime = !firstTime"></i>
 </div>
 
