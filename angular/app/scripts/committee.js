@@ -4,7 +4,7 @@ angular
   .module('app')
   .controller('CommitteeController', function($location, $scope, $window,
                                               OPEN_KNESSET, $routeParams, $q,
-                                              $compile) {
+                                              USER) {
     var committee_id = $routeParams.id;
     $q.all({
       committee: OPEN_KNESSET.get_committee(committee_id),
@@ -97,6 +97,18 @@ angular
           }
         }
       })
+      if (candidate.fb_id !== "") {
+        candidate.feedLength = -1;
+        //TODO: call FB as much as need rather than once
+        USER.fbapi('/'+candidate.fb_id+'/posts').then(function(response) {
+          if (response.hasOwnProperty('data')) {
+            candidate.feed = response.data;
+            candidate.feedLength = Math.min(3, candidate.feed.length);
+          }
+        });
+      }
+      else
+        candidate.feedLength = 0;
     }
   }
 );

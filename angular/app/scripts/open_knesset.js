@@ -12,13 +12,34 @@ angular.module('app')
         if (!c.img_url && c.mk)
           c.img_url = c.mk.img_url;
         candidates[c.id] = c;
-        if (!c.hasOwnProperty('donor') ||  !c.hasOwnProperty('related'))
+        if (!c.hasOwnProperty('donor') ||  !c.hasOwnProperty('related')) {
           c.donor = [];
           c.related = [];
           for (var i=0; i < c.relations.length; i++){
             var r = c.relations[i];
             c[r.relationship].push(r.with_person);
           }
+        }
+        var fbPage = "";
+        if (!c.links)
+          c.links = [];
+        if (c.mk)
+          c.links = c.links.concat(c.mk.links);
+        if (c.links) {
+          for (i=0; i < c.links.length; i++) {
+            if (c.links[i]["url"].search("facebook.com") > 0) {
+              fbPage = c.links[i]["url"];
+              break;
+            }
+          };
+        }
+        if (fbPage != "") {
+          // get the page id from the url
+          var parts = fbPage.split('/');
+          c.fb_id = parts[parts.length - 1];
+        }
+        else
+          c.fb_id = "";
       };
 
       return $q(function(resolve) {

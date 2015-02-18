@@ -26,11 +26,32 @@
       מנו לראשות {{committee.name}}
     </button>
   </div>
-  <ul class="feed">
-    <li ng-repeat="status in feed.data" ng-if="status.name">
-      <strong>{{status.name}}</strong>
-      <p>{{status.description}}</p>
-    </li>
-  </ul>
+  <section class="feed">
+    <h4 ng-if="candidate.feedLength !== 0">סטטוסים אחרונים</h4>
+    <div ng-if="candidate.feedLength > 0">
+      <ul>
+        <li ng-repeat="status in candidate.feed" ng-show="$index < candidate.feedLength">
+          <section class="message" ng-if="status.message">
+            <a ng-if="status.icon" href="{{status.link}}" target="_blank">
+              <aside>
+                <img ng-src="{{status.icon}}">
+              </aside>
+            </a>
+            <p>{{status.message}}</p>
+            <a ng-if="status.link" href="{{status.link}}" target="_blank">
+              ({{ status.shares.count || 0 }} שיתופים)
+            </a>
+            <p ng-if="!status.link">{{status.message}}</p>
+          </section>
+        </li>
+      </ul>
+      <button class="btn btn-default btn-lg"
+        ng-click="candidate.feedLength = candidate.feedLength + 3">
+          <i ng-if="(!$first)" class="glyphicon glyphicon-arrow-down"></i>
+      </button>
+    </div>
+  </section>
+  <section class="feed" ng-if="candidate.feedLength == -1">
+    <p class="active">טוען סטטוסים ...</p>
+  </section>
 </div>
-
