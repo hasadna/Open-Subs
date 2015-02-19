@@ -1,26 +1,24 @@
-<div ng-if="firstTime" class="slide">
-  <h1>מנו&#x05BC; יושב/ת ראש ל{{committee.name}}</h1>
-  <p>
-  במסך הבא תוכלו למנות אחד מ-1312 המועמדים לראשות הוועדה.
-  </p>
-  <p>
-  שמות המועמדים נקצרו מאתר ועדת הבחירות המרכזית והמידע עליהם נאסף על ידי
-  תומר אביטל וכתבי TheMarker.
-  </p>
-  <button class="btn btn-default btn-lg" ng-click="go()">
-    בחרו
-  </button>
-  <h3>בהצלחה!</h3>
+<section ng-if="firstTime || loading">
+  <div class="slide">
+    <h1>מנו&#x05BC; יושב/ת ראש ל{{committee.name}}</h1>
+    <p>
+    במסך הבא תוכלו למנות אחד מ-1312 המועמדים לראשות הוועדה.
+    </p>
+    <p>
+    שמות המועמדים נקצרו מאתר ועדת הבחירות המרכזית והמידע עליהם נאסף על ידי
+    תומר אביטל וכתבי TheMarker.
+    </p>
+    <button class="btn btn-default btn-lg" ng-click="go()"ng-disabled="loading">
+      בחרו
+    </button>
+    <h3>בהצלחה!</h3>
+  </div>
   <!-- loading message -->
   <div ng-if="loading" class="loading">
-    <h2>רגע... טוענים</h2>
-    <p>
-      אם אתה מחכה מעל 10 שניות, נסה לרפרש.  אם גם לא עוזר,
-      <a href="mailto:support@hasadna.org.il">ספר לנו</a>
-    </p>
+    <span id="spinner" ng-show="loading" us-spinner></span>
   </div>
-</div>
-<div ng-hide="firstTime">
+</section>
+<div ng-hide="firstTime || loading">
   <h1>{{committee.name}}</h1>
   <p>{{committee.description}}</p>
   <form id="chair-form">
@@ -42,7 +40,7 @@
           <button class="btn btn-primary btn-xs"
                   ng-click="org.limit = 999" ng-if="($last && org.limit < org.candidates.length)"
                   data-toggle="tooltip" title="עוד מועמדים">
-            ¸.·´¯`·.´¯`·.¸¸.·´¯`·.¸><(((º>
+            ¸.·`¯´·.`¯´·.¸¸.·`¯´·.¸><(((º>
           </button>
           <a class="ord{{candidate.ord}}" ng-if="(!$last)" href="" ng-click="candidate.expanded = !candidate.expanded">{{candidate.name}}</a>
           <section class="well"

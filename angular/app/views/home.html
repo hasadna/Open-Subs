@@ -1,28 +1,25 @@
 <!-- TODO: refactor to a <loading> directive -->
 
-<div ng-if="firstTime || loading" class="slide">
-  <h1>הצוללת שלנו טובעת</h1>
-  המושחתים, המאכערים, המחוברים והטייקונים ניקבו את המדינה ועשוה&#x05B8; כ&#x05BC;&#x05b4;כ&#x05B0;ברה.
-  <h1>זה בידיים שלנו!</h1>
-  כל מה שצריך כדי לצאת מהמצולות זה נבחרת של נציגי ציבור שתשרתנו נאמנה.
-  <h1>מנו&#x05BC; נבחרת!</h1>
-  <p>
-    אל תתנו למפלגות להגביל אתכם, בין המועמדים בבחירות יש הרבה אנשים טובים
-    ויש רק תריסר ועדות קבועות.
-  </p>
-  <button class="btn btn-default btn-lg" ng-click="go()" ng-disabled="loading">
-    סע בן-צור, סע!
-  </button>
-  <!-- loading message -->
-  <div ng-if="loading" class="loading">
+<section ng-if="firstTime || loading">
+  <div class="slide">
+    <h1>הצוללת שלנו טובעת</h1>
+    המושחתים, המאכערים, המחוברים והטייקונים ניקבו את המדינה ועשוה&#x05B8; כ&#x05BC;&#x05b4;כ&#x05B0;ברה.
+    <h1>זה בידיים שלנו!</h1>
+    כל מה שצריך כדי לצאת מהמצולות זה נבחרת של נציגי ציבור שתשרתנו נאמנה.
+    <h1>מנו&#x05BC; נבחרת!</h1>
     <p>
-      רגע... טוענים.
-      אם אתה מחכה מעל 10 שניות, נסה לרפרש.  אם גם לא עוזר,
-      <a href="mailto:support@hasadna.org.il">ספר לנו</a>
+      אל תתנו למפלגות להגביל אתכם, בין המועמדים בבחירות יש הרבה אנשים טובים
+      ויש רק תריסר ועדות קבועות.
     </p>
+    <button class="btn btn-default btn-lg" ng-click="go()" ng-disabled="loading">
+      סע בן-צור, סע!
+    </button>
   </div>
-</div>
-<div class="committee" ng-hide="firstTime">
+  <div ng-if="loading" class="loading">
+    <span id="spinner" ng-show="loading" us-spinner></span>
+  </div>
+</section>
+<div class="committee" ng-hide="firstTime || loading">
   <aside>
     <ng-really-click ng-really-click="reset()" ng-really-message="האם לנקות את הכסאות?">
       <i class="glyphicon glyphicon-trash"></i>

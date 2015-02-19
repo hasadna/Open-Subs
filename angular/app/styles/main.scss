@@ -117,8 +117,8 @@ li { list-style: none; }
       img {
         height:110px;
       }
-      .avatar { 
-        width:75px;
+      .avatar {
+        width:80px;
         height: 75px;
         overflow: hidden;
         border-radius: 40%;
@@ -174,3 +174,4 @@ li { list-style: none; }
 .splash {
   img { width:100%; }
 }
+.loading { margin-top: 1em; height: 3em; position: relative; }

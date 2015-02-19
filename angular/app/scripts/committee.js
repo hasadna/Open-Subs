@@ -51,6 +51,7 @@ angular
       $scope.candidatesArray = candidatesArray;
       $scope.candidates = orgCandidatesArray;
       $scope.committee = res.committee;
+      $scope.loading = false;
     });
     $scope.$watch(function (scope) { return scope.selectedChair; },
                   function (new_value, old_value) {

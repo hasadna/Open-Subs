@@ -15,7 +15,8 @@ angular
     'angucomplete',
     'ezfb',
     'timer',
-    'infinite-scroll'
+    'infinite-scroll',
+    'angularSpinner'
   ])
 
   .config(function ($routeProvider, $resourceProvider, ezfbProvider) {
