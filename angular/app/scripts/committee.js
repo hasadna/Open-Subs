@@ -43,9 +43,11 @@ angular
         orgs[org]['candidates'].sort(function (a, b) {
           return a.ord - b.ord;
         });
+        // initially display 1- candidates and a more button
+        orgs[org].limit = 11;
         len++;
       }
-      $scope.candidateOrgsLimit = 3;
+      $scope.candidateOrgsLimit = 5;
       $scope.candidatesArray = candidatesArray;
       $scope.candidates = orgCandidatesArray;
       $scope.committee = res.committee;
