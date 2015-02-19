@@ -2,7 +2,7 @@
 
 <div ng-if="firstTime || loading" class="slide">
   <h1>הצוללת שלנו טובעת</h1>
-  המושחתים, המאכרים, המחוברים והטייקונים ניקבו את המדינה ועשוה&#x05B8; ככ&#x05B0;ברה.
+  המושחתים, המאכרים, המחוברים והטייקונים ניקבו את המדינה ועשוה&#x05B8; כ&#x05BC;&#x05b4;כ&#x05B0;ברה.
   <h1>זה בידים שלנו!</h1>
   כל מה שצריך כדי לצאת מהמצולות זה נבחרת של נציגי ציבור שתשרתנו נאמנה.
   <h1>מנו&#x05BC; נבחרת!</h1>
@@ -22,22 +22,38 @@
     </p>
   </div>
 </div>
-<div ng-hide="firstTime">
-  <div class="committee" ng-repeat="chair in chairs">
-    <a href="#{{chair.absolute_url}}">
-      <div class="chair">
-      {{chair.name}}
-        <section ng-if="chair.chosen.img_url">
-          <img src="{{chair.chosen.img_url}}" alt="avatar for {{chair.chosen.name}}"/>
+<div class="committee" ng-hide="firstTime">
+  <aside>
+    <ng-really-click ng-really-click="reset()" ng-really-message="האם לנקות את הכסאות?">
+      <i class="glyphicon glyphicon-trash"></i>
+    </ng-really-click>
+    <i class="glyphicon glyphicon-question-sign" ng-click="firstTime = 1-firstTime"></i>
+  </aside>
+  <div class="subs-row row{{$index}}" ng-repeat="row in rows">
+    <div class="chair" ng-repeat="chair in row">
+      <a href="#{{chair.absolute_url}}">
+        <section ng-switch="$parent.$index">
+          <div ng-switch-when="0">
+            <h1>{{chair.name}}</h1>
+            <h2>{{chair.chosen.name}}</h2>
+            <div class="avatar">
+              <img ng-if="chair.chosen.img_url" ng-src="{{chair.chosen.img_url}}"
+                   alt="avatar for {{chair.chosen.name}}"/>
+              <img ng-if="(!chair.chosen.img_url)" ng-src="/images/empty.jpg" alt="empty avatar"/>
+            </div>
+          </div>
+          <div ng-switch-when="1">
+            <div class="avatar">
+              <img ng-if="chair.chosen.img_url" ng-src="{{chair.chosen.img_url}}"
+                   alt="avatar for {{chair.chosen.name}}"/>
+              <img ng-if="(!chair.chosen.img_url)" ng-src="/images/empty.jpg" alt="empty avatar"/>
+            </div>
+            <h2>{{chair.chosen.name}}</h2>
+            <h1>{{chair.name}}</h1>
+          </div>
         </section>
-        <p>
-          {{chair.chosen.name}}
-        </p>
-      </div>
-    </a>
+      </a>
+    </div>
   </div>
-  <ng-really-click ng-really-click="reset()" ng-really-message="האם לנקות את הכסאות?">
-    <i class="glyphicon glyphicon-trash"></i>
-  </ng-really-click>
-  <i class="glyphicon glyphicon-question-sign" ng-click="firstTime = 1-firstTime"></i>
 </div>
+<div class="clearfix"></div>

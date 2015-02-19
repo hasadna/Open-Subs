@@ -100,18 +100,34 @@ body {
 li { list-style: none; }
 .container { text-align: center; }
 .committee {
-  .chair {
+  padding-bottom: 3em;
+  .subs-row {
     height: 14em;
-    width: 7em;
-    float: right;
-    padding-top: 0em;
-    border: 1px solid;
-    margin: 0.2em;
-    text-align: center;
-    p { font-weight: bold; text-align: center; }
-    img {width:75px; height:110px; }
+    clear: both;
+    // .row1 { clear: both; }
+    .chair {
+      width: 7em;
+      float: right;
+      padding-top: 0em;
+      margin: 0.2em;
+      text-align: center;
+      h1 { font-size: 150%; height: 4.5em; }
+      h2 { font-size: 120%; height: 2em; }
+      p { font-weight: bold; text-align: center; height: 3em; }
+      img {
+        height:110px;
+      }
+      .avatar { 
+        width:75px;
+        height: 75px;
+        overflow: hidden;
+        border-radius: 40%;
+        border: 4px inset;
+        margin: 0 auto;
+      }
+    }
   }
-
+  aside { float: left; }
 }
 #chair-form { width: 60%; margin: 0.5em auto;}
 .footer {
