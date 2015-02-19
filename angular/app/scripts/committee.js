@@ -4,8 +4,9 @@ angular
   .module('app')
   .controller('CommitteeController', function($location, $scope, $window,
                                               OPEN_KNESSET, $routeParams, $q,
-                                              USER) {
-    var committee_id = $routeParams.id;
+                                              USER, $anchorScroll) {
+    var INITIAL_ORG_LIMIT = 11,
+        committee_id = $routeParams.id;
     $q.all({
       committee: OPEN_KNESSET.get_committee(committee_id),
       candidates: OPEN_KNESSET.get_candidates()
@@ -22,12 +23,15 @@ angular
             if (org !== null && org.length == 3){
               c.ord = parseInt(org[1]);
               org = org[2];
-              if (org in orgs)
+              if (org in orgs) {
                 orgs[org]['candidates'].push(c);
+                c.org = orgs[org];
+              }
               else {
-                orgs[org] = {
+                orgs[org] = c.org = {
                   'org': org,
-                  'candidates': [c]
+                  'candidates': [c],
+                  'limit': INITIAL_ORG_LIMIT
                 };
                 orgCandidatesArray.push(orgs[org]);
               }
@@ -43,11 +47,12 @@ angular
         orgs[org]['candidates'].sort(function (a, b) {
           return a.ord - b.ord;
         });
-        // initially display 1- candidates and a more button
-        orgs[org].limit = 11;
+        // initially diIsplay 1- candidates and a more button
         len++;
       }
-      $scope.candidateOrgsLimit = 5;
+      //TODO: inifinte scroll is disabled is it screws up the hash navigation
+      //      required by search
+      $scope.candidateOrgsLimit = 99;
       $scope.candidatesArray = candidatesArray;
       $scope.candidates = orgCandidatesArray;
       $scope.committee = res.committee;
@@ -55,10 +60,13 @@ angular
     $scope.$watch(function (scope) { return scope.selectedChair; },
                   function (new_value, old_value) {
       if (new_value) {
-        //TODO: code a factory for chairs
-        $window.sessionStorage.setItem('chair'+committee_id,
-              new_value.originalObject.id);
-        $location.path('/home');
+        new_value.originalObject.expanded = true;
+        /*TODO: this doesn't work
+        if (new_value.originalObject.ord >= INITIAL_ORG_LIMIT)
+          new_value.originalObject.org.limit = 999;
+         */
+        $location.hash('candidate-'+new_value.originalObject.id);
+        $anchorScroll();
       }
     });
     $scope.elect = function () {
