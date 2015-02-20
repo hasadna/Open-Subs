@@ -29,12 +29,10 @@ angular
         templateUrl: 'views/splash.html',
         controller: function($scope, USER, $location) {
           $scope.go = function() {
-            USER.login(function(status) {
-              if (status) {
-                $location.path('/home');
-              } else {
-                alert('please login');
-              }
+            USER.login().then(function() {
+              $location.path('/home');
+            }, function() {
+              alert('please login');
             });
           }
         }
