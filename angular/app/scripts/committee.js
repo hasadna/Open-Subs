@@ -77,16 +77,16 @@ angular
     $scope.go = function () {
       $window.sessionStorage.setItem('firstTimeCommittee', "false");
       $scope.firstTime = false;
-    }
+    };
     $scope.loaded = function (candidate) {
       // build the query string
       var ids = [];
       var re = new RegExp("\/api\/v2\/person\/([0-9]+)\/");
       var relations = candidate.donor.concat(candidate.related);
       for (var i=0; i<relations.length; i++) {
-        var id = relations[i].match(re)[1]
+        var id = relations[i].match(re)[1];
         ids.push(id);
-      };
+      }
       candidate.donor = [];
       candidate.related = [];
       OPEN_KNESSET.get_person(ids).then(function (data) {
@@ -99,19 +99,24 @@ angular
               candidate[r.relationship].push(p)
           }
         }
-      })
+      });
       if (candidate.fb_id !== "") {
+        candidate.hasFeed = true;
+        candidate.feedLoading = true;
         candidate.feedLength = -1;
         //TODO: call FB as much as need rather than once
         USER.fbapi('/'+candidate.fb_id+'/posts').then(function(response) {
+          candidate.feedLoading = false;
           if (response.hasOwnProperty('data')) {
             candidate.feed = response.data;
             candidate.feedLength = Math.min(3, candidate.feed.length);
           }
+        }, function(response) {
+          candidate.feedLoading = false;
         });
       }
       else
-        candidate.feedLength = 0;
+        candidate.hasFeed = false;
     }
   }
 );
