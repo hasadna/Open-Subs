@@ -4,7 +4,37 @@ angular
   .module('app')
   .controller('CommitteeController', function($location, $scope, $window,
                                               OPEN_KNESSET, $routeParams, $q,
-                                              USER, $anchorScroll) {
+                                              USER, $anchorScroll, DATA) {
+
+    var _isTopOrg = function(org) {
+      var istop = false;
+      angular.forEach(DATA.topOrgsStartWith, function(toporg) {
+        if (org.indexOf(toporg) === 0) {
+          istop = true;
+        }
+      });
+      return istop;
+    };
+
+    var _shuffle = function(array) {
+      var currentIndex = array.length, temporaryValue, randomIndex ;
+
+      // While there remain elements to shuffle...
+      while (0 !== currentIndex) {
+
+        // Pick a remaining element...
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex -= 1;
+
+        // And swap it with the current element.
+        temporaryValue = array[currentIndex];
+        array[currentIndex] = array[randomIndex];
+        array[randomIndex] = temporaryValue;
+      }
+
+      return array;
+    };
+
     var INITIAL_ORG_LIMIT = 11,
         committee_id = $routeParams.id;
     $q.all({
@@ -13,7 +43,7 @@ angular
     }).then(function(res) {
       var candidatesArray = $.map(res.candidates, function(v){return v;});
       // build a candidates array ordered by group and then A-z
-      var i, j, org, orgs = {}, orgCandidatesArray = [];
+      var i, j, org, orgs = {}, orgCandidatesArray_top = [], orgCandidatesArray_bottom = [];
       for (i=0; i < candidatesArray.length; i++) {
         var c = candidatesArray[i];
         for (j=0; j < c.roles.length; j++) {
@@ -33,7 +63,7 @@ angular
                   'candidates': [c],
                   'limit': INITIAL_ORG_LIMIT
                 };
-                orgCandidatesArray.push(orgs[org]);
+                (_isTopOrg(org) ? orgCandidatesArray_top : orgCandidatesArray_bottom).push(orgs[org]);
               }
               // finished with this candidates, break to stop looping on roles
               break;
@@ -41,6 +71,9 @@ angular
           }
         }
       }
+      _shuffle(orgCandidatesArray_top);
+      _shuffle(orgCandidatesArray_bottom);
+      var orgCandidatesArray = orgCandidatesArray_top.concat(orgCandidatesArray_bottom);
       var len = 0;
       for (org in orgs) {
         // var org = orgs[i];
@@ -106,7 +139,7 @@ angular
       $scope.firstTime = false;
     };
     $scope.loaded = function (candidate) {
-      // Element loaded, can scroll there      
+      // Element loaded, can scroll there
       $anchorScroll();
       // build the query string
       var ids = [];
