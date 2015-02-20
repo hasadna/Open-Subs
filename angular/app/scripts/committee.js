@@ -50,6 +50,18 @@ angular
         // initially diIsplay 1- candidates and a more button
         len++;
       }
+      // Expanding the selected candidate list
+      for (var orgId=0; orgId < orgCandidatesArray.length; orgId++){
+          var org = orgCandidatesArray[orgId];
+          for (var candId=0; candId < org.candidates.length; candId++) {
+            var cand = org.candidates[candId];
+            //console.log(cand);
+            if ($location.hash() === "candidate-"+cand.id)
+                {
+                  cand.org.limit = 888;
+                }
+            }
+          }
       //TODO: inifinte scroll is disabled is it screws up the hash navigation
       //      required by search
       $scope.candidateOrgsLimit = 99;
@@ -59,18 +71,26 @@ angular
     });
     $scope.$watch(function (scope) { return scope.selectedChair; },
                   function (new_value, old_value) {
+      var cand, org;
       if (new_value) {
-        new_value.originalObject.expanded = true;
-        if (new_value.originalObject.ord >= INITIAL_ORG_LIMIT)
-          new_value.originalObject.org.limit = 999;
-        $location.hash('candidate-'+new_value.originalObject.id);
-        $anchorScroll();
+        // Looking for the corresponding candidate object in the real candidateArray
+        for (var orgId=0; orgId < $scope.candidates.length; orgId++){
+          org = $scope.candidates[orgId];
+          for (var candId=0; candId < org.candidates.length; candId++) {
+            cand = org.candidates[candId];
+            if (cand.id === new_value.originalObject.id) {
+              cand.expanded=true;
+              $location.hash('candidate-'+cand.id);
+            }
+          }
+        }
       }
     });
     $scope.elect = function () {
         $window.sessionStorage.setItem('chair'+committee_id, this.candidate.id);
         for (var i=0; i<$scope.candidatesArray.length; i++)
           $scope.candidatesArray[i].expanded = false;
+        $location.hash('');
         $location.path('/home');
     };
     $scope.addMoreOrgs = function() {
@@ -84,6 +104,8 @@ angular
       $scope.firstTime = false;
     }
     $scope.loaded = function (candidate) {
+      // Element loaded, can scroll there      
+      $anchorScroll();
       // build the query string
       var ids = [];
       var re = new RegExp("\/api\/v2\/person\/([0-9]+)\/");

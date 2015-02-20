@@ -48,7 +48,8 @@
           <section class="well"
              ng-if="candidate.expanded"
              ng-include="'/views/candidate.html'"
-             onload="loaded(candidate)">
+             onload="loaded(candidate)"
+             autoscroll>
           </section>
         </li>
       </ul>
