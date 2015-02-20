@@ -13,19 +13,17 @@ angular
     'angular-jwt',
     'app.settings',
     'angucomplete',
-    'ezfb',
+    'ngFacebook',
     'timer',
     'infinite-scroll',
     'angularSpinner'
   ])
 
-  .config(function ($routeProvider, $resourceProvider, ezfbProvider) {
+  .config(function ($routeProvider, $resourceProvider, $facebookProvider) {
     $resourceProvider.defaults.stripTrailingSlashes = false;
-    ezfbProvider.setInitParams({
-      appId      : window.OPEN_SUBS_FB_APP_ID,
-      xfbml      : true,
-      version    : 'v2.2'
-    });
+    $facebookProvider.setAppId(window.OPEN_SUBS_FB_APP_ID);
+    $facebookProvider.setPermissions("public_profile,email");
+    $facebookProvider.setVersion("v2.2");
     $routeProvider
       .when('/splash', {
         templateUrl: 'views/splash.html',
@@ -60,41 +58,62 @@ angular
     ;
   })
 
-  .factory('USER', function(ezfb, $q, SETTINGS) {
+  .factory('USER', function($facebook, $q, SETTINGS) {
     return {
-      login: function(callback) {
-        if (SETTINGS.noFacebook) {
-          callback(true);
-        } else {
-          ezfb.getLoginStatus(function (res) {
-            if (res.status == 'connected') {
-              callback(true, res);
-            } else {
-              ezfb.login(function(res) {
-                callback(res.status == 'connected', res);
-              }, {scope: 'public_profile,email'});
-            }
-          });
-        }
+      login: function() {
+        return $q(function(resolve, reject) {
+          if (SETTINGS.noFacebook) {
+            reject();
+          } else {
+            $facebook.getLoginStatus().then(function(res) {
+              if (res.status == 'connected') {
+                resolve(res);
+              } else {
+                $facebook.login().then(function(res) {
+                  if (res.status == 'connected') {
+                    resolve(res);
+                  } else {
+                    reject();
+                  }
+                });
+              }
+            });
+          }
+        });
       },
       fbapi: function(url) {
         var self = this;
         return $q(function(resolve, reject) {
-          self.login(function(status, res) {
+          self.login().then(function(status, res) {
             if (status) {
-              ezfb.api(url, {access_token: res.authResponse.accessToken}, function(response) {
+              $facebook.api(url).then(function(response) {
                 resolve(response);
+              }, function() {
+                reject();
               });
             } else {
               reject();
             }
+          }, function() {
+            reject();
           });
         });
       }
     };
   })
 
-  .controller('AppController', function($scope, ezfb) {
+  .run( function( $rootScope ) {
+    (function(d, s, id){
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) {return;}
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/en_US/sdk.js";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+  })
+
+
+  .controller('AppController', function($scope) {
 
   })
   .directive('ngReallyClick', [function() {
