@@ -99,8 +99,22 @@ body {
 //
 li { list-style: none; }
 .container { text-align: center; }
-.committee {
+.sub {
+  height: 470px;
+  position: relative;
+  background-image : url('/images/sub.jpg');
   padding-bottom: 3em;
+  .row0 {
+    position: absolute;
+    top: 106px;
+    left: 30px;
+    .chair h1 { height:2em !important;  padding-top:0.3em; }
+  }
+  .row1 {
+    position: absolute;
+    top: 268px;
+    left: 30px;
+  }
   .subs-row {
     height: 14em;
     clear: both;
@@ -111,8 +125,8 @@ li { list-style: none; }
       padding-top: 0em;
       margin: 0.2em;
       text-align: center;
-      h1 { font-size: 150%; height: 4.5em; }
-      h2 { font-size: 120%; height: 2em; }
+      h1 { margin:0;  font-size: 120%; height: 2.5em; font-weight: bold; }
+      h2 { margin: 8px 0; font-size: 120%; height: 2em; }
       p { font-weight: bold; text-align: center; height: 3em; }
       img {
         height:110px;
