@@ -61,10 +61,8 @@ angular
                   function (new_value, old_value) {
       if (new_value) {
         new_value.originalObject.expanded = true;
-        /*TODO: this doesn't work
         if (new_value.originalObject.ord >= INITIAL_ORG_LIMIT)
           new_value.originalObject.org.limit = 999;
-         */
         $location.hash('candidate-'+new_value.originalObject.id);
         $anchorScroll();
       }
