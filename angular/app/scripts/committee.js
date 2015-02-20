@@ -4,8 +4,9 @@ angular
   .module('app')
   .controller('CommitteeController', function($location, $scope, $window,
                                               OPEN_KNESSET, $routeParams, $q,
-                                              USER) {
-    var committee_id = $routeParams.id;
+                                              USER, $anchorScroll) {
+    var INITIAL_ORG_LIMIT = 11,
+        committee_id = $routeParams.id;
     $q.all({
       committee: OPEN_KNESSET.get_committee(committee_id),
       candidates: OPEN_KNESSET.get_candidates()
@@ -22,12 +23,15 @@ angular
             if (org !== null && org.length == 3){
               c.ord = parseInt(org[1]);
               org = org[2];
-              if (org in orgs)
+              if (org in orgs) {
                 orgs[org]['candidates'].push(c);
+                c.org = orgs[org];
+              }
               else {
-                orgs[org] = {
+                orgs[org] = c.org = {
                   'org': org,
-                  'candidates': [c]
+                  'candidates': [c],
+                  'limit': INITIAL_ORG_LIMIT
                 };
                 orgCandidatesArray.push(orgs[org]);
               }
@@ -43,11 +47,25 @@ angular
         orgs[org]['candidates'].sort(function (a, b) {
           return a.ord - b.ord;
         });
-        // initially display 1- candidates and a more button
-        orgs[org].limit = 11;
+        // initially diIsplay 1- candidates and a more button
         len++;
       }
-      $scope.candidateOrgsLimit = 5;
+      // Expanding the selected candidate list
+      for (var orgId=0; orgId < orgCandidatesArray.length; orgId++){
+          var org = orgCandidatesArray[orgId];
+          for (var candId=0; candId < org.candidates.length; candId++) {
+            var cand = org.candidates[candId];
+            //console.log(cand);
+            if ($location.hash() === "candidate-"+cand.id)
+                {
+                  cand.org.limit = 888;
+                  cand.expanded = true;
+                }
+            }
+          }
+      //TODO: inifinte scroll is disabled is it screws up the hash navigation
+      //      required by search
+      $scope.candidateOrgsLimit = 99;
       $scope.candidatesArray = candidatesArray;
       $scope.candidates = orgCandidatesArray;
       $scope.committee = res.committee;
@@ -55,17 +73,26 @@ angular
     });
     $scope.$watch(function (scope) { return scope.selectedChair; },
                   function (new_value, old_value) {
+      var cand, org;
       if (new_value) {
-        //TODO: code a factory for chairs
-        $window.sessionStorage.setItem('chair'+committee_id,
-              new_value.originalObject.id);
-        $location.path('/home');
+        // Looking for the corresponding candidate object in the real candidateArray
+        for (var orgId=0; orgId < $scope.candidates.length; orgId++){
+          org = $scope.candidates[orgId];
+          for (var candId=0; candId < org.candidates.length; candId++) {
+            cand = org.candidates[candId];
+            if (cand.id === new_value.originalObject.id) {
+              cand.expanded=true;
+              $location.hash('candidate-'+cand.id);
+            }
+          }
+        }
       }
     });
     $scope.elect = function () {
         $window.sessionStorage.setItem('chair'+committee_id, this.candidate.id);
         for (var i=0; i<$scope.candidatesArray.length; i++)
           $scope.candidatesArray[i].expanded = false;
+        $location.hash('');
         $location.path('/home');
     };
     $scope.addMoreOrgs = function() {
@@ -79,6 +106,8 @@ angular
       $scope.firstTime = false;
     };
     $scope.loaded = function (candidate) {
+      // Element loaded, can scroll there      
+      $anchorScroll();
       // build the query string
       var ids = [];
       var re = new RegExp("\/api\/v2\/person\/([0-9]+)\/");
