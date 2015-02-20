@@ -144,7 +144,7 @@ li { list-style: none; }
   width: 80%;
   margin: 1em auto;
   li { display: inline; }
-  .ord1 {font-size: 180%; }
+  .ord1, .expanded {font-size: 180%; }
   .ord2, .ord3 {font-size: 130%; }
   .ord4, .ord5, .ord6, .ord7 {font-weight: bold; }
   i {color:grey;}
@@ -175,3 +175,4 @@ li { list-style: none; }
   img { width:100%; }
 }
 .loading { margin-top: 1em; height: 3em; position: relative; }
+.ascii { font-family: monospace; }

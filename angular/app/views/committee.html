@@ -35,20 +35,27 @@
   <div infinite-scroll="addMoreOrgs()" infinite-scroll-distance="3">
     <div ng-repeat="org in candidates|limitTo:candidateOrgsLimit track by org.org">
       <ul class="candidates">
-        <li ng-repeat="candidate in org.candidates|limitTo:org.limit" id="candidate-{{candidate.id}}">
+        <li ng-repeat="candidate in org.candidates|limitTo:org.limit" id="candidate-{{candidate.id}}"
+          ng-class="{clearfix: candidate.expanded}">
           <i ng-if="(!$first)" class="glyphicon glyphicon-user"></i>
-          <button class="btn btn-primary btn-xs"
-                  ng-click="org.limit = 999" ng-if="($last && org.limit < org.candidates.length)"
+          <a class="ord{{candidate.ord}}"
+             ng-class="{expanded: candidate.expanded}"
+             ng-click="candidate.expanded = !candidate.expanded"
+             href="">
+           {{candidate.name}}
+          </a>
+          <section class="well"
+                   ng-if="candidate.expanded"
+                   ng-include="'/views/candidate.html'"
+                   onload="loaded(candidate)"
+                   autoscroll>
+          </section>
+          <button ng-if="($last && org.limit < org.candidates.length)"
+                  class="btn btn-primary btn-xs ascii"
+                  ng-click="org.limit = 999"
                   data-toggle="tooltip" title="עוד מועמדים">
             ¸.·`¯´·.`¯´·.¸¸.·`¯´·.¸><(((º>
           </button>
-          <a class="ord{{candidate.ord}}" ng-if="(!$last)" href="" ng-click="candidate.expanded = !candidate.expanded">{{candidate.name}}</a>
-          <section class="well"
-             ng-if="candidate.expanded"
-             ng-include="'/views/candidate.html'"
-             onload="loaded(candidate)"
-             autoscroll>
-          </section>
         </li>
       </ul>
     </div>
