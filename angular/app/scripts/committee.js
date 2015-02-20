@@ -59,6 +59,7 @@ angular
             if ($location.hash() === "candidate-"+cand.id)
                 {
                   cand.org.limit = 888;
+                  cand.expanded = true;
                 }
             }
           }
