@@ -115,7 +115,6 @@ angular
       for (var i=0;i<$scope.committees.length; i++) {
         var c = $scope.committees[i],
         electedId = $window.sessionStorage.getItem('chair'+c.id);
-        console.log(electedId, this.candidate.id);
         if (c.id != committee_id && electedId==candidate.id) {
           // Got dup
           candidate.block = true;
