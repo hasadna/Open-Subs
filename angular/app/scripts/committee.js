@@ -9,7 +9,8 @@ angular
         committee_id = $routeParams.id;
     $q.all({
       committee: OPEN_KNESSET.get_committee(committee_id),
-      candidates: OPEN_KNESSET.get_candidates()
+      candidates: OPEN_KNESSET.get_candidates(),
+      committees: OPEN_KNESSET.get_committees()
     }).then(function(res) {
       var candidatesArray = $.map(res.candidates, function(v){return v;});
       // build a candidates array ordered by group and then A-z
@@ -69,6 +70,7 @@ angular
       $scope.candidatesArray = candidatesArray;
       $scope.candidates = orgCandidatesArray;
       $scope.committee = res.committee;
+      $scope.committees = res.committees;
       $scope.loading = false;
     });
     $scope.$watch(function (scope) { return scope.selectedChair; },
@@ -108,6 +110,16 @@ angular
     $scope.loaded = function (candidate) {
       // Element loaded, can scroll there      
       $anchorScroll();
+      // Checking if already elected
+      candidate.block = false;
+      for (var i=0;i<$scope.committees.length; i++) {
+        var c = $scope.committees[i],
+        electedId = $window.sessionStorage.getItem('chair'+c.id);
+        if (c.id != committee_id && electedId==candidate.id) {
+          // Got dup
+          candidate.block = true;
+        } 
+      }
       // build the query string
       var ids = [];
       var re = new RegExp("\/api\/v2\/person\/([0-9]+)\/");
