@@ -41,6 +41,10 @@ angular
         templateUrl: 'views/home.html',
         controller: 'HomeController'
       })
+      .when('/home/:team', {
+        templateUrl: 'views/home.html',
+        controller: 'HomeController'
+      })
       .when('/committee/:id', {
         templateUrl: 'views/committee.html',
         controller: 'CommitteeController'
