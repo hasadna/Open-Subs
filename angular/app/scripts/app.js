@@ -56,6 +56,23 @@ angular
     ;
   })
 
+  .factory('DATA', function() {
+    return {
+      'topOrgsStartWith': [
+        'ליכוד',
+        'מחנה הציוני',
+        'בית היהודי',
+        'רשימה המשותפת',
+        'כולנו בראשות משה כחלון',
+        'ישראל ביתנו',
+        'יש עתיד',
+        'שס',
+        'יהדות התורה',
+        'שמאל של ישראל' // this is meretz
+      ]
+    }
+  })
+
   .factory('USER', function($facebook, $q, SETTINGS) {
     return {
       login: function() {
