@@ -16,7 +16,8 @@ angular
     'ngFacebook',
     'timer',
     'infinite-scroll',
-    'angularSpinner'
+    'angularSpinner',
+    'ui.bootstrap'
   ])
 
   .config(function ($routeProvider, $resourceProvider, $facebookProvider) {
@@ -115,6 +116,16 @@ angular
         });
       }
     };
+  })
+
+  .factory('helpTexts', function($modal) {
+    return {
+      openHome: function() {
+        $modal.open({
+          templateUrl: 'views/helptextsHome.html'
+        });
+      }
+    }
   })
 
   .run( function( SETTINGS ) {

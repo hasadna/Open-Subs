@@ -2,7 +2,8 @@
 
 angular
   .module('app')
-  .controller('HomeController', function($scope, USER, OPEN_KNESSET, $location, $window, $q) {
+  .controller('HomeController', function($scope, USER, OPEN_KNESSET, $location, $window, $q, helpTexts) {
+    $scope.helpTexts = helpTexts;
     $scope.loading = true;
     $scope.chairs = [];
     $scope.reset = function () {
@@ -32,7 +33,7 @@ angular
       $scope.loading = false;
     });
     var firstTime = $window.sessionStorage.getItem('firstTimeHome') || 1;
-    
+
     firstTime = eval(firstTime);
     $scope.firstTime = firstTime;
     $scope.go = function () {
