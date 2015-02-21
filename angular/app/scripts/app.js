@@ -99,16 +99,12 @@ angular
       fbapi: function(url) {
         var self = this;
         return $q(function(resolve, reject) {
-          self.login().then(function(status, res) {
-            if (status) {
-              $facebook.api(url).then(function(response) {
-                resolve(response);
-              }, function() {
-                reject();
-              });
-            } else {
+          self.login().then(function(res) {
+            $facebook.api(url).then(function(response) {
+              resolve(response);
+            }, function() {
               reject();
-            }
+            });
           }, function() {
             reject();
           });

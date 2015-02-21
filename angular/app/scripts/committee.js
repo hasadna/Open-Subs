@@ -124,11 +124,12 @@ angular
       }
     });
     $scope.elect = function () {
-        $window.sessionStorage.setItem('chair'+committee_id, this.candidate.id);
-        for (var i=0; i<$scope.candidatesArray.length; i++)
-          $scope.candidatesArray[i].expanded = false;
-        $location.hash('');
-        $location.path('/home');
+      $window.sessionStorage.setItem('chair'+committee_id, this.candidate.id);
+      OPEN_KNESSET.storeChairSelection(committee_id, this.candidate.id);
+      for (var i=0; i<$scope.candidatesArray.length; i++)
+        $scope.candidatesArray[i].expanded = false;
+      $location.hash('');
+      $location.path('/home');
     };
     $scope.addMoreOrgs = function() {
       $scope.candidateOrgsLimit += 3;
@@ -151,7 +152,7 @@ angular
         if (c.id != committee_id && electedId==candidate.id) {
           // Got dup
           candidate.block = true;
-        } 
+        }
       }
       // build the query string
       var ids = [];
