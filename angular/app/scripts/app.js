@@ -31,7 +31,12 @@ angular
         controller: function($scope, USER, $location) {
           $scope.go = function() {
             USER.login().then(function() {
-              $location.path('/home');
+              var firstTime = window.sessionStorage.getItem('firstTimeHome') || 1;
+              if (firstTime) {
+                $location.path('/game/start');
+              } else {
+                $location.path('/home');
+              }
             }, function() {
               alert('please login');
             });
@@ -41,6 +46,14 @@ angular
       .when('/home', {
         templateUrl: 'views/home.html',
         controller: 'HomeController'
+      })
+      .when('/game/last', {
+        templateUrl: 'views/game_last.html',
+        controller: 'GameLastController'
+      })
+      .when('/game/:level', {
+        templateUrl: 'views/committee.html',
+        controller: 'CommitteeController'
       })
       .when('/committee/:id', {
         templateUrl: 'views/committee.html',
