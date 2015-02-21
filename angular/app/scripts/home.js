@@ -36,6 +36,7 @@ angular
     }).then(function(res) {
       // Applying elected from url
       var elected_team = $routeParams.team;
+      $scope.viewOnly = false;
       if (!!elected_team){
         elected_team = elected_team.split("-");
         var seen = {};
@@ -50,25 +51,26 @@ angular
             }
             seen[elected_team[i]] = true;
           }
-          for (var i=0;i<elected_team.length;i++){
-            var cand_id = elected_team[i] ? parseInt(elected_team[i],10) : null;
-            var comm_id = res.committees[i].id;
-            if (ignore_input) {
-              // Someone trying to inject url. removing all in session storage as well
-              cand_id=null;
-            }
-            $window.sessionStorage.setItem('chair'+comm_id, cand_id);
+          if (!ignore_input) {
+            // All test completed. move to view only
+            $scope.viewOnly = true;
           }
         }
-      }
+      } 
 
       $scope.rows = [[],[]];
       for (var i=0; i < res.committees.length; i++) {
         var c = res.committees[i],
             electedId = $window.sessionStorage.getItem('chair'+c.id),
+            comm_url="#"+c.absolute_url,
             row = Math.floor(i/6);
+            if ($scope.viewOnly && !!elected_team) {
+              // View only. taking candidate id from url
+              electedId = elected_team[i] ? parseInt(elected_team[i],10) : null;
+              comm_url="javascipt: (void);";
+            }
         $scope.rows[row].push ({
-          name: c.name, absolute_url: c.absolute_url, id: c.id,
+          name: c.name, absolute_url: comm_url, id: c.id,
           chosen: res.candidates[electedId]
         });
       }
