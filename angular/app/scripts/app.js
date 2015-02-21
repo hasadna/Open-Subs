@@ -118,12 +118,10 @@ angular
     };
   })
 
-  .factory('helpTexts', function($modal) {
+  .factory('modal', function($modal) {
     return {
-      openHome: function() {
-        $modal.open({
-          templateUrl: 'views/helptextsHome.html'
-        });
+      show: function(template) {
+        $modal.open({ templateUrl: template });
       }
     }
   })

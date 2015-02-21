@@ -2,8 +2,8 @@
 
 angular
   .module('app')
-  .controller('HomeController', function($scope, USER, OPEN_KNESSET, $location, $window, $q, helpTexts) {
-    $scope.helpTexts = helpTexts;
+  .controller('HomeController', function($scope, USER, OPEN_KNESSET, $location, $window, $q, modal) {
+    $scope.modal = modal;
     $scope.loading = true;
     $scope.chairs = [];
     $scope.reset = function () {

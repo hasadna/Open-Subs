@@ -4,8 +4,9 @@ angular
   .module('app')
   .controller('CommitteeController', function($location, $scope, $window,
                                               OPEN_KNESSET, $routeParams, $q,
-                                              USER, $anchorScroll, DATA) {
+                                              USER, $anchorScroll, DATA, modal) {
 
+    $scope.modal = modal;
     var _isTopOrg = function(org) {
       var istop = false;
       angular.forEach(DATA.topOrgsStartWith, function(toporg) {
