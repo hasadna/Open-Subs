@@ -20,7 +20,7 @@ describe('when going to the root url', function() {
   describe('when clicking the button', function() {
 
     beforeAll(function() {
-      element(by.css('.splash-go-button')).click();
+      element(by.css('div.splash a.play')).click();
     });
 
     it('should go to the homepage', function() {
