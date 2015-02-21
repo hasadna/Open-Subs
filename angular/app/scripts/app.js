@@ -38,7 +38,7 @@ angular
                 $location.path('/home');
               }
             }, function() {
-              alert('please login');
+              $location.path('/error/login');
             });
           }
         }
@@ -64,6 +64,9 @@ angular
         templateUrl: 'views/candidate-feed.html',
         controller: 'CandidateController'
       })
+      .when('/error/:type', {
+        templateUrl: 'views/error.html'
+      })
       .otherwise({
         redirectTo: '/splash'
       })
@@ -87,7 +90,7 @@ angular
     }
   })
 
-  .factory('USER', function($facebook, $q, SETTINGS) {
+  .factory('USER', function($facebook, $q, SETTINGS, $location) {
     return {
       login: function() {
         return $q(function(resolve, reject) {
@@ -95,14 +98,21 @@ angular
             resolve();
           } else {
             $facebook.getLoginStatus().then(function(res) {
+              var myresolve = function(res) {
+                if (!res || !res.authResponse) {
+                  $location.path('/error/login');
+                } else {
+                  resolve(res);
+                }
+              };
               if (res.status == 'connected') {
-                resolve(res);
+                myresolve(res);
               } else {
                 $facebook.login().then(function(res) {
                   if (res.status == 'connected') {
-                    resolve(res);
+                    myresolve(res);
                   } else {
-                    reject();
+                    $location.path('/error/login');
                   }
                 });
               }
@@ -117,10 +127,10 @@ angular
             $facebook.api(url).then(function(response) {
               resolve(response);
             }, function() {
-              reject();
+              $location.path('/error/fbapi');
             });
           }, function() {
-            reject();
+            $location.path('/error/login');
           });
         });
       }
