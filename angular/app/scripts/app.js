@@ -16,7 +16,8 @@ angular
     'ngFacebook',
     'timer',
     'infinite-scroll',
-    'angularSpinner'
+    'angularSpinner',
+    'ui.bootstrap'
   ])
 
   .config(function ($routeProvider, $resourceProvider, $facebookProvider) {
@@ -30,9 +31,14 @@ angular
         controller: function($scope, USER, $location) {
           $scope.go = function() {
             USER.login().then(function() {
-              $location.path('/home');
+              var firstTime = window.sessionStorage.getItem('firstTimeHome') || 1;
+              if (firstTime) {
+                $location.path('/game/start');
+              } else {
+                $location.path('/home');
+              }
             }, function() {
-              alert('please login');
+              $location.path('/error/login');
             });
           }
         }
@@ -45,6 +51,14 @@ angular
         templateUrl: 'views/home.html',
         controller: 'HomeController'
       })
+      .when('/game/last', {
+        templateUrl: 'views/game_last.html',
+        controller: 'GameLastController'
+      })
+      .when('/game/:level', {
+        templateUrl: 'views/committee.html',
+        controller: 'CommitteeController'
+      })
       .when('/committee/:id', {
         templateUrl: 'views/committee.html',
         controller: 'CommitteeController'
@@ -53,6 +67,9 @@ angular
       .when('/candidate/:id', {
         templateUrl: 'views/candidate-feed.html',
         controller: 'CandidateController'
+      })
+      .when('/error/:type', {
+        templateUrl: 'views/error.html'
       })
       .otherwise({
         redirectTo: '/splash'
@@ -77,22 +94,29 @@ angular
     }
   })
 
-  .factory('USER', function($facebook, $q, SETTINGS) {
+  .factory('USER', function($facebook, $q, SETTINGS, $location) {
     return {
       login: function() {
         return $q(function(resolve, reject) {
           if (SETTINGS.noFacebook) {
-            reject();
+            resolve();
           } else {
             $facebook.getLoginStatus().then(function(res) {
+              var myresolve = function(res) {
+                if (!res || !res.authResponse) {
+                  $location.path('/error/login');
+                } else {
+                  resolve(res);
+                }
+              };
               if (res.status == 'connected') {
-                resolve(res);
+                myresolve(res);
               } else {
                 $facebook.login().then(function(res) {
                   if (res.status == 'connected') {
-                    resolve(res);
+                    myresolve(res);
                   } else {
-                    reject();
+                    $location.path('/error/login');
                   }
                 });
               }
@@ -103,25 +127,31 @@ angular
       fbapi: function(url) {
         var self = this;
         return $q(function(resolve, reject) {
-          self.login().then(function(status, res) {
-            if (status) {
-              $facebook.api(url).then(function(response) {
-                resolve(response);
-              }, function() {
-                reject();
-              });
-            } else {
-              reject();
-            }
+          self.login().then(function(res) {
+            $facebook.api(url).then(function(response) {
+              resolve(response);
+            }, function() {
+              $location.path('/error/fbapi');
+            });
           }, function() {
-            reject();
+            $location.path('/error/login');
           });
         });
       }
     };
   })
 
-  .run( function( $rootScope ) {
+  .factory('modal', function($modal) {
+    return {
+      show: function(template) {
+        $modal.open({ templateUrl: template });
+      }
+    }
+  })
+
+  .run( function( SETTINGS ) {
+    // expose the configuration on window - this is used for testing
+    window.SETTINGS = SETTINGS;
     (function(d, s, id){
       var js, fjs = d.getElementsByTagName(s)[0];
       if (d.getElementById(id)) {return;}

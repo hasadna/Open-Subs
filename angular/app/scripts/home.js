@@ -2,7 +2,8 @@
 
 angular
   .module('app')
-  .controller('HomeController', function($scope, USER, OPEN_KNESSET, $routeParams, $location, $window, $q) {
+  .controller('HomeController', function($scope, USER, OPEN_KNESSET, $routeParams, $location, $window, $q, modal) {
+    $scope.modal = modal;
     $scope.loading = true;
     $scope.chairs = [];
     $scope.reset = function () {
@@ -81,7 +82,7 @@ angular
       $scope.teamUrl = $scope.generateTeamUrl();
     });
     var firstTime = $window.sessionStorage.getItem('firstTimeHome') || 1;
-    
+
     firstTime = eval(firstTime);
     $scope.firstTime = firstTime;
     $scope.go = function () {

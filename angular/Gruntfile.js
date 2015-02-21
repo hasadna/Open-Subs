@@ -427,7 +427,6 @@ module.exports = function (grunt) {
     // end-to-end / integration tests using protractor
     protractor: {
       options: {
-        keepAlive: true,
         configFile: "test/e2e/e2e.conf.js"
       },
       test: {
@@ -473,15 +472,18 @@ module.exports = function (grunt) {
     grunt.task.run(['serve:' + target]);
   });
 
-  grunt.registerTask('test', [
+  var testTasks = [
     'clean:server',
     'includeSource:serve',
     'concurrent:test',
     'autoprefixer',
-    'connect:test',
-    //'karma',
-    'protractor:test'
-  ]);
+    'connect:test'
+    //'karma'
+  ];
+  if (!process.env.TRAVIS_PULL_REQUEST) {
+    testTasks.push('protractor:test');
+  }
+  grunt.registerTask('test', testTasks);
 
   grunt.registerTask('build', [
     'clean:dist',
