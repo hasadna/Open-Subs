@@ -1,0 +1,26 @@
+<section class="slide">
+  <div class="modal-body">
+    <h1>מנו&#x05BC; יושב/ת ראש ל{{committee.name}}</h1>
+    <p>
+    במסך הבא תוכלו למנות אחד מ-1312 המועמדים לראשות הוועדה.
+    </p>
+    <p>
+    שמות המועמדים נקצרו מאתר ועדת הבחירות המרכזית והמידע עליהם נאסף על ידי
+    תומר אביטל וכתבי TheMarker.
+    </p>
+    <p>
+      <strong>הארה: </strong>
+      המפלגות חולקו לשתי קבוצות: אלו שעוברות ואלו שלא.  כל אחת מהקבוצות מסודרת באופן אקראי.
+    </p>
+    <div ng-if="loading" class="loading">
+      <span id="spinner" ng-show="loading" us-spinner></span>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-default btn-lg" ng-click="$close()"ng-disabled="loading">
+      בחרו
+    </button>
+  </div>
+  <!-- loading message -->
+</section>
+
