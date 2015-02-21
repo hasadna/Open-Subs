@@ -78,7 +78,7 @@ angular
       login: function() {
         return $q(function(resolve, reject) {
           if (SETTINGS.noFacebook) {
-            reject();
+            resolve();
           } else {
             $facebook.getLoginStatus().then(function(res) {
               if (res.status == 'connected') {
@@ -117,7 +117,9 @@ angular
     };
   })
 
-  .run( function( $rootScope ) {
+  .run( function( SETTINGS ) {
+    // expose the configuration on window - this is used for testing
+    window.SETTINGS = SETTINGS;
     (function(d, s, id){
       var js, fjs = d.getElementsByTagName(s)[0];
       if (d.getElementById(id)) {return;}
