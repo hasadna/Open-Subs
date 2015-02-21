@@ -22,9 +22,10 @@
     </span>
   </p>
   <div ng-if="committee" class="clearfix">
-    <button class="btn btn-default btn-lg" ng-click="elect()">
+    <button ng-if="!candidate.block" class="btn btn-default btn-lg" ng-click="elect()">
       מנו לראשות {{committee.name}}
     </button>
+    <alert ng-if="candidate.block" class="" type="danger">לא ניתן לבחור במועמד ליותר מועדה אחת</alert>
   </div>
   <section class="feed" ng-if="candidate.hasFeed">
     <h4>סטטוסים אחרונים</h4>

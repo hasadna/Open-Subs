@@ -159,7 +159,7 @@ aside { float: left; }
   margin: 1em auto;
   padding: 0;
   li { display: inline; }
-  .ord1 {font-size: 180%; }
+  .ord1, .expanded {font-size: 180%; }
   .ord2, .ord3 {font-size: 130%; }
   .ord4, .ord5, .ord6, .ord7 {font-weight: bold; }
   i {color:grey;}
@@ -187,9 +187,22 @@ aside { float: left; }
   .message p { margin-bottom: 0; }
 }
 .splash {
-  img { width:100%; }
+  background-image: url('/images/splash.png');
+  width: 100%;
+  height: 470px;
+  .play { background-color: transparent;
+    background-image: url('/images/play.png');
+    background-position: -42px -18px;
+    height: 66px;
+    width: 100px;
+    position: absolute;
+    top: 424px;
+    right: 504px;
+  }
+  .play:hover { background-position: -189px -18px; }
 }
 .loading { margin-top: 1em; height: 3em; position: relative; }
 .committee {
   p { height: 8em; }
 }
+.ascii { font-family: monospace; }

@@ -29,12 +29,10 @@ angular
         templateUrl: 'views/splash.html',
         controller: function($scope, USER, $location) {
           $scope.go = function() {
-            USER.login(function(status) {
-              if (status) {
-                $location.path('/home');
-              } else {
-                alert('please login');
-              }
+            USER.login().then(function() {
+              $location.path('/home');
+            }, function() {
+              alert('please login');
             });
           }
         }
@@ -56,6 +54,23 @@ angular
         redirectTo: '/splash'
       })
     ;
+  })
+
+  .factory('DATA', function() {
+    return {
+      'topOrgsStartWith': [
+        'ליכוד',
+        'מחנה הציוני',
+        'בית היהודי',
+        'רשימה המשותפת',
+        'כולנו בראשות משה כחלון',
+        'ישראל ביתנו',
+        'יש עתיד',
+        'שס',
+        'יהדות התורה',
+        'שמאל של ישראל' // this is meretz
+      ]
+    }
   })
 
   .factory('USER', function($facebook, $q, SETTINGS) {
