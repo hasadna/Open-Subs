@@ -187,6 +187,7 @@ aside { float: left; }
   .message p { margin-bottom: 0; }
 }
 .splash {
+  position: relative;
   background-image: url('/images/splash.png');
   width: 100%;
   height: 470px;
@@ -196,8 +197,8 @@ aside { float: left; }
     height: 66px;
     width: 100px;
     position: absolute;
-    top: 424px;
-    right: 504px;
+    top: 330px;
+    right: 292px;
   }
   .play:hover { background-position: -189px -18px; }
 }
