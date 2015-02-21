@@ -148,6 +148,7 @@ angular
     });
     $scope.elect = function () {
         $window.sessionStorage.setItem('chair'+committee_id, this.candidate.id);
+        OPEN_KNESSET.storeChairSelection(committee_id, this.candidate.id);
         for (var i=0; i<$scope.candidatesArray.length; i++)
           $scope.candidatesArray[i].expanded = false;
         $location.hash('');

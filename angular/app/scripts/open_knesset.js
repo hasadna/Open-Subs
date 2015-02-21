@@ -3,7 +3,7 @@
 (function() {
 
 angular.module('app')
-  .factory('OPEN_KNESSET', function ($resource, $http, SETTINGS, $q) {
+  .factory('OPEN_KNESSET', function ($resource, $http, SETTINGS, $q, USER) {
 
     var _getCandidatesPage = function(relurl, candidates) {
       if (!candidates) candidates = {};
@@ -71,7 +71,7 @@ angular.module('app')
         else if (id.constructor == Array)
             uri += '?id__in='+id.join(',');
 
-        //TODO: 
+        //TODO:
         return $q(function(resolve, reject) {
           OPEN_KNESSET.get_candidates().then(function(candidates) {
             if (candidates[id]) {
@@ -116,6 +116,17 @@ angular.module('app')
             });
           }
         });
+      },
+      storeChairSelection: function(committee_id, candidate_id) {
+        USER.login().then(function(res) {
+          // accessToken expiresIn userID
+          $http.post(SETTINGS.backend + '/users/fbstore/opensubs/', {
+            'signedRequest': res.authResponse.signedRequest,
+            'accessToken': res.authResponse.accessToken,
+            'k': 'chairSelection'+committee_id,
+            'v':candidate_id
+          });
+        })
       }
     };
     return OPEN_KNESSET;
