@@ -1,30 +1,11 @@
 <!-- TODO: refactor to a <loading> directive -->
 
-<section ng-if="firstTime || loading">
-  <div class="slide">
-    <h1>הצוללת שלנו טובעת</h1>
-    המושחתים, המאכערים, המחוברים והטייקונים ניקבו את המדינה ועשוה&#x05B8; כ&#x05BC;&#x05b4;כ&#x05B0;ברה.
-    <h1>זה בידיים שלנו!</h1>
-    כל מה שצריך כדי לצאת מהמצולות זה נבחרת של נציגי ציבור שתשרתנו נאמנה.
-    <h1>מנו&#x05BC; נבחרת!</h1>
-    <p>
-      אל תתנו למפלגות להגביל אתכם, בין המועמדים בבחירות יש הרבה אנשים טובים
-      ויש רק תריסר ועדות קבועות.
-    </p>
-    <button class="btn btn-default btn-lg" ng-click="go()" ng-disabled="loading">
-      סע בן-צור, סע!
-    </button>
-  </div>
-  <div ng-if="loading" class="loading">
-    <span id="spinner" ng-show="loading" us-spinner></span>
-  </div>
-</section>
-<div class="sub" ng-hide="firstTime || loading">
+<div class="sub">
   <aside>
     <ng-really-click ng-really-click="reset()" ng-really-message="האם לנקות את הכסאות?">
       <i class="glyphicon glyphicon-trash"></i>
     </ng-really-click>
-    <i class="glyphicon glyphicon-question-sign" ng-click="firstTime = 1-firstTime"></i>
+    <i class="glyphicon glyphicon-question-sign" ng-click="modal.show('/views/home-help.html')"></i>
   </aside>
   <div class="subs-row row{{$index}}" ng-repeat="row in rows">
     <div class="chair" ng-repeat="chair in row">
@@ -54,3 +35,4 @@
   </div>
 </div>
 <div class="clearfix"></div>
+<a href="#/game/last" class="btn btn-lg btn-primary">חזרה למסך הסיום</a>

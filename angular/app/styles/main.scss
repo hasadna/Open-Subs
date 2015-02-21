@@ -177,14 +177,17 @@ aside { float: left; }
   width: 80%;
   margin: 0 auto;
   padding: 1.5em;
-  border: 2px solid black;
-  border-radius: 10px;
+  text-align: center;
+  .modal-footer { text-align: center; }
 }
 .feed {
   padding: 2em 2em 0em 2em;
   ul { padding: 1em 2em; }
-  .message { padding-top: 1em; }
-  .message p { margin-bottom: 0; }
+  .message {
+    padding-top: 1em;
+    p { margin-bottom: 0; }
+    .icon { float: right; }
+  }
 }
 .splash {
   position: relative;
