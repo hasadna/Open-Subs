@@ -182,12 +182,13 @@ aside { float: left; }
 }
 .feed {
   padding: 2em 2em 0em 2em;
-  ul { padding: 1em 2em; }
+  ul { padding: 0 0 0.5em; }
   .message {
     padding-top: 1em;
     p { margin-bottom: 0; }
     .icon { float: right; }
   }
+  .loading { position: relative; }
 }
 .splash {
   position: relative;

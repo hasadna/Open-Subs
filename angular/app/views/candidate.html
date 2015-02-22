@@ -44,15 +44,16 @@
           </section>
         </li>
       </ul>
-      <button class="btn btn-default btn-lg"
+      <button ng-if="candidate.feedLength > 0 && candidate.feedLength < candidate.feed.length"
+        class="btn btn-default btn-lg"
         ng-click="candidate.feedLength = candidate.feedLength + 3">
-          <i ng-if="(!$first)" class="glyphicon glyphicon-arrow-down"></i>
+        <i class="glyphicon glyphicon-arrow-down"></i>
       </button>
     </div>
   </section>
-  <section class="feed" ng-if="candidate.hasFeed && candidate.feedLoading">
-    <p class="active">טוען סטטוסים ...</p>
-  </section>
+  <div ng-if="candidate.hasFeed && candidate.feedLoading" class="loading">
+    <span us-spinner></span>
+  </div>
   <section class="feed" ng-if="candidate.hasFeed && !candidate.feedLoading && candidate.feedLength == -1">
     <p class="active">שגיאה בטעינת הסטטוסים</p>
   </section>
