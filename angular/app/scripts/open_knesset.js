@@ -87,10 +87,30 @@ angular.module('app')
             } else {
               if (SETTINGS.offline) {
                 // TODO: implement for persons which are not candidates
-                reject();
-              } else {
+                if (OPEN_KNESSET.hasOwnProperty('relations')) {
+                  var r = [];
+                  for (var i=0; i<id.length; i++)
+                    r.push(OPEN_KNESSET.relations[id[i]])
+                  resolve(r);
+                }
+                else {
+                  $http.get('/fakedata/relations.json').then(function (data) {
+                    data = data.data.objects
+                    OPEN_KNESSET.relations = {};
+                    for (var i=0; i<data.length; i++) {
+                      var p = data[i];
+                      OPEN_KNESSET.relations[p.id] =p;
+                    }
+                    var r = [];
+                    for (var i=0; i<id.length; i++)
+                      r.push(OPEN_KNESSET.relations[id[i]])
+                    resolve(r);
+                  });
+                }
+             }
+             else {
                 $http.get(uri).success(function(data) {
-                  resolve(data);
+                  resolve(data.objects);
                 });
               }
             }

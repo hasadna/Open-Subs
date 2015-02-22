@@ -221,8 +221,8 @@ angular
       candidate.donor = [];
       candidate.related = [];
       OPEN_KNESSET.get_person(ids).then(function (data) {
-        for (var i=0; i<data.objects.length; i++) {
-          var p = data.objects[i];
+        for (var i=0; i<data.length; i++) {
+          var p = data[i];
           for (var j=0; j<candidate.relations.length; j++) {
             var r = candidate.relations[j];
             var id = r.with_person.match(re)[1];

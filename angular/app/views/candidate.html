@@ -14,23 +14,25 @@
   <p><strong>הצהרת הון:</strong>
     {{ candidate.themarker.declaration }}
   </p>
-  <p ng-if="candidate.donor">
-    <span class="key">תורמים:</span>
-    <span class="relation" ng-repeat="i in candidate.donor">
-      {{i.name}}
-      <span ng-if='(!$last)'>,</span>
-    </span>
+  <p ng-if="candidate.donor.length > 0">
+    <span class="key">תורמים</span>
+    <ul>
+      <li class="relation" ng-repeat="i in candidate.donor">
+      <strong>{{i.name}}</strong>: {{i.titles}}
+      </li>
+    </ul>
   </p>
-  <p ng-if="candidate.related">
-    <span class="key">מקורבים:</span>
-    <span class="relation" ng-repeat="j in candidate.related">
-      {{j.name}}
-      <span ng-if='(!$last)'>,</span>
-    </span>
+  <p ng-if="candidate.related.length > 0">
+    <span class="key">מקורבים</span>
+    <ul>
+      <li class="relation" ng-repeat="i in candidate.related">
+      <strong>{{i.name}}</strong>: {{i.titles}}
+      </li>
+    </ul>
   </p>
   <div ng-if="committee" class="clearfix">
     <button ng-if="!candidate.block" class="btn btn-default btn-lg" ng-click="elect()">
-      מנו לראשות {{committee.name}}
+      מנו לראשות ועדת ה{{committee.name}}
     </button>
     <alert ng-if="candidate.block" class="" type="danger">לא ניתן לבחור במועמד ליותר מועדה אחת</alert>
   </div>

@@ -165,6 +165,7 @@ aside { float: left; }
   margin: 1em auto;
   padding: 0;
   li { display: inline; }
+  li.relation { display: block; text-align: right;}
   .ord2, .ord3 {font-size: 130%; }
   .ord4, .ord5, .ord6, .ord7 {font-weight: bold; }
   .ord1, .expanded {font-size: 180%; }
