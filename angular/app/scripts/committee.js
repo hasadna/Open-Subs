@@ -39,7 +39,12 @@ angular
     var INITIAL_ORG_LIMIT = 11,
         committee_id = $routeParams.id,
         game_level = $routeParams.level,
-        game_mode = false;
+        game_mode = false,
+        electedId = $window.sessionStorage.getItem('chair'+committee_id);
+    if (electedId)
+      OPEN_KNESSET.get_person(electedId).then(function (cand) {
+        $scope.chair = cand
+      });
 
     OPEN_KNESSET.get_committees().then(function(committees) {
       if (game_level) {
