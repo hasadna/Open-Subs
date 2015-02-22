@@ -68,6 +68,7 @@ angular
         var i, j, org, orgs = {}, orgCandidatesArray_top = [], orgCandidatesArray_bottom = [];
         for (i=0; i < candidatesArray.length; i++) {
           var c = candidatesArray[i];
+          c.expanded = false;
           for (j=0; j < c.roles.length; j++) {
             var role = c.roles[j];
             if (role.org == "הבחירות לכנסת ה-20") {
@@ -139,13 +140,22 @@ angular
           for (var candId=0; candId < org.candidates.length; candId++) {
             cand = org.candidates[candId];
             if (cand.id === new_value.originalObject.id) {
-              cand.expanded=true;
-              $location.hash('candidate-'+cand.id);
+              $scope.expand(cand);
+              // force reload to expand the candidate's party
+              $scope.$emit('$locationChangeSuccess');
             }
           }
         }
       }
     });
+    $scope.expand = function (cand) {
+      cand.expanded = !cand.expanded;
+      if (cand.expanded) {
+        // Element loaded, can scroll there
+        $location.hash('candidate-'+cand.id);
+        $anchorScroll();
+      }
+    };
     $scope.elect = function () {
         $window.sessionStorage.setItem('chair'+committee_id, this.candidate.id);
         OPEN_KNESSET.storeChairSelection(committee_id, this.candidate.id);
@@ -173,8 +183,6 @@ angular
       $scope.firstTime = false;
     };
     $scope.loaded = function (candidate) {
-      // Element loaded, can scroll there
-      $anchorScroll();
       // Checking if already elected
       candidate.block = false;
       for (var i=0;i<$scope.committees.length; i++) {

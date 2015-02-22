@@ -32,8 +32,7 @@
           <i ng-if="(!$first)" class="glyphicon glyphicon-user"></i>
           <a class="ord{{candidate.ord}}"
              ng-class="{expanded: candidate.expanded}"
-             ng-click="candidate.expanded = !candidate.expanded"
-             href="">
+             ng-click="expand(candidate)">
            {{candidate.name}}
           </a>
           <section class="well"

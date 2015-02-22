@@ -49,15 +49,18 @@ angular
       })
       .when('/game/last', {
         templateUrl: 'views/game_last.html',
-        controller: 'GameLastController'
+        controller: 'GameLastController',
+        reloadOnSearch: false
       })
       .when('/game/:level', {
         templateUrl: 'views/committee.html',
-        controller: 'CommitteeController'
+        controller: 'CommitteeController',
+        reloadOnSearch: false
       })
       .when('/committee/:id', {
         templateUrl: 'views/committee.html',
-        controller: 'CommitteeController'
+        controller: 'CommitteeController',
+        reloadOnSearch: false
       })
       // TODO: refactor to /person/:id
       .when('/candidate/:id', {
@@ -126,7 +129,7 @@ angular
           self.login().then(function(res) {
             $facebook.api(url).then(function(response) {
               resolve(response);
-            }, function() {
+            }, function(error) {
               $location.path('/error/fbapi');
             });
           }, function() {
