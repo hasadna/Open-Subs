@@ -5,6 +5,12 @@ angular
   .controller('CommitteeController', function($location, $scope, $window,
                                               OPEN_KNESSET, $routeParams, $q,
                                               USER, $anchorScroll, DATA, modal) {
+    var INITIAL_ORG_LIMIT = 11,
+        committee_id = $routeParams.id,
+        game_level = $routeParams.level,
+        game_mode = false,
+        electedId = $window.sessionStorage.getItem('chair'+committee_id),
+        myOrgs = JSON.parse($window.sessionStorage.getItem('myOrgs')) || [];
 
     $scope.modal = modal;
     var _isTopOrg = function(org) {
@@ -32,15 +38,9 @@ angular
         array[currentIndex] = array[randomIndex];
         array[randomIndex] = temporaryValue;
       }
-
       return array;
     };
 
-    var INITIAL_ORG_LIMIT = 11,
-        committee_id = $routeParams.id,
-        game_level = $routeParams.level,
-        game_mode = false,
-        electedId = $window.sessionStorage.getItem('chair'+committee_id);
     if (electedId)
       OPEN_KNESSET.get_person(electedId).then(function (cand) {
         $scope.chair = cand
@@ -87,7 +87,7 @@ angular
                 }
                 else {
                   orgs[org] = c.org = {
-                    'org': org,
+                    'name': org,
                     'candidates': [c],
                     'limit': INITIAL_ORG_LIMIT
                   };
@@ -102,14 +102,24 @@ angular
         _shuffle(orgCandidatesArray_top);
         _shuffle(orgCandidatesArray_bottom);
         var orgCandidatesArray = orgCandidatesArray_top.concat(orgCandidatesArray_bottom);
-        var len = 0;
+        // bump the organization the user likes to the top
+        for (var i=0; i < myOrgs.length; i++) {
+          var org = myOrgs[i];
+          if (orgCandidatesArray[i].org != org)
+            for (var j=i+1; j < orgCandidatesArray.length; j++) {
+              if (orgCandidatesArray[j].name == org) {
+                var temp = orgCandidatesArray[j];
+                orgCandidatesArray[j] = orgCandidatesArray[i];
+                orgCandidatesArray[i] = temp;
+              }
+          }
+        }
+
         for (org in orgs) {
           // var org = orgs[i];
           orgs[org]['candidates'].sort(function (a, b) {
             return a.ord - b.ord;
           });
-          // initially diIsplay 1- candidates and a more button
-          len++;
         }
         // Expanding the selected candidate list
         for (var orgId=0; orgId < orgCandidatesArray.length; orgId++){
@@ -164,6 +174,8 @@ angular
     $scope.elect = function () {
         $window.sessionStorage.setItem('chair'+committee_id, this.candidate.id);
         OPEN_KNESSET.storeChairSelection(committee_id, this.candidate.id);
+        myOrgs.push(this.candidate.org.name)
+        $window.sessionStorage.setItem('myOrgs', JSON.stringify(myOrgs.reverse()));
         for (var i=0; i<$scope.candidatesArray.length; i++)
           $scope.candidatesArray[i].expanded = false;
         $location.hash('');

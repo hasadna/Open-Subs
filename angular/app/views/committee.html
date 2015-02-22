@@ -26,7 +26,7 @@
                 inputclass="form-control form-control-small"></angucomplete>
   </form>
   <div infinite-scroll="addMoreOrgs()" infinite-scroll-distance="3">
-    <div ng-repeat="org in candidates|limitTo:candidateOrgsLimit track by org.org">
+    <div ng-repeat="org in candidates|limitTo:candidateOrgsLimit track by org.name">
       <ul class="candidates">
         <li ng-repeat="candidate in org.candidates|limitTo:org.limit" id="candidate-{{candidate.id}}"
           ng-class="{clearfix: candidate.expanded}">
