@@ -32,6 +32,12 @@ body {
 .header {
   border-bottom: 1px solid #e5e5e5;
   text-align: center;
+  .buttons {
+    float: right;
+    i { font-size: 24px; padding-top: 6px; }
+    a { text-decoration: none; }
+  }
+  a:hover { text-decoration: none; }
 
   /* Make the masthead heading the same height as the navigation */
   h3 {
