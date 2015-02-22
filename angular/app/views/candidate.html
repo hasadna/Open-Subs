@@ -1,11 +1,18 @@
 <div class="candidate">
   <img ng-if="candidate.img_url" ng-src="{{candidate.img_url}}" alt="picture of {{candidate.name}}" />
-  <p ng-repeat="info in candidate.external_info" class="{{info.key}}">
-    <span ng-if="info.key == 'kids' && info.value">+</span>
-    <!-- some fields require headers, add below -->
-    <span class="key" ng-if="info.key == 'age' && info.value">גיל:</span>
-    <span class="key" ng-if="info.key == 'declaration' && info.value">הצהרת הון:</span>
-    {{info.value}}
+  <p>{{ candidate.themarker.status }}
+    <span ng-if="candidate.themarker.kids">+</span>
+    {{candidate.themarker.kids}}
+  </p>
+  <p>{{ candidate.themarker.text }}</p>
+  <p> <strong>גיל:</strong>
+    {{ candidate.themarker.age }}
+  </p>
+  <p><strong>כתובת:</strong>
+    {{ candidate.themarker.address }}
+  </p>
+  <p><strong>הצהרת הון:</strong>
+    {{ candidate.themarker.declaration }}
   </p>
   <p ng-if="candidate.donor">
     <span class="key">תורמים:</span>

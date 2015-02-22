@@ -40,6 +40,14 @@ angular.module('app')
         }
         else
           c.fb_id = "";
+        // get the TheMarker's info
+        c.themarker = {};
+        for (i=0; i < c.external_info.length; i++) {
+          var d = c.external_info[i];
+          if (d.source == 'TheMarker')
+            c.themarker[d.key] = d.value;
+        }
+
       };
 
       return $q(function(resolve) {

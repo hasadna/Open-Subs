@@ -130,10 +130,12 @@ angular
             $facebook.api(url).then(function(response) {
               resolve(response);
             }, function(error) {
-              $location.path('/error/fbapi');
+              console.log('FBapi error: ' + error.message + '\n  url:' + url);
+              reject(error);
             });
-          }, function() {
-            $location.path('/error/login');
+          }, function(error) {
+            console.log('login error: ' + error.message);
+            reject(error);
           });
         });
       }
