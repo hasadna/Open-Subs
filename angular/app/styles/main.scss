@@ -138,12 +138,20 @@ li { list-style: none; }
         height:110px;
       }
       .avatar {
+        position: relative;
         width:80px;
         height: 75px;
         overflow: hidden;
         border-radius: 40%;
         border: 4px inset;
         margin: 0 auto;
+        .covered {
+          position: absolute;
+          top: -1px;
+          right: -3px;
+          height: 80px;
+          width: 80px;
+        }
       }
     }
   }
