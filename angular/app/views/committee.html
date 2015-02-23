@@ -1,30 +1,21 @@
-<div>
-  <div class="row">
-    <div class="col-md-2">
-      <div ng-show="game_mode">
-        <div class="pull-right"><h2>שלב {{ game_level }}</h2></div>
-        <div class="pull-right"><a href="#/game/last" class="btn btn-danger btn-sm">דילוג לסוף המשחק</a></div>
-      </div>
-      <div ng-show="!game_mode">
-        <div class="pull-right"><h2><a href="#/home" class="btn btn-default btn-sm">חזרה לצוללת</a></h2></div>
-      </div>
-    </div>
-    <div class="col-md-8"><h1>{{committee.name}}</h1></div>
-    <div class="col-md-2"><h2><i class="glyphicon glyphicon-question-sign" ng-click="modal.show('/views/committee-help.html')"></i></h2></div>
-  </div>
-  <h4 ng-if="chair">יושב/ת הראש שלכם: {{chair.name}}</h4>
-  <p>{{committee.description}}</p>
-  <form id="chair-form">
-  <angucomplete id="chair"
-                placeholder="בחר יושב(ת) ראש"
-                pause="100"
-                selectedobject="selectedChair"
-                localdata="candidatesArray"
-                searchfields="name"
-                titlefield="name"
-                minlength="3"
-                inputclass="form-control form-control-small"></angucomplete>
-  </form>
+<div class="committee">
+  <section class="top">
+    <h1>{{committee.name}}</h1>
+    <h4 ng-if="chair">יושב/ת הראש שלכם: {{chair.name}}</h4>
+    <p>{{committee.description}}</p>
+    <form id="chair-form">
+    <angucomplete id="chair"
+                  placeholder="בחר יושב(ת) ראש"
+                  pause="100"
+                  selectedobject="selectedChair"
+                  localdata="candidatesArray"
+                  searchfields="name"
+                  titlefield="name"
+                  minlength="3"
+                  inputclass="form-control form-control-small"></angucomplete>
+    </form>
+  </section>
+  <section class="body">
   <div infinite-scroll="addMoreOrgs()" infinite-scroll-distance="3">
     <div ng-repeat="org in candidates|limitTo:candidateOrgsLimit track by org.name">
       <ul class="candidates">
@@ -36,7 +27,7 @@
              ng-click="expand(candidate)">
            {{candidate.name}}
           </a>
-          <section class="well"
+          <section class="well details"
                    ng-if="candidate.expanded"
                    ng-include="'/views/candidate.html'"
                    onload="loaded(candidate)"
@@ -52,5 +43,5 @@
       </ul>
     </div>
   </div>
+</section>
 </div>
-

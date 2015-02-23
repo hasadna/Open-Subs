@@ -199,6 +199,9 @@ angular
       $window.sessionStorage.setItem('firstTimeCommittee', "false");
       $scope.firstTime = false;
     };
+    $scope.help = function () {
+      modal.show('/views/committee-help.html')
+    };
     $scope.loaded = function (candidate) {
       // Checking if already elected
       candidate.block = false;

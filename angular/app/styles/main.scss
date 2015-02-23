@@ -170,8 +170,8 @@ aside { float: left; }
 }
 .candidates {
   width: 80%;
-  margin: 1em auto;
-  padding: 0;
+  margin: 0 auto 2em;
+  padding: 0 0.5em;
   li { display: inline; }
   li.relation { display: block; text-align: right;}
   .ord2, .ord3 {font-size: 130%; }
@@ -195,16 +195,6 @@ aside { float: left; }
   text-align: center;
   .modal-footer { text-align: center; }
 }
-.feed {
-  padding: 2em 2em 0em 2em;
-  ul { padding: 0 0 0.5em; }
-  .message {
-    padding-top: 1em;
-    p { margin-bottom: 0; }
-    .icon { float: right; }
-  }
-  .loading { position: relative; }
-}
 .splash {
   position: relative;
   background-image: url('/images/splash.png');
@@ -222,7 +212,25 @@ aside { float: left; }
   .play:hover { background-position: -189px -18px; }
 }
 .loading { margin-top: 1em; height: 3em; position: relative; }
-.committee {
-  p { height: 8em; }
-}
 .ascii { font-family: monospace; }
+.committee {
+  .top {
+    background-image: url('/images/committee_top.jpg');
+    height: 250px;
+    p { height: 6.5em; }
+  }
+  .body {
+    background-image: url('/images/committee_body.jpg');
+    .details { width: 80%;  margin: 0 auto 1em; }
+    .feed {
+      padding: 1em 0em 0em 2em;
+      ul { padding: 0 0 0.5em; }
+      .message {
+        padding-top: 1em;
+        p { margin-bottom: 0; height: auto; }
+        .icon { float: right; }
+      }
+    }
+  }
+}
+.loading { position: relative; }
