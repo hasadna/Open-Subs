@@ -12,7 +12,7 @@ angular
     'ngTouch',
     'angular-jwt',
     'app.settings',
-    'angucomplete',
+    'angucomplete-alt',
     'ngFacebook',
     'timer',
     'infinite-scroll',

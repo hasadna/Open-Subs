@@ -148,6 +148,7 @@ angular
     $scope.$watch(function (scope) { return scope.selectedChair; },
                   function (new_value, old_value) {
       var cand, org;
+      $scope.loading = true;
       if (new_value) {
         // Looking for the corresponding candidate object in the real candidateArray
         for (var orgId=0; orgId < $scope.candidates.length; orgId++){
@@ -158,6 +159,7 @@ angular
               $scope.expand(cand);
               // force reload to expand the candidate's party
               $scope.$emit('$locationChangeSuccess');
+              $scope.loading = false;
             }
           }
         }
@@ -239,11 +241,13 @@ angular
         candidate.feedLoading = true;
         candidate.feedLength = -1;
         //TODO: call FB as much as need rather than once
+        $scope.loading = true;
         USER.fbapi('/'+candidate.fb_id+'/posts').then(function(response) {
           candidate.feedLoading = false;
           if (response.hasOwnProperty('data')) {
             candidate.feed = response.data;
             candidate.feedLength = Math.min(3, candidate.feed.length);
+            $scope.loading = false;
           }
         }, function(response) {
           candidate.feedLoading = false;

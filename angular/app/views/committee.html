@@ -4,21 +4,21 @@
     <h4 ng-if="chair">יושב/ת הראש שלכם: {{chair.name}}</h4>
     <p>{{committee.description}}</p>
     <form id="chair-form">
-    <angucomplete id="chair"
+    <angucomplete-alt id="search-chair"
                   placeholder="בחר יושב(ת) ראש"
                   pause="100"
-                  selectedobject="selectedChair"
-                  localdata="candidatesArray"
-                  searchfields="name"
-                  titlefield="name"
+                  selected-object="selectedChair"
+                  local-data="candidatesArray"
+                  search-fields="name"
+                  title-field="name"
                   minlength="3"
-                  inputclass="form-control form-control-small"></angucomplete>
+                  input-class="form-control form-control-small"></angucomplete>
     </form>
   </section>
   <section class="body">
   <div infinite-scroll="addMoreOrgs()" infinite-scroll-distance="3">
     <div ng-repeat="org in candidates|limitTo:candidateOrgsLimit track by org.name">
-      <ul class="candidates">
+      <ul class="org">
         <li ng-repeat="candidate in org.candidates|limitTo:org.limit" id="candidate-{{candidate.id}}"
           ng-class="{clearfix: candidate.expanded}">
           <i ng-if="(!$first)" class="glyphicon glyphicon-user"></i>
@@ -37,7 +37,7 @@
                   class="btn btn-primary btn-xs ascii"
                   ng-click="org.limit = 999"
                   data-toggle="tooltip" title="עוד מועמדים">
-            ¸.·`¯´·.`¯´·.¸¸.·`¯´·.¸&gt;&lt;(((º&gt;
+לחצו עלי
           </button>
         </li>
       </ul>
@@ -45,3 +45,4 @@
   </div>
 </section>
 </div>
+<span ng-show="loading" us-spinner></span>

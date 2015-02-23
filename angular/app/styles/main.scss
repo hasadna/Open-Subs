@@ -157,7 +157,7 @@ li { list-style: none; }
   }
 }
 aside { float: left; }
-#chair-form { width: 60%; margin: 0.5em auto 3em;}
+#chair-form { width: 40%; margin: 0.5em auto 3em;}
 .footer {
   margin-top: 1em;
   clear: both;
@@ -168,10 +168,12 @@ aside { float: left; }
   float:left;
   span { font-size: 150%; }
 }
-.candidates {
+.org {
   width: 80%;
   margin: 0 auto 2em;
-  padding: 0 0.5em;
+  padding: 0.5em;
+  background-color: white;
+  border-radius: 5px;
   li { display: inline; }
   li.relation { display: block; text-align: right;}
   .ord2, .ord3 {font-size: 130%; }
@@ -217,7 +219,10 @@ aside { float: left; }
   .top {
     background-image: url('/images/committee_top.jpg');
     height: 250px;
-    p { height: 6.5em; }
+    p {
+      height: 6.5em; 
+      padding: 0 1em;
+    }
   }
   .body {
     background-image: url('/images/committee_body.jpg');
