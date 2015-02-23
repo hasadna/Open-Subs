@@ -3,9 +3,14 @@
 angular
   .module('app')
   .controller('HomeController', function($scope, USER, OPEN_KNESSET, $location, $window, $q, modal) {
+    var firstTime = true;
+    if (window.sessionStorage.hasOwnProperty('firstTimeHome'))
+     firstTime =  eval(window.sessionStorage.getItem('firstTimeHome'));
+
     $scope.modal = modal;
     $scope.loading = true;
     $scope.chairs = [];
+
     $scope.reset = function () {
       for (var i=0; i < this.rows.length; i++) {
         var row = $scope.rows[i];
@@ -14,6 +19,9 @@ angular
           row[j].chosen = null;
         }
       }
+    };
+    $scope.help = function () {
+      modal.show('/views/home-help.html')
     };
 
     $q.all({
@@ -32,13 +40,9 @@ angular
       }
       $scope.loading = false;
     });
-    var firstTime = $window.sessionStorage.getItem('firstTimeHome') || 1;
-
-    firstTime = eval(firstTime);
-    $scope.firstTime = firstTime;
-    $scope.go = function () {
-      $window.sessionStorage.setItem('firstTimeHome', "0");
-      $scope.firstTime = false;
+    if (firstTime) {
+      $window.sessionStorage.setItem('firstTimeHome', "false");
+      $scope.help();
     }
   })
 ;

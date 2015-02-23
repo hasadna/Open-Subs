@@ -31,12 +31,7 @@ angular
         controller: function($scope, USER, $location) {
           $scope.go = function() {
             USER.login().then(function() {
-              var firstTime = window.sessionStorage.getItem('firstTimeHome') || 1;
-              if (firstTime) {
-                $location.path('/game/start');
-              } else {
-                $location.path('/home');
-              }
+              $location.path('/home');
             }, function() {
               $location.path('/error/login');
             });
