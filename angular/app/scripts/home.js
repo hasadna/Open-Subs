@@ -3,7 +3,8 @@
 angular
   .module('app')
   .controller('HomeController', function($scope, USER, OPEN_KNESSET, $location, $window, $q, modal) {
-    var firstTime = true;
+    var firstTime = true,
+        numChosen = 0;
     if (window.sessionStorage.hasOwnProperty('firstTimeHome'))
      firstTime =  eval(window.sessionStorage.getItem('firstTimeHome'));
 
@@ -31,14 +32,27 @@ angular
       $scope.rows = [[],[]];
       for (var i=0; i < res.committees.length; i++) {
         var c = res.committees[i],
-            electedId = $window.sessionStorage.getItem('chair'+c.id),
+            electedId = eval($window.sessionStorage.getItem('chair'+c.id)),
             row = Math.floor(i/6);
-        $scope.rows[row].push ({
-          name: c.name, absolute_url: c.absolute_url, id: c.id,
-          chosen: res.candidates[electedId]
-        });
+        if (electedId) {
+          $scope.rows[row].push ({
+            name: c.name, absolute_url: c.absolute_url, id: c.id,
+            chosen: res.candidates[electedId]
+          })
+          numChosen++;
+        }
+        else
+          $scope.rows[row].push ({
+            name: c.name, absolute_url: c.absolute_url, id: c.id,
+            chosen: null
+          });
       }
       $scope.loading = false;
+      if (numChosen == 12) {
+        window.startFireworks();
+        modal.show('/views/finished.html');
+      }
+
     });
     if (firstTime) {
       $window.sessionStorage.setItem('firstTimeHome', "false");
