@@ -11,6 +11,9 @@ angular.module('app')
       function initCandidate(c) {
         if (!c.img_url && c.mk)
           c.img_url = c.mk.img_url;
+        if (c.img_url)
+          c.img_url = 'https' + c.img_url.slice(4);
+
         candidates[c.id] = c;
         if (!c.hasOwnProperty('donor') ||  !c.hasOwnProperty('related')) {
           c.donor = [];
