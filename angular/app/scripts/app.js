@@ -28,6 +28,7 @@ angular
     $routeProvider
       .when('/splash', {
         templateUrl: 'views/splash.html',
+        'hideHomeIcon': true,
         controller: function($scope, USER, $location) {
           $scope.go = function() {
             USER.login().then(function() {
@@ -40,7 +41,8 @@ angular
       })
       .when('/home', {
         templateUrl: 'views/home.html',
-        controller: 'HomeController'
+        controller: 'HomeController',
+        helpModalTemplateUrl: 'views/home-help.html'
       })
       .when('/game/last', {
         templateUrl: 'views/game_last.html',
@@ -50,12 +52,14 @@ angular
       .when('/game/:level', {
         templateUrl: 'views/committee.html',
         controller: 'CommitteeController',
-        reloadOnSearch: false
+        reloadOnSearch: false,
+        helpModalTemplateUrl: 'views/committee-help.html'
       })
       .when('/committee/:id', {
         templateUrl: 'views/committee.html',
         controller: 'CommitteeController',
-        reloadOnSearch: false
+        reloadOnSearch: false,
+        helpModalTemplateUrl: 'views/committee-help.html'
       })
       // TODO: refactor to /person/:id
       .when('/candidate/:id', {
@@ -158,8 +162,17 @@ angular
   })
 
 
-  .controller('AppController', function($scope) {
-
+  .controller('AppController', function($scope, $rootScope, modal) {
+    var helpModalTemplateUrl;
+    $rootScope.$on('$routeChangeSuccess', function(e, current, pre) {
+      $scope.showHelpIcon = (helpModalTemplateUrl = current.$$route.helpModalTemplateUrl)?true:false;
+      $scope.hideHomeIcon = current.$$route.hideHomeIcon;
+    });
+    $scope.help = function() {
+      if (helpModalTemplateUrl) {
+        modal.show(helpModalTemplateUrl);
+      }
+    };
   })
   .directive('ngReallyClick', [function() {
     /**
