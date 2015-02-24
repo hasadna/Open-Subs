@@ -5,9 +5,14 @@
     </ng-really-click>
     <i class="glyphicon glyphicon-question-sign" ng-click="help()"></i>
   </aside>
+  
+  <alert ng-if="viewOnly" type="danger">המשחק מצב צפייה בלבד! 
+    <a href="#/home">לחץ כאן להתחיל חדש!</a>
+  </alert>
+  
   <div class="subs-row row{{$index}}" ng-repeat="row in rows">
     <div class="chair" ng-repeat="chair in row">
-      <a href="#{{chair.absolute_url}}">
+      <a href="{{chair.absolute_url}}">
         <section ng-switch="$parent.$index">
           <div ng-switch-when="0">
             <h1>{{chair.name}}</h1>
