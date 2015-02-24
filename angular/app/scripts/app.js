@@ -42,6 +42,10 @@ angular
         templateUrl: 'views/home.html',
         controller: 'HomeController'
       })
+      .when('/home/:team', {
+        templateUrl: 'views/home.html',
+        controller: 'HomeController'
+      })
       .when('/game/last', {
         templateUrl: 'views/game_last.html',
         controller: 'GameLastController',

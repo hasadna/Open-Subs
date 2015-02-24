@@ -149,15 +149,17 @@ angular.module('app')
         });
       },
       storeChairSelection: function(committee_id, candidate_id) {
-        USER.login().then(function(res) {
-          // accessToken expiresIn userID
-          $http.post(SETTINGS.backend + '/users/fbstore/opensubs/', {
-            'signedRequest': res.authResponse.signedRequest,
-            'accessToken': res.authResponse.accessToken,
-            'k': 'chairSelection'+committee_id,
-            'v':candidate_id
-          });
-        })
+        if (!SETTINGS.offline) {
+          USER.login().then(function(res) {
+            // accessToken expiresIn userID
+            $http.post(SETTINGS.backend + '/users/fbstore/opensubs/', {
+              'signedRequest': res.authResponse.signedRequest,
+              'accessToken': res.authResponse.accessToken,
+              'k': 'chairSelection'+committee_id,
+              'v':candidate_id
+            });
+          })
+        }
       }
     };
     return OPEN_KNESSET;
