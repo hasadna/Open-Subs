@@ -74,6 +74,7 @@ angular
           win.chosen = { name: 'כיסא ריק' };
         r[row].push (win);
       }
+      $scope.numChosen = numChosen;
       return r;
     };
 
