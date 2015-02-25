@@ -30,21 +30,28 @@ body {
 
 /* Custom page header */
 .header {
+  background-color: #374a60;
   border-bottom: 1px solid #e5e5e5;
   text-align: center;
+  color: white;
   .buttons {
     float: right;
     i { font-size: 24px; padding-top: 6px; }
     a { text-decoration: none; }
   }
   a:hover { text-decoration: none; }
-
   /* Make the masthead heading the same height as the navigation */
   h3 {
     margin: 0 75px 0 0;
     line-height: 40px;
     padding-bottom: 19px;
   }
+  .timer {
+    float:left;
+    padding-left:0.2em;
+    span { font-size: 150%; }
+  }
+
 }
 
 /* Custom page footer */
@@ -171,10 +178,6 @@ aside { float: left; }
   text-align: right;
   .license { float:left; }
 }
-.timer {
-  float:left;
-  span { font-size: 150%; }
-}
 .org {
   width: 80%;
   margin: 0 auto 2em;
@@ -298,12 +301,11 @@ canvas {
   position: fixed;
   width: 156px;
   height: 52px;
-  margin-left: -100px; /*half the width*/
-  top: 16px;
+  top: 36px;
   background-color: rgb(175, 234, 250);
   padding: 0 1em;
   border-radius: 3px;
-  margin-right: -16px;
+  margin-right: 16px;
 }
 .tooth {
   h3, h4 {
