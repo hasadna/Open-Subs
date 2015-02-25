@@ -29,7 +29,10 @@ angular
     };
 
     $scope.help = function () {
-      $modal.open({ templateUrl: "/views/home-help.html", scope: $scope });
+      $modal.open({ templateUrl: "/views/home-help.html",
+                    size: "lg",
+                    windowClass: "home-help",
+                    scope: $scope });
     };
 
     function generateTeamUrl(committees) {

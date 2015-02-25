@@ -359,3 +359,20 @@ section { position: relative; }
   input { width: 80%; }
   .modal-body { height: 420px; }
 }
+.home-help {
+  .modal-content {
+    height: 470px;
+    background-image : url('/images/home_help.jpg');
+  }
+  .modal-lg { width:746px; }
+  .modal-body {
+    text-align: center;
+    margin-top: 0;
+    h3 { font-weight: bold; margin-top: 0; }
+    section {
+      margin: 0 auto;
+      width: 400px;
+      button { background-color: #62FFF4; }
+    }
+  }
+}
