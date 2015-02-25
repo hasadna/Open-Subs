@@ -106,22 +106,21 @@ body {
 li { list-style: none; }
 .container { position: relative; text-align: center; }
 .sub {
-  height: 490px;
+  height: 470px;
   position: relative;
   background-image : url('/images/sub.jpg');
   padding-bottom: 3em;
   .row0 {
     position: absolute;
     top: 106px;
-    left: 30px;
     .chair h1 { height:2em !important;  padding-top:0.3em; }
   }
   .row1 {
     position: absolute;
     top: 268px;
-    left: 30px;
   }
   .subs-row {
+    left: 45px;
     height: 14em;
     clear: both;
     // .row1 { clear: both; }
