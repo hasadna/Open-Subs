@@ -1,0 +1,27 @@
+<section class="slide publish">
+  <div class="modal-header">
+    <h1 ng-if="numChosen > 9">מצאתם את המפתח!</h1>
+    <h1 ng-if="numChosen < 10">מפתח בליטוש</h1>
+    <i class="glyphicon glyphicon-link"></i>
+    <input type="text" value="{{teamUrl}}" autofocus readonly="readonly"></input>
+    <i class="glyphicon glyphicon-link"></i>
+  </div>
+  <div class="modal-body">
+    <div class="key-row row{{$index}}" ng-repeat="row in rows">
+      <div class="tooth" ng-repeat="tooth in row"
+           >
+        <h4 style="right: {{tooth.right-40}}px;">{{tooth.name}}</h4>
+        <h3 style="right: {{tooth.right}}px;">{{tooth.chosen.name}}</h3>
+      </div>
+    </div>
+  </div>
+  <div class="keyring"><div></div></div>
+  <button class="btn btn-default btn-lg" ng-click="$close()" ng-disabled="loading">
+     שוטי, שוטי צוללתי
+  </button>
+</section>
+<script>
+  $(document).ready( function () {
+    $("input").focus();
+  });
+</script>

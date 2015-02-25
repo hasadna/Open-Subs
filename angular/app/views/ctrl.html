@@ -1,0 +1,14 @@
+<button ng-disabled="firstButton.disabled"
+         class="btn btn-default navbar-btn"
+         ng-click="firstButton()">
+  <i class="glyphicon" 
+     ng-class="{'glyphicon-screenshot': buttonPublish,
+                'glyphicon-home': buttonSub}"></i>
+</button>
+<button class="btn btn-default navbar-btn" ng-click="help()">
+  <i class="glyphicon glyphicon-question-sign" ng-click="help()"></i>
+</button>
+<button class="btn btn-default navbar-btn" ng-really-click="reset()"
+  ng-really-message="האם לנקות את הכסאות?">
+  <i class="glyphicon glyphicon-trash"></i>
+</button>
