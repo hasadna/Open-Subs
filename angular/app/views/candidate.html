@@ -1,5 +1,5 @@
 <div class="candidate">
-  <img ng-if="candidate.img_url" ng-src="{{candidate.img_url}}" alt="picture of {{candidate.name}}" />
+  <img class="avatar" ng-if="candidate.img_url" ng-src="{{candidate.img_url}}" alt="picture of {{candidate.name}}" />
   <p>{{ candidate.themarker.status }}
     <span ng-if="candidate.themarker.kids">+</span>
     {{candidate.themarker.kids}}
