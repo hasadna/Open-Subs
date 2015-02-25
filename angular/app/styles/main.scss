@@ -133,7 +133,7 @@ li { list-style: none; }
       text-align: center;
       h1 { margin:0;  font-size: 120%; height: 2.5em; font-weight: bold; }
       h2 { margin: 8px 0; font-size: 120%; height: 2em; }
-      p { font-weight: bold; text-align: center; height: 3em; }
+     p { font-weight: bold; text-align: center; height: 3em; }
       img {
         height:110px;
       }
@@ -157,7 +157,15 @@ li { list-style: none; }
   }
 }
 aside { float: left; }
-#chair-form { width: 40%; margin: 0.5em auto 3em;}
+#chair-form {
+  z-index: 2;
+  transform: rotate(4deg);
+  position:absolute;
+  right:165px;
+  top:140px;
+  width: 40%;
+  margin: 0.5em auto 3em;
+}
 .footer {
   margin-top: 1em;
   clear: both;
@@ -220,7 +228,6 @@ aside { float: left; }
     background-image: url('/images/committee_top.jpg');
     height: 250px;
     p {
-      height: 6.5em; 
       padding: 0 1em;
     }
   }
@@ -286,4 +293,68 @@ canvas {
   position:absolute;
   top: 0;
   right: 0;
+}
+.ctrl {
+  z-index: 9;
+  position: fixed;
+  width: 156px;
+  height: 52px;
+  left: 76%;
+  margin-left: -100px; /*half the width*/
+  top: 5px;
+  background-color: rgb(175, 234, 250);
+  padding: 0 1em;
+  border-radius: 3px;
+}
+.tooth {
+  h3, h4 {
+    margin: 0.5em;
+    background-color: 0xc0c0c0;
+    position: absolute;
+    padding: 0.1em;
+    text-align:right;
+    width:12em;
+  }
+  h3 {
+    transform: rotate(-90deg); 
+    transform-origin: right top 0;
+    top: 180px;
+    width:12em;
+  }
+  h4 {
+    transform: rotate(90deg);
+    transform-origin: right top 0;
+    padding-right: 3em;
+    top: 260px;
+  }
+}
+section { position: relative; }
+.key-row { height: 10em;}
+.publish {
+  .keyring {
+    position: absolute;
+    top: 274px;
+    left: 0px;
+    background-color: olive;
+    border-radius: 50%;
+    width: 100px;
+    height: 150px;
+    div {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      background-color: white;
+      border-radius: 50%;
+      width: 60px;
+      height: 110px;
+    }
+  }
+
+  button {
+    position: absolute;
+    top: 515px;
+    left: -30px;
+  }
+  input { width: 80%; }
+  .modal-body { height: 420px; }
 }

@@ -13,6 +13,8 @@ angular
         myOrgs = JSON.parse($window.sessionStorage.getItem('myOrgs')) || [];
 
     $scope.modal = modal;
+    $scope.buttonSub = true;
+
     var _isTopOrg = function(org) {
       var istop = false;
       angular.forEach(DATA.topOrgsStartWith, function(toporg) {
@@ -165,6 +167,10 @@ angular
         }
       }
     });
+  
+    $scope.firstButton = function () {
+      $location.path('/home')
+    };
     $scope.expand = function (cand) {
       cand.expanded = !cand.expanded;
       if (cand.expanded) {
@@ -235,6 +241,7 @@ angular
               candidate[r.relationship].push(p)
           }
         }
+        $scope.loading = false;
       });
       if (candidate.fb_id !== "") {
         candidate.hasFeed = true;

@@ -1,11 +1,5 @@
+<div class="ctrl" ng-include="'/views/ctrl.html'"> </div>
 <div class="sub">
-  <aside>
-    <ng-really-click ng-really-click="reset()" ng-really-message="האם לנקות את הכסאות?">
-      <i class="glyphicon glyphicon-trash"></i>
-    </ng-really-click>
-    <i class="glyphicon glyphicon-question-sign" ng-click="help()"></i>
-  </aside>
-  
   <alert ng-if="viewOnly" type="danger">המשחק מצב צפייה בלבד! 
     <a href="#/home">לחץ כאן להתחיל חדש!</a>
   </alert>
