@@ -103,5 +103,11 @@
     <script src="scripts/settings.js"></script>
     <!-- /include -->
     <!-- endbuild -->
+    <!-- setting the control panel position -->
+    <script>
+      $(document).ready(function () {
+        $('.ctrl').css({ right: $('.container').offset().left });
+      });
+    </script>
 </body>
 </html>
