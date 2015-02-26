@@ -7,6 +7,10 @@ angular.module('app')
       $scope.person = person;
       USER.fbapi('/'+person.fb_id+'/posts').then(function(response) {
         $scope.feed = response;
+      }, function(error, error_type) {
+        if (error_type == USER.ERROR_LOGIN) {
+          $location.path('/error/login/candidate/'+$routeParams.id);
+        }
       })
     })
   })
