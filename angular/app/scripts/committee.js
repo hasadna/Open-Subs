@@ -167,7 +167,7 @@ angular
         }
       }
     });
-  
+
     $scope.firstButton = function () {
       $location.path('/home')
     };
@@ -256,7 +256,11 @@ angular
             candidate.feedLength = Math.min(3, candidate.feed.length);
             $scope.loading = false;
           }
-        }, function(response) {
+        }, function(error, error_type) {
+          // if we really want to enfore facebook - here we should direct to the error screen, where the user will be given option to login
+          //if (error_type == USER.ERROR_LOGIN) {
+            //$location.path('/error/login'+$location.path())
+          //}
           candidate.feedLoading = false;
         });
       }
