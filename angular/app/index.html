@@ -33,7 +33,7 @@
             <span>{{days}}:{{hhours}}:{{mminutes}}</span>
           </timer>
         </div>
-        <h3 class="text-muted">איפה המפתחות של הצוללת?</h3>
+        <img src="/images/logo.png" alt="הלוגו של המפתחות של הצוללת" />
       </div>
 
       <div ng-view=""></div>
@@ -108,5 +108,11 @@
     <script src="scripts/settings.js"></script>
     <!-- /include -->
     <!-- endbuild -->
+    <!-- setting the control panel position -->
+    <script>
+      $(document).ready(function () {
+        $('.ctrl').css({ right: $('.container').offset().left });
+      });
+    </script>
 </body>
 </html>

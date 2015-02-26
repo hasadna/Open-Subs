@@ -1,7 +1,7 @@
 <section class="slide publish">
   <div class="modal-header">
-    <h1 ng-if="numChosen > 9">מצאתם את המפתח!</h1>
-    <h1 ng-if="numChosen < 10">מפתח בליטוש</h1>
+    <h1 ng-if="subStaffed">מצאתם את המפתח!</h1>
+    <h1 ng-if="(!subStaffed)">מפתח בליטוש</h1>
     <i class="glyphicon glyphicon-link"></i>
     <input type="text" value="{{teamUrl}}" autofocus readonly="readonly"></input>
     <i class="glyphicon glyphicon-link"></i>
@@ -16,9 +16,15 @@
     </div>
   </div>
   <div class="keyring"><div></div></div>
-  <button class="btn btn-default btn-lg" ng-click="$close()" ng-disabled="loading">
-     שוטי, שוטי צוללתי
-  </button>
+  <div class="modal-footer">
+    <button class="btn btn-default btn-lg" ng-click="$close()" ng-disabled="(!subStaffed)">
+       צוללים קדימה!
+    </button>
+    <p ng-hide="subStaffed">
+      מצטערת, צוללת זקוקה לצוות של עשרה כדי להפוך למבצעית. <br />
+      המשיכו ללטש - עוד {{chairsLeft}} נבחרים/ות ויוצאים לדרך
+    <p>
+  </div>
 </section>
 <script>
   $(document).ready( function () {

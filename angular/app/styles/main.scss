@@ -30,22 +30,28 @@ body {
 
 /* Custom page header */
 .header {
+  background-color: #374a60;
   border-bottom: 1px solid #e5e5e5;
   text-align: center;
+  color: white;
   .buttons {
     float: right;
     i { font-size: 24px; padding-top: 6px; }
     a { text-decoration: none; }
   }
   a:hover { text-decoration: none; }
-
   /* Make the masthead heading the same height as the navigation */
   h3 {
-    margin-top: 0;
-    margin-bottom: 0;
+    margin: 0 75px 0 0;
     line-height: 40px;
     padding-bottom: 19px;
   }
+  .timer {
+    float:left;
+    padding-left:0.2em;
+    span { font-size: 150%; }
+  }
+
 }
 
 /* Custom page footer */
@@ -102,9 +108,10 @@ body {
     border-bottom: 0;
   }
 }
-//
+// app styles
+.avatar { height: 110px; }
 li { list-style: none; }
-.container { position: relative; text-align: center; }
+.container { position: relative; text-align: center; padding: 0; }
 .sub {
   height: 470px;
   position: relative;
@@ -113,15 +120,14 @@ li { list-style: none; }
   .row0 {
     position: absolute;
     top: 106px;
-    left: 30px;
     .chair h1 { height:2em !important;  padding-top:0.3em; }
   }
   .row1 {
     position: absolute;
     top: 268px;
-    left: 30px;
   }
   .subs-row {
+    left: 45px;
     height: 14em;
     clear: both;
     // .row1 { clear: both; }
@@ -137,9 +143,9 @@ li { list-style: none; }
       img {
         height:110px;
       }
-      .avatar {
+      .window img {
         position: relative;
-        width:80px;
+        width:75px;
         height: 75px;
         overflow: hidden;
         border-radius: 40%;
@@ -172,10 +178,6 @@ aside { float: left; }
   text-align: right;
   .license { float:left; text-align: left; }
 }
-.timer {
-  float:left;
-  span { font-size: 150%; }
-}
 .org {
   width: 80%;
   margin: 0 auto 2em;
@@ -190,6 +192,7 @@ aside { float: left; }
   i {color:grey;}
 }
 .candidate {
+  font-size: 16px;
   text-align: center;
   img {display: block; float: right; padding: 0.5em; }
   // button { display: block; padding: 1em; clear:both; }
@@ -197,6 +200,15 @@ aside { float: left; }
   .key, .text {font-weight: bold; }
   .party, .name {display:none; }
   p {text-align: right; }
+  .feed {
+    padding: 1em 1em 0em 1em;
+    ul { padding: 0 0 0.5em; }
+    .message {
+      padding-top: 1em;
+      p { margin-bottom: 0; height: auto; }
+      .icon { float: right; }
+    }
+  }
 }
 .slide {
   width: 80%;
@@ -234,15 +246,6 @@ aside { float: left; }
   .body {
     background-image: url('/images/committee_body.jpg');
     .details { width: 80%;  margin: 0 auto 1em; }
-    .feed {
-      padding: 1em 0em 0em 2em;
-      ul { padding: 0 0 0.5em; }
-      .message {
-        padding-top: 1em;
-        p { margin-bottom: 0; height: auto; }
-        .icon { float: right; }
-      }
-    }
   }
 }
 .loading { position: relative; }
@@ -299,12 +302,11 @@ canvas {
   position: fixed;
   width: 156px;
   height: 52px;
-  left: 76%;
-  margin-left: -100px; /*half the width*/
-  top: 5px;
+  top: 36px;
   background-color: rgb(175, 234, 250);
   padding: 0 1em;
   border-radius: 3px;
+  margin-right: 16px;
 }
 .tooth {
   h3, h4 {
@@ -349,12 +351,8 @@ section { position: relative; }
       height: 110px;
     }
   }
+  .modal-footer p { color: orange; }
 
-  button {
-    position: absolute;
-    top: 515px;
-    left: -30px;
-  }
   input { width: 80%; }
   .modal-body { height: 420px; }
 }
