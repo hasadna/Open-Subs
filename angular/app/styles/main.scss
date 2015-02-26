@@ -351,12 +351,8 @@ section { position: relative; }
       height: 110px;
     }
   }
+  .modal-footer p { color: orange; }
 
-  button {
-    position: absolute;
-    top: 515px;
-    left: -30px;
-  }
   input { width: 80%; }
   .modal-body { height: 420px; }
 }

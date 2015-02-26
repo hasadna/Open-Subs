@@ -4,8 +4,7 @@ angular
   .module('app')
   .controller('HomeController', function($scope, USER, OPEN_KNESSET, $routeParams, $location, $window, $q, $modal) {
     var firstTime = true,
-        db,
-        numChosen = 0;
+        db;
     if (window.sessionStorage.hasOwnProperty('firstTimeHome'))
      firstTime =  eval(window.sessionStorage.getItem('firstTimeHome'));
 
@@ -50,6 +49,7 @@ angular
     function makeRows(electedTeam) {
       var r = [[], []];
       // returns the rows of windows/tooths
+      var numChosen = 0;
       for (var i=0; i < db.committees.length; i++) {
         // for each committe do
         var c         = db.committees[i],
@@ -74,7 +74,8 @@ angular
           win.chosen = { name: 'כיסא ריק' };
         r[row].push (win);
       }
-      $scope.numChosen = numChosen;
+      $scope.subStaffed = numChosen >= SETTINGS.staffedSubChairs;
+      $scope.chairsLeft = SETTINGS.staffedSubChairs - numChosen;
       return r;
     };
 
