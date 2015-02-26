@@ -1,9 +1,10 @@
 <div class="candidate">
   <img class="avatar" ng-if="candidate.img_url" ng-src="{{candidate.img_url}}" alt="picture of {{candidate.name}}" />
-  <p>{{ candidate.themarker.status }}
+  <p><strong>
+    {{ candidate.themarker.status }}
     <span ng-if="candidate.themarker.kids">+</span>
     {{candidate.themarker.kids}}
-  </p>
+  </strong></p>
   <p>{{ candidate.themarker.text }}</p>
   <p> <strong>גיל:</strong>
     {{ candidate.themarker.age }}

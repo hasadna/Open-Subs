@@ -2,12 +2,12 @@
 
 angular
   .module('app')
-  .controller('HomeController', function($scope, USER, OPEN_KNESSET, $routeParams, $location, $window, $q, $modal) {
+  .controller('HomeController', function($scope, USER, OPEN_KNESSET, $routeParams,
+                                         $timeout, $location, $window, $q, $modal) {
     var firstTime = true,
-        db,
-        numChosen = 0;
-    if (window.sessionStorage.hasOwnProperty('firstTimeHome'))
-     firstTime =  eval(window.sessionStorage.getItem('firstTimeHome'));
+        db;
+    if ($window.sessionStorage.hasOwnProperty('firstTimeHome'))
+     firstTime =  eval($window.sessionStorage.getItem('firstTimeHome'));
 
     $scope.loading = true;
     $scope.chairs = [];
@@ -22,10 +22,19 @@ angular
         }
       }
     };
+    $scope.publish = function () {
+      this.$close();
+      $scope.teamUrl = generateTeamUrl(db.committees);
+      // $scope.teamImage = drawKey(db.committees);
+      $modal.open({ templateUrl: "/views/publish.html", scope: $scope }).result.then(function () {
+        alert('כאילו פירסמתי');
+      });
+    };
+
     $scope.firstButton = function () {
       $scope.teamUrl = generateTeamUrl(db.committees);
       $scope.rows = makeRows();
-      $modal.open({ templateUrl: "/views/publish.html", scope: $scope });
+      $modal.open({ templateUrl: "/views/key.html", scope: $scope }).opened.then(drawKey);
     };
 
     $scope.help = function () {
@@ -34,6 +43,37 @@ angular
                     windowClass: "home-help",
                     scope: $scope });
     };
+
+    function drawKey () {
+      $timeout(function () {
+        var canvas = document.getElementById('key-canvas');
+        canvas.width = 560;
+        canvas.height = 300;
+        var ctx = canvas.getContext('2d');
+        var back= new Image();
+        back.src = "/images/key.png";
+        back.onload = function() {
+             ctx.drawImage(back,0,0);
+             $scope.keyImage = ctx.canvas.toDataURL();
+        }
+
+        // Make sure the image is loaded first otherwise nothing will draw.
+        var step = 1;
+        for (var i=0; i < $scope.rows.length; i++)
+          for (var j=0; j < $scope.rows[i].length; j++) {
+            var com = $scope.rows[i][j];
+            ctx.save();
+            ctx.font = "16pt Alef";
+            ctx.fillStyle = '#80470E';
+            ctx.textAlign = "right";
+            ctx.translate(canvas.width - step*24, 116);
+            ctx.rotate((Math.PI/2)*3);
+            ctx.fillText(com.chosen.name, 0, 0)
+            ctx.restore();
+            step++;
+          }
+      });
+    }
 
     function generateTeamUrl(committees) {
       var electedTeam = "";
@@ -53,6 +93,7 @@ angular
     function makeRows(electedTeam) {
       var r = [[], []];
       // returns the rows of windows/tooths
+      var numChosen = 0;
       for (var i=0; i < db.committees.length; i++) {
         // for each committe do
         var c         = db.committees[i],
@@ -77,14 +118,17 @@ angular
           win.chosen = { name: 'כיסא ריק' };
         r[row].push (win);
       }
-      $scope.numChosen = numChosen;
+      $scope.subStaffed = numChosen >= SETTINGS.staffedSubChairs;
+      $scope.chairsLeft = SETTINGS.staffedSubChairs - numChosen;
       return r;
     };
 
     function onDBReady(res) {
       // Applying elected from url
-      db = res;
       var electedTeam = $routeParams.team;
+
+      db = res;
+      $scope.committees = db.committees
       $scope.viewOnly = false;
       if (!!electedTeam){
         electedTeam = electedTeam.split("-");

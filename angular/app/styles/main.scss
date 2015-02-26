@@ -177,7 +177,7 @@ aside { float: left; }
   margin-top: 1em;
   clear: both;
   text-align: right;
-  .license { float:left; }
+  .license { float:left; text-align: left; }
 }
 .org {
   width: 80%;
@@ -193,6 +193,7 @@ aside { float: left; }
   i {color:grey;}
 }
 .candidate {
+  font-size: 16px;
   text-align: center;
   img {display: block; float: right; padding: 0.5em; }
   // button { display: block; padding: 1em; clear:both; }
@@ -200,6 +201,15 @@ aside { float: left; }
   .key, .text {font-weight: bold; }
   .party, .name {display:none; }
   p {text-align: right; }
+  .feed {
+    padding: 1em 1em 0em 1em;
+    ul { padding: 0 0 0.5em; }
+    .message {
+      padding-top: 1em;
+      p { margin-bottom: 0; height: auto; }
+      .icon { float: right; }
+    }
+  }
 }
 .slide {
   width: 80%;
@@ -238,15 +248,6 @@ aside { float: left; }
     background-image: url('/images/committee_body.jpg');
     padding-bottom: 2em;
     .details { width: 80%;  margin: 0 auto 1em; }
-    .feed {
-      padding: 1em 0em 0em 2em;
-      ul { padding: 0 0 0.5em; }
-      .message {
-        padding-top: 1em;
-        p { margin-bottom: 0; height: auto; }
-        .icon { float: right; }
-      }
-    }
   }
 }
 .loading { position: relative; }
@@ -293,15 +294,10 @@ aside { float: left; }
  left:-706px;
  top:-706px;
 }
-canvas {
-  position:absolute;
-  top: 0;
-  right: 0;
-}
 .ctrl {
   z-index: 9;
   position: fixed;
-  width: 156px;
+  width: 158px;
   height: 52px;
   top: 36px;
   background-color: rgb(175, 234, 250);
@@ -333,33 +329,22 @@ canvas {
 }
 section { position: relative; }
 .key-row { height: 10em;}
-.publish {
-  .keyring {
-    position: absolute;
-    top: 274px;
-    left: 0px;
-    background-color: olive;
-    border-radius: 50%;
-    width: 100px;
-    height: 150px;
-    div {
-      position: absolute;
-      top: 20px;
-      left: 20px;
-      background-color: white;
-      border-radius: 50%;
-      width: 60px;
-      height: 110px;
-    }
+.key {
+  .modal-header, .modal-footer { text-align: center;}
+  margin: 0 auto;
+  .modal-footer {
+    p { color: orange; }
   }
+  input, textarea { width: 80%; }
+  .modal-body { height: 330px; }
+}
 
-  button {
-    position: absolute;
-    top: 515px;
-    left: -30px;
-  }
-  input { width: 80%; }
-  .modal-body { height: 420px; }
+#key-canvas {
+  width: 560px;
+  height: 300px;
+  // background-image: url('/images/key.png');
+  // background-repeat: no-repeat;
+  // background-position: 0 70px;
 }
 .home-help {
   .modal-content {

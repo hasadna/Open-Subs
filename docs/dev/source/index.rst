@@ -9,6 +9,8 @@ Welcome to Open-Subs Developers documentation!
 Open Subs's lets commoners elect a team of chair persons
 for the committees of the house of commons.
 
+.. note:: if you're ready to contribute, check out our board_.
+
 The game plot is based on a high school road trip trick where you urgently wake
 a friend in the middle of the night, telling him that your friends
 are drawning and asks him "Where are the submarine keys?"
@@ -39,3 +41,4 @@ Indices and tables
 * :ref:`search`
 
 .. _AngularJS: https://angularjs.org/
+.. _board: https://huboard.com/hasadna/Open-Subs
