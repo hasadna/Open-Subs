@@ -300,7 +300,7 @@ canvas {
 .ctrl {
   z-index: 9;
   position: fixed;
-  width: 156px;
+  width: 158px;
   height: 52px;
   top: 36px;
   background-color: rgb(175, 234, 250);
@@ -332,7 +332,7 @@ canvas {
 }
 section { position: relative; }
 .key-row { height: 10em;}
-.publish {
+.key {
   .keyring {
     position: absolute;
     top: 274px;
@@ -351,8 +351,13 @@ section { position: relative; }
       height: 110px;
     }
   }
-  .modal-footer p { color: orange; }
+  .modal-footer {
+    p { color: orange; }
+    button { float: left; }
+  }
 
   input { width: 80%; }
   .modal-body { height: 420px; }
 }
+
+#key-canvas { width: 400px; height: 300px; }

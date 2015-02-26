@@ -2,11 +2,12 @@
 
 angular
   .module('app')
-  .controller('HomeController', function($scope, USER, OPEN_KNESSET, $routeParams, $location, $window, $q, $modal) {
+  .controller('HomeController', function($scope, USER, OPEN_KNESSET, $routeParams,
+                                         $timeout, $location, $window, $q, $modal) {
     var firstTime = true,
         db;
-    if (window.sessionStorage.hasOwnProperty('firstTimeHome'))
-     firstTime =  eval(window.sessionStorage.getItem('firstTimeHome'));
+    if ($window.sessionStorage.hasOwnProperty('firstTimeHome'))
+     firstTime =  eval($window.sessionStorage.getItem('firstTimeHome'));
 
     $scope.loading = true;
     $scope.chairs = [];
@@ -21,15 +22,38 @@ angular
         }
       }
     };
+    $scope.publish = function () {
+      $scope.teamUrl = generateTeamUrl(db.committees);
+      // $scope.teamImage = drawKey(db.committees);
+      $modal.open({ templateUrl: "/views/publish.html", scope: $scope }).result.then(function () {
+        alert('publishing!');
+      });
+    };
+
     $scope.firstButton = function () {
       $scope.teamUrl = generateTeamUrl(db.committees);
       $scope.rows = makeRows();
-      $modal.open({ templateUrl: "/views/publish.html", scope: $scope });
+      $modal.open({ templateUrl: "/views/key.html", scope: $scope }).opened.then(drawKey);
     };
 
     $scope.help = function () {
       $modal.open({ templateUrl: "/views/home-help.html", scope: $scope });
     };
+
+    function drawKey () {
+      $timeout(function () {
+        var tCtx = document.getElementById('key-canvas').getContext('2d');
+        tCtx.font = "20px Alef";
+        for (var i=0; i < $scope.committees.length; i++) {
+          var com = $scope.committees[i];
+          tCtx.save();
+          tCtx.rotate((Math.PI/180)*25);
+          tCtx.fillText(com.name, i*40, 150)
+          tCtx.restore();
+        }
+        $scope.keyImage = tCtx.canvas.toDataURL();
+      });
+    }
 
     function generateTeamUrl(committees) {
       var electedTeam = "";
@@ -81,8 +105,10 @@ angular
 
     function onDBReady(res) {
       // Applying elected from url
-      db = res;
       var electedTeam = $routeParams.team;
+
+      db = res;
+      $scope.committees = db.committees
       $scope.viewOnly = false;
       if (!!electedTeam){
         electedTeam = electedTeam.split("-");

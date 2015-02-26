@@ -1,12 +1,14 @@
-<section class="slide publish">
+<section class="slide key">
   <div class="modal-header">
     <h1 ng-if="subStaffed">מצאתם את המפתח!</h1>
     <h1 ng-if="(!subStaffed)">מפתח בליטוש</h1>
-    <i class="glyphicon glyphicon-link"></i>
-    <input type="text" value="{{teamUrl}}" autofocus readonly="readonly"></input>
+    <i ng-if="subStaffed" class="glyphicon glyphicon-link"></i>
+      <input type="text" value="{{teamUrl}}" autofocus readonly="readonly"></input>
     <i class="glyphicon glyphicon-link"></i>
   </div>
-  <div class="modal-body">
+  <div class="modal-body" id="key">
+    <canvas id="key-canvas"></canvas>
+    <!--
     <div class="key-row row{{$index}}" ng-repeat="row in rows">
       <div class="tooth" ng-repeat="tooth in row"
            >
@@ -14,10 +16,11 @@
         <h3 style="right: {{tooth.right}}px;">{{tooth.chosen.name}}</h3>
       </div>
     </div>
+    -->
   </div>
   <div class="keyring"><div></div></div>
   <div class="modal-footer">
-    <button class="btn btn-default btn-lg" ng-click="$close()" ng-disabled="(!subStaffed)">
+    <button class="btn btn-default btn-lg" ng-click="publish()" ng-disabled="(!subStaffed)">
        צוללים קדימה!
     </button>
     <p ng-hide="subStaffed">
