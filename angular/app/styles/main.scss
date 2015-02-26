@@ -292,11 +292,6 @@ aside { float: left; }
  left:-706px;
  top:-706px;
 }
-canvas {
-  position:absolute;
-  top: 0;
-  right: 0;
-}
 .ctrl {
   z-index: 9;
   position: fixed;
@@ -333,31 +328,19 @@ canvas {
 section { position: relative; }
 .key-row { height: 10em;}
 .key {
-  .keyring {
-    position: absolute;
-    top: 274px;
-    left: 0px;
-    background-color: olive;
-    border-radius: 50%;
-    width: 100px;
-    height: 150px;
-    div {
-      position: absolute;
-      top: 20px;
-      left: 20px;
-      background-color: white;
-      border-radius: 50%;
-      width: 60px;
-      height: 110px;
-    }
-  }
+  .modal-header, .modal-footer { text-align: center;}
+  margin: 0 auto;
   .modal-footer {
     p { color: orange; }
-    button { float: left; }
   }
-
-  input { width: 80%; }
-  .modal-body { height: 420px; }
+  input, textarea { width: 80%; }
+  .modal-body { height: 330px; }
 }
 
-#key-canvas { width: 400px; height: 300px; }
+#key-canvas {
+  width: 560px;
+  height: 300px;
+  // background-image: url('/images/key.png');
+  // background-repeat: no-repeat;
+  // background-position: 0 70px;
+}

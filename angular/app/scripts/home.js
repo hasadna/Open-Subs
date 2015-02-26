@@ -23,10 +23,11 @@ angular
       }
     };
     $scope.publish = function () {
+      this.$close();
       $scope.teamUrl = generateTeamUrl(db.committees);
       // $scope.teamImage = drawKey(db.committees);
       $modal.open({ templateUrl: "/views/publish.html", scope: $scope }).result.then(function () {
-        alert('publishing!');
+        alert('כאילו פירסמתי');
       });
     };
 
@@ -42,16 +43,32 @@ angular
 
     function drawKey () {
       $timeout(function () {
-        var tCtx = document.getElementById('key-canvas').getContext('2d');
-        tCtx.font = "20px Alef";
-        for (var i=0; i < $scope.committees.length; i++) {
-          var com = $scope.committees[i];
-          tCtx.save();
-          tCtx.rotate((Math.PI/180)*25);
-          tCtx.fillText(com.name, i*40, 150)
-          tCtx.restore();
+        var canvas = document.getElementById('key-canvas');
+        canvas.width = 560;
+        canvas.height = 300;
+        var ctx = canvas.getContext('2d');
+        var back= new Image();
+        back.src = "/images/key.png";
+        back.onload = function() {
+             ctx.drawImage(back,0,0);
+             $scope.keyImage = ctx.canvas.toDataURL();
         }
-        $scope.keyImage = tCtx.canvas.toDataURL();
+
+        // Make sure the image is loaded first otherwise nothing will draw.
+        var step = 1;
+        for (var i=0; i < $scope.rows.length; i++)
+          for (var j=0; j < $scope.rows[i].length; j++) {
+            var com = $scope.rows[i][j];
+            ctx.save();
+            ctx.font = "16pt Alef";
+            ctx.fillStyle = '#80470E';
+            ctx.textAlign = "right";
+            ctx.translate(canvas.width - step*24, 116);
+            ctx.rotate((Math.PI/2)*3);
+            ctx.fillText(com.chosen.name, 0, 0)
+            ctx.restore();
+            step++;
+          }
       });
     }
 
