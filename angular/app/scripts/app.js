@@ -33,7 +33,7 @@ angular
             USER.login().then(function() {
               $location.path('/home');
             }, function() {
-              $location.path('/error/login');
+              $location.path('/error/login/home');
             });
           }
         }
@@ -66,7 +66,22 @@ angular
         templateUrl: 'views/candidate-feed.html',
         controller: 'CandidateController'
       })
-      .when('/error/:type', {
+      .when('/error/login/:next*', {
+        templateUrl: 'views/error_login.html',
+        controller: function($scope, USER, $routeParams, $location) {
+          USER.login().then(function() {
+            $location.path('/'+$routeParams.next);
+          });
+          $scope.ok = function() {
+            USER.register().then(function() {
+              $location.path('/'+$routeParams.next);
+            }, function() {
+              $scope.failed = true;
+            });
+          }
+        }
+      })
+      .when('/error/:type/:next', {
         templateUrl: 'views/error.html'
       })
       .otherwise({
@@ -94,32 +109,40 @@ angular
 
   .factory('USER', function($facebook, $q, SETTINGS, $location) {
     return {
+      ERROR_LOGIN: 0,
+      ERROR_FBAPI: 1,
       login: function() {
         return $q(function(resolve, reject) {
           if (SETTINGS.noFacebook) {
             resolve();
           } else {
             $facebook.getLoginStatus().then(function(res) {
-              var myresolve = function(res) {
+              if (res.status == 'connected') {
                 if (!res || !res.authResponse) {
-                  $location.path('/error/login');
+                  reject();
                 } else {
                   resolve(res);
                 }
-              };
-              if (res.status == 'connected') {
-                myresolve(res);
               } else {
-                $facebook.login().then(function(res) {
-                  if (res.status == 'connected') {
-                    myresolve(res);
-                  } else {
-                    $location.path('/error/login');
-                  }
-                });
+                reject();
               }
             });
           }
+        });
+      },
+      register: function() {
+        return $q(function(resolve, reject) {
+          $facebook.login().then(function(res) {
+            if (res.status == 'connected') {
+              if (!res || !res.authResponse) {
+                reject();
+              } else {
+                resolve(res);
+              }
+            } else {
+              reject();
+            }
+          });
         });
       },
       fbapi: function(url) {
@@ -130,11 +153,11 @@ angular
               resolve(response);
             }, function(error) {
               console.log('FBapi error: ' + error.message + '\n  url:' + url);
-              reject(error);
+              reject(error, self.ERROR_FBAPI);
             });
           }, function(error) {
             console.log('login error: ' + error.message);
-            reject(error);
+            reject(error, self.ERROR_LOGIN);
           });
         });
       }

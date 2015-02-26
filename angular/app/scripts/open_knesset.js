@@ -158,6 +158,8 @@ angular.module('app')
               'k': 'chairSelection'+committee_id,
               'v':candidate_id
             });
+          }, function() {
+            //$location.path('/error/login'+$location.path());
           })
         }
       }
