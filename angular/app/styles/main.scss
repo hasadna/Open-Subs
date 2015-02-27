@@ -144,20 +144,22 @@ li { list-style: none; }
       img {
         height:110px;
       }
-      .window img {
+      .window {
         position: relative;
-        width:75px;
-        height: 75px;
-        overflow: hidden;
-        border-radius: 40%;
-        border: 4px inset;
-        margin: 0 auto;
-        .covered {
+        img {
+          position: relative;
+          width:75px;
+          height: 75px;
+          overflow: hidden;
+          border-radius: 40%;
+          border: 4px inset;
+          margin: 0 auto;
+        }
+        img.covered {
           position: absolute;
           top: -1px;
-          right: -3px;
-          height: 80px;
-          width: 80px;
+          right: 12px;
+          border: none;
         }
       }
     }
@@ -363,3 +365,4 @@ section { position: relative; }
     }
   }
 }
+.about { text-align: right; }

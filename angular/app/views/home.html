@@ -7,20 +7,14 @@
   <div class="subs-row row{{$index}}" ng-repeat="row in rows">
     <div class="chair" ng-repeat="chair in row">
       <a href="{{chair.absolute_url}}">
-        <section class="window" ng-switch="$parent.$index">
+        <section ng-switch="$parent.$index">
           <div  ng-switch-when="0">
             <h1>{{chair.name}}</h1>
             <h2>{{chair.chosen.name}}</h2>
-              <img ng-if="chair.chosen.img_url" ng-src="{{chair.chosen.img_url}}"
-                   alt="avatar for {{chair.chosen.name}}"/>
-              <img ng-if="(!chair.chosen.img_url)" ng-src="/images/empty.jpg" alt="empty avatar"/>
-              <img ng-if="(!chair.chosen)" class="covered" ng-src="/images/window.png" alt="a windows"/>
+            <ng-include src="'/views/chair_image.html'"></ng-include>
           </div>
           <div ng-switch-when="1">
-              <img ng-if="chair.chosen.img_url" ng-src="{{chair.chosen.img_url}}"
-                   alt="avatar for {{chair.chosen.name}}"/>
-              <img ng-if="(!chair.chosen.img_url)" ng-src="/images/empty.jpg" alt="empty avatar"/>
-              <img ng-if="(!chair.chosen)" class="covered" ng-src="/images/window.png" alt="a windows"/>
+            <ng-include src="'/views/chair_image.html'"></ng-include>
             <h2>{{chair.chosen.name}}</h2>
             <h1>{{chair.name}}</h1>
           </div>

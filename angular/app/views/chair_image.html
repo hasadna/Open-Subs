@@ -1,0 +1,7 @@
+<div class="window">
+  <img ng-if="chair.chosen.img_url" ng-src="{{chair.chosen.img_url}}"
+       alt="avatar for {{chair.chosen.name}}"/>
+  <img ng-if="(!chair.chosen.img_url)" ng-src="/images/empty.jpg" alt="empty avatar"/>
+  <img ng-if="chair.empty" class="covered" ng-src="/images/window.png" alt="a windows"/>
+</div>
+

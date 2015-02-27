@@ -112,10 +112,13 @@ angular
                    right: i*30};
         if (electedId) {
           win.chosen = db.candidates[electedId];
+          win.empty = false;
           numChosen++;
         }
-        else
+        else {
           win.chosen = { name: 'כיסא ריק' };
+          win.empty = true;
+        }
         r[row].push (win);
       }
       $scope.subStaffed = numChosen >= SETTINGS.staffedSubChairs;
