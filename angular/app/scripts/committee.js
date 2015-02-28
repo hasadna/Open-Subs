@@ -179,11 +179,22 @@ angular
         $anchorScroll();
       }
     };
+    function bumpOrg(org) {
+      var found = false;
+      for (var i=0; i < myOrgs.length; i++)
+        if (org == myOrgs[i]) {
+          // it's already in the array, remove it so we won't have doubles
+          myOrgs.splice(i, 1);
+          break;
+        };
+      myOrgs.push(org);
+      $window.sessionStorage.setItem('myOrgs', JSON.stringify(myOrgs.reverse()));
+    }
+
     $scope.elect = function () {
         $window.sessionStorage.setItem('chair'+committee_id, this.candidate.id);
         OPEN_KNESSET.storeChairSelection(committee_id, this.candidate.id);
-        myOrgs.push(this.candidate.org.name)
-        $window.sessionStorage.setItem('myOrgs', JSON.stringify(myOrgs.reverse()));
+        bumpOrg(this.candidate.org.name)
         for (var i=0; i<$scope.candidatesArray.length; i++)
           $scope.candidatesArray[i].expanded = false;
         $location.hash('');
