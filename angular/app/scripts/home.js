@@ -25,15 +25,14 @@ angular
     $scope.publish = function () {
       this.$close();
       storeKey();
-      $scope.teamUrl = generateTeamUrl(db.committees);
-      // $scope.teamImage = drawKey(db.committees);
+      $scope.teamUrl = generateTeamUrl();
       $modal.open({ templateUrl: "/views/publish.html", scope: $scope }).result.then(function () {
         alert('כאילו פירסמתי');
       });
     };
 
     $scope.firstButton = function () {
-      $scope.teamUrl = generateTeamUrl(db.committees);
+      $scope.teamUrl = generateTeamUrl();
       $scope.rows = makeRows();
       $modal.open({ templateUrl: "/views/key.html", scope: $scope }).opened.then(drawKey);
     };
@@ -90,10 +89,10 @@ angular
       });
     }
 
-    function generateTeamUrl(committees) {
+    function generateTeamUrl() {
       var electedTeam = "/#home/";
-      for (var i=0;i<committees.length;i++){
-        var comm_id = committees[i].id;
+      for (var i=0;i<db.committees.length;i++){
+        var comm_id = db.committees[i].id;
         var cand_id = $window.sessionStorage.getItem('chair'+comm_id);
         // if null
         cand_id = cand_id ? cand_id : 0;
