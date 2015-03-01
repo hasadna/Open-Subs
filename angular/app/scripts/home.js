@@ -120,18 +120,20 @@ angular
             comm_url  ="#"+c.absolute_url,
             row       = Math.floor(i/6);
 
-        if ($scope.gotKey && !!electedTeam) {
-          // View only. taking candidate id from url
-          electedId = electedTeam[i] ? parseInt(electedTeam[i],36) : null;
-        }
         var win = {name: c.name,
                    absolute_url:comm_url,
                    id: c.id,
                    right: i*30};
+
+        if (electedId)
+          numChosen++;
+        if ($scope.gotKey && !!electedTeam)
+          // View only. taking candidate id from url
+          electedId = electedTeam[i] ? electedTeam[i] : null;
+
         if (electedId) {
           win.chosen = db.candidates[electedId];
           win.empty = false;
-          numChosen++;
         }
         else {
           win.chosen = { name: 'כיסא ריק' };
@@ -144,6 +146,29 @@ angular
       return r;
     };
 
+    function getDiff(electedTeam) {
+      var r = [];
+      for (var i=0; i < db.committees.length; i++) {
+        // for each committe do
+        var c         = db.committees[i],
+            electedId = eval($window.sessionStorage.getItem('chair'+c.id));
+        if (electedId != null && electedId != electedTeam[i])
+          r.push({ name: c.name,
+                   id: c.id,
+                   chosen: db.candidates[electedId].name,
+                   suggested: db.candidates[electedTeam[i]].name,
+                   suggestedId: electedTeam[i]
+          });
+       }
+       return r;
+    }
+    function adoptChair(chair) {
+      $window.sessionStorage.setItem('chair'+chair.id, chair.suggestedId);
+      var i = this.chairs.indexOf(chair);
+      this.chairs.splice(i, 1);
+      if (this.chairs.length == 0)
+        this.$close();
+    }
     function onDBReady(res) {
       // Applying elected from url
       var electedTeam = $routeParams.team;
@@ -151,8 +176,11 @@ angular
       $scope.committees = db.committees
       if (electedTeam) {
         electedTeam = electedTeam.match(/([a-z0-9]{3})/g);
-        if (electedTeam.length == 12)
+        if (electedTeam.length == 12) {
           $scope.gotKey = true
+          for (var i=0; i<12; i++)
+            electedTeam[i] = parseInt(electedTeam[i],36);
+        }
         else
           $scope.badKey = true;
       }
@@ -161,8 +189,20 @@ angular
       $scope.rows = makeRows(electedTeam);
       $scope.loading = false;
       if ($scope.gotKey) {
-        $modal.open({ templateUrl: "/views/got_key.html", scope: $scope })
-                   .opened.then(drawKey);
+        if ($scope.chairsLeft == 12)
+          $modal.open({ templateUrl: "/views/got_key.html", scope: $scope })
+                     .opened.then(drawKey)
+        else {
+          var scope = $scope.$new();
+          scope.chairs = getDiff(electedTeam);
+          if (scope.chairs.length > 0) {
+            scope.adoptChair = adoptChair;
+            $modal.open({ templateUrl: "/views/merge.html", scope: scope})
+                  .result.then(function() {
+                    $location.path("/home");
+                  });
+          }
+        }
       }
       else if (firstTime) {
         $window.sessionStorage.setItem('firstTimeHome', "false");
@@ -170,7 +210,7 @@ angular
       }
     };
 
-    $q.all({
+    return $q.all({
       candidates: OPEN_KNESSET.get_candidates(),
       committees: OPEN_KNESSET.get_committees()
     }).then(onDBReady);
