@@ -24,6 +24,7 @@ angular
     };
     $scope.publish = function () {
       this.$close();
+      storeKey();
       $scope.teamUrl = generateTeamUrl(db.committees);
       // $scope.teamImage = drawKey(db.committees);
       $modal.open({ templateUrl: "/views/publish.html", scope: $scope }).result.then(function () {
@@ -44,6 +45,20 @@ angular
                     scope: $scope });
     };
 
+    $scope.adoptKey = function () {
+      // copy the key from the display to seesion storage
+      storeKey();
+      this.$close()
+      $location.path('/home');
+    }
+
+    function storeKey() {
+      for (var i=0; i < $scope.rows.length; i++)
+        for (var j=0; j < $scope.rows[i].length; j++) {
+          var com = $scope.rows[i][j];
+          $window.sessionStorage.setItem('chair'+com.id, com.chosen.id);
+        }
+    }
     function drawKey () {
       $timeout(function () {
         var canvas = document.getElementById('key-canvas');
@@ -76,7 +91,7 @@ angular
     }
 
     function generateTeamUrl(committees) {
-      var electedTeam = "";
+      var electedTeam = "/#home/";
       for (var i=0;i<committees.length;i++){
         var comm_id = committees[i].id;
         var cand_id = $window.sessionStorage.getItem('chair'+comm_id);
@@ -87,7 +102,10 @@ angular
         var cand_code = ('00' + parseInt(cand_id).toString(36)).substr(-3);
         electedTeam += cand_code;
         }
-      electedTeam = 'https://'+$location.host()+':'+$location.port()+"#/home/"+electedTeam;
+      if ($location.port() != 80)
+        electedTeam = 'https://'+ $location.host()+':'+$location.port()+electedTeam;
+      else
+        electedTeam = 'https://'+ $location.host()+electedTeam;
       return electedTeam;
     };
 
@@ -102,10 +120,9 @@ angular
             comm_url  ="#"+c.absolute_url,
             row       = Math.floor(i/6);
 
-        if ($scope.viewOnly && !!electedTeam) {
+        if ($scope.gotKey && !!electedTeam) {
           // View only. taking candidate id from url
           electedId = electedTeam[i] ? parseInt(electedTeam[i],36) : null;
-          comm_url="javascipt: (void);";
         }
         var win = {name: c.name,
                    absolute_url:comm_url,
@@ -135,21 +152,22 @@ angular
       if (electedTeam) {
         electedTeam = electedTeam.match(/([a-z0-9]{3})/g);
         if (electedTeam.length == 12)
-          $scope.viewOnly = true
+          $scope.gotKey = true
         else
           $scope.badKey = true;
       }
       else
-        $scope.viewOnly = false;
+        $scope.gotKey = false;
       $scope.rows = makeRows(electedTeam);
       $scope.loading = false;
-      /*
-      if (!$scope.viewOnly && numChosen == 12) {
-        $scope.teamUrl = generateTeamUrl(db.committees);
-        window.startFireworks();
-        $modal.open({ templateUrl: "/views/finished.html", scope: $scope });
+      if ($scope.gotKey) {
+        $modal.open({ templateUrl: "/views/got_key.html", scope: $scope })
+                   .opened.then(drawKey);
       }
-     */
+      else if (firstTime) {
+        $window.sessionStorage.setItem('firstTimeHome', "false");
+        $scope.help();
+      }
     };
 
     $q.all({
@@ -157,9 +175,5 @@ angular
       committees: OPEN_KNESSET.get_committees()
     }).then(onDBReady);
 
-    if (firstTime) {
-      $window.sessionStorage.setItem('firstTimeHome', "false");
-      $scope.help();
-    }
   })
 ;

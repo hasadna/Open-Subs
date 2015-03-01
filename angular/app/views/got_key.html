@@ -1,0 +1,26 @@
+<section class="key">
+  <div class="modal-header">
+    <h1>המפתח של הצוללת</h1>
+    <i ng-if="subStaffed" class="glyphicon glyphicon-link"></i>
+      <input type="text" value="{{teamUrl}}" autofocus readonly="readonly"></input>
+    <i class="glyphicon glyphicon-link"></i>
+  </div>
+  <div class="modal-body" id="key">
+    <canvas id="key-canvas"></canvas>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-default btn-lg" ng-click="publish()" ng-disabled="(!subStaffed)">
+       אמצו את המפתח
+    </button>
+    <h3 style="display: inline; padding:0 1em;">או</h3>
+    <button class="btn btn-default btn-lg" ng-click="copyKey()" ng-disabled="(!subStaffed)">
+       שנו את המפתח
+    </button>
+  </div>
+</section>
+<script>
+  $(document).ready( function () {
+    $("input").focus();
+  });
+</script>
+
