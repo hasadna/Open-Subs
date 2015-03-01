@@ -81,12 +81,13 @@ angular
         var comm_id = committees[i].id;
         var cand_id = $window.sessionStorage.getItem('chair'+comm_id);
         // if null
-        cand_id = cand_id ? cand_id : "";
+        cand_id = cand_id ? cand_id : 0;
         //if "null"
-        cand_id = cand_id!="null" ? cand_id : "";
-        electedTeam += "-"+cand_id;
+        cand_id = cand_id!="null" ? cand_id : 0;
+        var cand_code = ('00' + parseInt(cand_id).toString(36)).substr(-3);
+        electedTeam += cand_code;
         }
-      electedTeam = 'https://'+$location.host()+':'+$location.port()+"#/home/"+electedTeam.substr(1,electedTeam.length);
+      electedTeam = 'https://'+$location.host()+':'+$location.port()+"#/home/"+electedTeam;
       return electedTeam;
     };
 
@@ -103,7 +104,7 @@ angular
 
         if ($scope.viewOnly && !!electedTeam) {
           // View only. taking candidate id from url
-          electedId = electedTeam[i] ? parseInt(electedTeam[i],10) : null;
+          electedId = electedTeam[i] ? parseInt(electedTeam[i],36) : null;
           comm_url="javascipt: (void);";
         }
         var win = {name: c.name,
@@ -129,30 +130,17 @@ angular
     function onDBReady(res) {
       // Applying elected from url
       var electedTeam = $routeParams.team;
-
       db = res;
       $scope.committees = db.committees
-      $scope.viewOnly = false;
-      if (!!electedTeam){
-        electedTeam = electedTeam.split("-");
-        var seen = {};
-        var ignore_input=false;
-        // First thing checking length to prevent dos
-        if (db.committees.length == electedTeam.length){
-          // Checking dups
-          for (var i=0;i<electedTeam.length; i++) {
-            if (!!electedTeam[i] && seen.hasOwnProperty(electedTeam[i])) {
-              // Duplicate
-              ignore_input = true;
-            }
-            seen[electedTeam[i]] = true;
-          }
-          if (!ignore_input) {
-            // All test completed. move to view only
-            $scope.viewOnly = true;
-          }
-        }
+      if (electedTeam) {
+        electedTeam = electedTeam.match(/([a-z0-9]{3})/g);
+        if (electedTeam.length == 12)
+          $scope.viewOnly = true
+        else
+          $scope.badKey = true;
       }
+      else
+        $scope.viewOnly = false;
       $scope.rows = makeRows(electedTeam);
       $scope.loading = false;
       /*
