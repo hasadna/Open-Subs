@@ -152,10 +152,10 @@ angular
         // for each committe do
         var c         = db.committees[i],
             electedId = eval($window.sessionStorage.getItem('chair'+c.id));
-        if (electedId != null && electedId != electedTeam[i])
+        if (electedId != electedTeam[i])
           r.push({ name: c.name,
                    id: c.id,
-                   chosen: db.candidates[electedId].name,
+                   chosen: (electedId != null)?db.candidates[electedId].name:"",
                    suggested: db.candidates[electedTeam[i]].name,
                    suggestedId: electedTeam[i]
           });

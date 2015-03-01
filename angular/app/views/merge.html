@@ -1,6 +1,6 @@
-<section class="key">
+<section class="merge">
   <div class="modal-header">
-    <h1 ng-if="subStaffed">השוואת מפתחות</h1>
+    <h1>השוואת מפתחות</h1>
   </div>
   <div class="modal-body">
     <table class="table">
@@ -20,7 +20,8 @@
         <td>
           <button class="btn btn-default" ng-click="adoptChair(chair)"
             data-toggle="tooltip" title="מנו את {{chair.suggested}}">
-            שנו
+            <span ng-if="chair.chosen">שנו</span>
+            <span ng-if="(!chair.chosen)">מנו</span>
           </button>
         </td>
       </tr>
