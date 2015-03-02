@@ -24,7 +24,7 @@ describe('when going to the root url', function() {
     });
 
     it('should go to the game start page', function() {
-      expect(browser.driver.getCurrentUrl()).toMatch('/#/game/start');
+      expect(browser.driver.getCurrentUrl()).toMatch('/#/home');
     });
 
   })
