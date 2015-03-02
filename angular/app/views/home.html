@@ -4,21 +4,11 @@
     הקישור של המפתח שגוי. מתחילה עם צוללת ריקה.
   </alert>
 
-  <div class="subs-row row{{$index}}" ng-repeat="row in rows">
-    <div class="chair" ng-repeat="chair in row">
+  <div ng-repeat="row in rows">
+    <div class="chair" ng-repeat="chair in row" id="chair-{{chair.id}}" >
       <a href="{{chair.absolute_url}}">
-        <section ng-switch="$parent.$index">
-          <div  ng-switch-when="0">
-            <h1>{{chair.name}}</h1>
-            <h2>{{chair.chosen.name}}</h2>
-            <ng-include src="'/views/chair_image.html'"></ng-include>
-          </div>
-          <div ng-switch-when="1">
-            <ng-include src="'/views/chair_image.html'"></ng-include>
-            <h2>{{chair.chosen.name}}</h2>
-            <h1>{{chair.name}}</h1>
-          </div>
-        </section>
+          <ng-include src="'/views/chair_image.html'"></ng-include>
+        <h2>{{chair.chosen.name}}</h2>
       </a>
     </div>
   </div>
