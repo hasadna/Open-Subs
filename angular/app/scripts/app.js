@@ -41,8 +41,13 @@ angular
       .when('/about', {
         templateUrl: 'views/about.html',
       })
-      .when('/sail', {
-        templateUrl: 'views/sail.html',
+      .when('/dive', {
+        templateUrl: 'views/dive.html',
+        controller: 'DiveController'
+      })
+      .when('/ready', {
+        templateUrl: 'views/key.html',
+        controller: 'ReadyController'
       })
       .when('/home', {
         templateUrl: 'views/home.html',

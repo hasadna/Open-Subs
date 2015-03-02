@@ -19,8 +19,13 @@ window.startFireworks = function() {
     canvas.id = 'fireworks';
     canvas.width = 730;
     canvas.height = 685;
-    setInterval(launch, 800);
-    setInterval(loop, 1000 / 50);
+    window.fireworksIntervals = [setInterval(launch, 800),
+                                 setInterval(loop, 1000 / 50)];
+};
+window.stopFireworks = function() {
+  for (var i=0; i<window.fireworksIntervals.length; i++)
+    clearInterval(window.fireworksIntervals[i]);
+  $('#fireworks').remove();
 };
 
 // update mouse position
@@ -66,8 +71,8 @@ function loop() {
     }
 
     // clear canvas
-    context.fillStyle = "rgba(0, 0, 0, 0.05)";
-    context.fillRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+    // context.fillStyle = "rgba(0, 0, 0, 0.80)";
+    // context.fillRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
 
     var existingRockets = [];
 

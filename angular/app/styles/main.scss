@@ -130,6 +130,9 @@ li { list-style: none; }
     #chair-6 { top: 353px; right: 269px; }
     #chair-3 { top: 353px; right: 401px; }
     #chair-99 { top: 310px; right: 552px; }
+    a:hover {
+      text-decoration: none;
+    }
     .chair {
       position: absolute;
       padding-top: 4px;
@@ -191,12 +194,23 @@ aside { float: left; }
 .candidate {
   font-size: 16px;
   text-align: center;
+  p {text-align: right; }
   img {display: block; float: right; padding: 0.5em; }
   // button { display: block; padding: 1em; clear:both; }
   .status { float: right; padding-left:0.5em; }
   .key, .text {font-weight: bold; }
   .party, .name {display:none; }
-  p {text-align: right; }
+  .elect {
+    z-index: 9;
+    position: fixed;
+    bottom: 40px;
+    right: 20%;
+    background-color: rgb(175, 234, 250);
+    width: 60%;
+    padding: 1em;
+    border-radius: 10px;
+    button { width: 100%; }
+  }
   .feed {
     padding: 1em 1em 0em 1em;
     ul { padding: 0 0 0.5em; }
@@ -364,30 +378,37 @@ section { position: relative; }
   dd { padding-right: 4em; }
 }
 #fireworks { position: absolute; top:0; right:0; }
-.sail {
+.dive {
   position: relative;
   background-image : url('/images/sea.png');
   background-size: 100%, 100%;
   width: 730px;
   height: 490px;
+  #diver {
+    position: absolute;
+    width: 100px;
+    display: none;
+  }
   #triton {
-    width:50px;
+    width: 180px;
+    position: absolute;
   }
   #sub {
     animation-duration: 3s;
     animation-name: dive;
-    animation-iteration-count: 10;
+    animation-iteration-count: 100;
     animation-direction: alternate;
     position: absolute;
-    right: 150px;
+    right: 120px;
     width: 200px;
   }
   @keyframes dive {
     from {
-      top: 80px;
+      top: 130px;
     }
     to {
-      top: 300px;
+      top: 350px;
     }
   }
 }
+

@@ -145,10 +145,6 @@ angular
       }
       $scope.subStaffed = numChosen >= SETTINGS.staffedSubChairs;
       $scope.chairsLeft = SETTINGS.staffedSubChairs - numChosen;
-      if ($scope.chairsLeft == 0) {
-        stage = 'sail';
-        $window.sessionStorage.setItem("stage", "sail");
-      }
 
       return r;
     };
@@ -203,10 +199,27 @@ angular
         else
           stage = 'merge';
 
+      var nextStage = stage;
       switch (stage) {
         case 'welcome':
           $scope.help();
           break;
+
+        case 'electing':
+          if ($scope.chairsLeft <= 0)
+            nextStage = "dive"
+          else
+            break;
+
+        case 'dive':
+          window.startFireworks();
+          $timeout(function () {
+            window.stopFireworks();
+            $location.path("/dive")
+          }, 7000);
+
+          break;
+
         case 'adopt':
           $modal.open({ templateUrl: "/views/got_key.html", scope: $scope })
                      .opened.then(drawKey)
@@ -223,12 +236,9 @@ angular
                   });
           }
           break;
-        case 'sail':
-          window.startFireworks();
-          $location.path("/sail")
-          break;
+
       };
-      $window.sessionStorage.setItem("stage", "electing");
+      $window.sessionStorage.setItem("stage", nextStage);
     };
 
     return $q.all({
