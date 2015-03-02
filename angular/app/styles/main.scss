@@ -366,3 +366,30 @@ section { position: relative; }
   }
 }
 .about { text-align: right; }
+.sail {
+  position: relative;
+  background-image : url('/images/sea.png');
+  background-size: 100%, 100%;
+  width: 730px;
+  height: 490px;
+  #triton {
+    width:50px;
+  }
+  #sub {
+    animation-duration: 3s;
+    animation-name: dive;
+    animation-iteration-count: 10;
+    animation-direction: alternate;
+    position: absolute;
+    right: 150px;
+    width: 200px;
+  }
+  @keyframes dive {
+    from {
+      top: 80px;
+    }
+    to {
+      top: 300px;
+    }
+  }
+}
