@@ -89,7 +89,7 @@ To debug the tests:
 
 .. code-block:: sh
 
-    $ npm install protractor -g
+    $ sudo npm install protractor -g
     $ webdriver-manager update
 
     # in the background - run the server

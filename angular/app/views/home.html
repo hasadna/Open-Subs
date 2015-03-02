@@ -1,9 +1,9 @@
 <div class="ctrl" ng-include="'/views/ctrl.html'"> </div>
 <div class="sub">
-  <alert ng-if="viewOnly" type="danger">המשחק מצב צפייה בלבד! 
-    <a href="#/home">לחץ כאן להתחיל חדש!</a>
+  <alert ng-if="badKey" type="danger">
+    הקישור של המפתח שגוי. מתחילה עם צוללת ריקה.
   </alert>
-  
+
   <div class="subs-row row{{$index}}" ng-repeat="row in rows">
     <div class="chair" ng-repeat="chair in row">
       <a href="{{chair.absolute_url}}">

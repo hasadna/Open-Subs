@@ -33,7 +33,7 @@
             <span>{{days}}:{{hhours}}:{{mminutes}}</span>
           </timer>
         </div>
-        <img src="/images/logo.png" alt="הלוגו של המפתחות של הצוללת" />
+        <a href="/#splash"><img src="/images/logo.png" alt="הלוגו של המפתחות של הצוללת" /></a>
       </div>
 
       <div ng-view=""></div>
@@ -55,12 +55,11 @@
           <a href="https://oknesset.org" target="_blank">
             <img src="images/oknesset-logo.png" width="70" alt="כנסת פתוחה" />
           </a>
-          <br \>
+          <br />
           <a href='/#about'>אודות</a>
         </p>
       </div>
     </div>
-
 
     <!-- build:js(.) scripts/oldieshim.js -->
     <!--[if lt IE 9]>
@@ -108,11 +107,13 @@
     <script src="scripts/settings.js"></script>
     <!-- /include -->
     <!-- endbuild -->
+
     <!-- setting the control panel position -->
     <script>
       $(document).ready(function () {
         $('.ctrl').css({ right: $('.container').offset().left });
       });
     </script>
+
 </body>
 </html>

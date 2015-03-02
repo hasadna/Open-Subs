@@ -251,8 +251,12 @@ module.exports = function (grunt) {
     usemin: {
       html: ['<%= yeoman.dist %>/**/*.html'],
       css: ['<%= yeoman.dist %>/styles/**/*.css'],
+      js: '<%= yeoman.dist %>/scripts/*.js',
       options: {
-        assetsDirs: ['<%= yeoman.dist %>','<%= yeoman.dist %>/images']
+        assetsDirs: ['<%= yeoman.dist %>','<%= yeoman.dist %>/images'],
+        patterns: {
+          js: [[/(key\.png)/g, 'Replacing reference to key.png']]
+        }
       }
     },
 

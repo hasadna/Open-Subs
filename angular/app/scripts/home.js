@@ -23,21 +23,18 @@ angular
       }
     };
     $scope.publish = function () {
-      $scope.teamUrl = generateTeamUrl(db.committees);
-      var modal = $modal.open({ templateUrl: "/views/publish.html", scope: $scope })
-      modal.opened.then(drawKey);
-      modal.result.then(function () {
+      this.$close();
+      storeKey();
+      $scope.teamUrl = generateTeamUrl();
+      $modal.open({ templateUrl: "/views/publish.html", scope: $scope }).result.then(function () {
         alert('כאילו פירסמתי');
       });
     };
 
     $scope.firstButton = function () {
-      $scope.publish();
-      /*
-      $scope.teamUrl = generateTeamUrl(db.committees);
+      $scope.teamUrl = generateTeamUrl();
       $scope.rows = makeRows();
       $modal.open({ templateUrl: "/views/key.html", scope: $scope }).opened.then(drawKey);
-     */
     };
 
     $scope.help = function () {
@@ -47,6 +44,20 @@ angular
                     scope: $scope });
     };
 
+    $scope.adoptKey = function () {
+      // copy the key from the display to seesion storage
+      storeKey();
+      this.$close()
+      $location.path('/home');
+    }
+
+    function storeKey() {
+      for (var i=0; i < $scope.rows.length; i++)
+        for (var j=0; j < $scope.rows[i].length; j++) {
+          var com = $scope.rows[i][j];
+          $window.sessionStorage.setItem('chair'+com.id, com.chosen.id);
+        }
+    }
     function drawKey () {
       $timeout(function () {
         var canvas = document.getElementById('key-canvas');
@@ -78,18 +89,22 @@ angular
       });
     }
 
-    function generateTeamUrl(committees) {
-      var electedTeam = "";
-      for (var i=0;i<committees.length;i++){
-        var comm_id = committees[i].id;
+    function generateTeamUrl() {
+      var electedTeam = "/#home/";
+      for (var i=0;i<db.committees.length;i++){
+        var comm_id = db.committees[i].id;
         var cand_id = $window.sessionStorage.getItem('chair'+comm_id);
         // if null
-        cand_id = cand_id ? cand_id : "";
+        cand_id = cand_id ? cand_id : 0;
         //if "null"
-        cand_id = cand_id!="null" ? cand_id : "";
-        electedTeam += "-"+cand_id;
+        cand_id = cand_id!="null" ? cand_id : 0;
+        var cand_code = ('00' + parseInt(cand_id).toString(36)).substr(-3);
+        electedTeam += cand_code;
         }
-      electedTeam = 'https://'+$location.host()+':'+$location.port()+"#/home/"+electedTeam.substr(1,electedTeam.length);
+      if ($location.port() != 80)
+        electedTeam = 'https://'+ $location.host()+':'+$location.port()+electedTeam;
+      else
+        electedTeam = 'https://'+ $location.host()+electedTeam;
       return electedTeam;
     };
 
@@ -104,19 +119,20 @@ angular
             comm_url  ="#"+c.absolute_url,
             row       = Math.floor(i/6);
 
-        if ($scope.viewOnly && !!electedTeam) {
-          // View only. taking candidate id from url
-          electedId = electedTeam[i] ? parseInt(electedTeam[i],10) : null;
-          comm_url="javascipt: (void);";
-        }
         var win = {name: c.name,
                    absolute_url:comm_url,
                    id: c.id,
                    right: i*30};
+
+        if (electedId)
+          numChosen++;
+        if ($scope.gotKey && !!electedTeam)
+          // View only. taking candidate id from url
+          electedId = electedTeam[i] ? electedTeam[i] : null;
+
         if (electedId) {
           win.chosen = db.candidates[electedId];
           win.empty = false;
-          numChosen++;
         }
         else {
           win.chosen = { name: 'כיסא ריק' };
@@ -129,61 +145,75 @@ angular
       return r;
     };
 
+    function getDiff(electedTeam) {
+      var r = [];
+      for (var i=0; i < db.committees.length; i++) {
+        // for each committe do
+        var c         = db.committees[i],
+            electedId = eval($window.sessionStorage.getItem('chair'+c.id));
+        if (electedId != electedTeam[i])
+          r.push({ name: c.name,
+                   id: c.id,
+                   chosen: (electedId != null)?db.candidates[electedId].name:"",
+                   suggested: db.candidates[electedTeam[i]].name,
+                   suggestedId: electedTeam[i]
+          });
+       }
+       return r;
+    }
+    function adoptChair(chair) {
+      $window.sessionStorage.setItem('chair'+chair.id, chair.suggestedId);
+      var i = this.chairs.indexOf(chair);
+      this.chairs.splice(i, 1);
+      if (this.chairs.length == 0)
+        this.$close();
+    }
     function onDBReady(res) {
       // Applying elected from url
       var electedTeam = $routeParams.team;
-
       db = res;
       $scope.committees = db.committees
-      $scope.viewOnly = false;
-      if (!!electedTeam){
-        electedTeam = electedTeam.split("-");
-        var seen = {};
-        var ignore_input=false;
-        // First thing checking length to prevent dos
-        if (db.committees.length == electedTeam.length){
-          // Checking dups
-          for (var i=0;i<electedTeam.length; i++) {
-            if (!!electedTeam[i] && seen.hasOwnProperty(electedTeam[i])) {
-              // Duplicate
-              ignore_input = true;
-            }
-            seen[electedTeam[i]] = true;
-          }
-          if (!ignore_input) {
-            // All test completed. move to view only
-            $scope.viewOnly = true;
-          }
+      if (electedTeam) {
+        electedTeam = electedTeam.match(/([a-z0-9]{3})/g);
+        if (electedTeam.length == 12) {
+          $scope.gotKey = true
+          for (var i=0; i<12; i++)
+            electedTeam[i] = parseInt(electedTeam[i],36);
         }
+        else
+          $scope.badKey = true;
       }
+      else
+        $scope.gotKey = false;
       $scope.rows = makeRows(electedTeam);
       $scope.loading = false;
-      if ($scope.subStaffed) {
-        var gotFireworks = $window.sessionStorage.getItem('gotFireworks')
-        if (gotFireworks == null || !eval(gotFireworks)) {
-        // if (true) {
-          $window.sessionStorage.setItem('gotFireworks', 'true')
+      if ($scope.gotKey) {
+        if ($scope.chairsLeft == 12)
           window.startFireworks();
-          $scope.publish()
+          $modal.open({ templateUrl: "/views/got_key.html", scope: $scope })
+                     .opened.then(drawKey)
+        else {
+          var scope = $scope.$new();
+          scope.chairs = getDiff(electedTeam);
+          if (scope.chairs.length > 0) {
+            scope.adoptChair = adoptChair;
+            $modal.open({ templateUrl: "/views/merge.html", scope: scope})
+                  .result.then(function() {
+                    $location.path("/home");
+                  });
+          }
         }
       }
-      /*
-      if (!$scope.viewOnly && numChosen == 12) {
-        $scope.teamUrl = generateTeamUrl(db.committees);
-        window.startFireworks();
-        $modal.open({ templateUrl: "/views/finished.html", scope: $scope });
+      else if (firstTime) {
+        $window.sessionStorage.setItem('firstTimeHome', "false");
+        $scope.help();
       }
-     */
     };
 
-    $q.all({
+    return $q.all({
       candidates: OPEN_KNESSET.get_candidates(),
       committees: OPEN_KNESSET.get_committees()
     }).then(onDBReady);
 
-    if (firstTime) {
-      $window.sessionStorage.setItem('firstTimeHome', "false");
-      $scope.help();
-    }
   })
 ;

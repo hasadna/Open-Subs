@@ -22,8 +22,11 @@
     <button class="btn btn-default btn-lg" ng-click="publish()" ng-disabled="(!subStaffed)">
        צוללים קדימה!
     </button>
+    <a ng-click="$close()">
+       בחזרה לצוללת
+    </a>
     <p ng-hide="subStaffed">
-      מצטערת, צוללת זקוקה לצוות של עשרה כדי להפוך למבצעית. <br />
+      מצטערת, צוללת זקוקה לצוות מלא כדי להפוך למבצעית. <br />
       המשיכו ללטש - עוד {{chairsLeft}} נבחרים/ות ויוצאים לדרך
     <p>
   </div>
