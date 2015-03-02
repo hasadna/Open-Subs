@@ -1,0 +1,36 @@
+<section class="merge">
+  <div class="modal-header">
+    <h1>השוואת מפתחות</h1>
+  </div>
+  <div class="modal-body">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>ועדה</th>
+          <th>הבחירה שלכם</th>
+          <th colspan="2">הבחירה שלהם</th>
+        </tr>
+      </thead>
+      <tr ng-repeat="chair in chairs">
+        <td class="chair-name">{{chair.name}}</th>
+        <td class="person">{{chair.chosen}}</th>
+        <td>
+          {{chair.suggested}}
+        </td>
+        <td>
+          <button class="btn btn-default" ng-click="adoptChair(chair)"
+            data-toggle="tooltip" title="מנו את {{chair.suggested}}">
+            <span ng-if="chair.chosen">שנו</span>
+            <span ng-if="(!chair.chosen)">מנו</span>
+          </button>
+        </td>
+      </tr>
+    </table>
+
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-default btn-lg" ng-click="$close()">
+       בחזרה לצוללת
+    </button>
+  </div>
+</section>

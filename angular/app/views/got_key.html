@@ -1,0 +1,23 @@
+<section class="key">
+  <div class="modal-header">
+    <h1>המפתח של הצוללת</h1>
+  </div>
+  <div class="modal-body" id="key">
+    <canvas id="key-canvas"></canvas>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-default btn-lg" ng-click="publish()">
+       אמצו את המפתח
+    </button>
+    <h3 style="display: inline; padding:0 1em;">או</h3>
+    <button class="btn btn-default btn-lg" ng-click="adoptKey()">
+       שנו את המפתח
+    </button>
+  </div>
+</section>
+<script>
+  $(document).ready( function () {
+    $("input").focus();
+  });
+</script>
+
