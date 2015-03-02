@@ -23,18 +23,21 @@ angular
       }
     };
     $scope.publish = function () {
-      this.$close();
       $scope.teamUrl = generateTeamUrl(db.committees);
-      // $scope.teamImage = drawKey(db.committees);
-      $modal.open({ templateUrl: "/views/publish.html", scope: $scope }).result.then(function () {
+      var modal = $modal.open({ templateUrl: "/views/publish.html", scope: $scope })
+      modal.opened.then(drawKey);
+      modal.result.then(function () {
         alert('כאילו פירסמתי');
       });
     };
 
     $scope.firstButton = function () {
+      $scope.publish();
+      /*
       $scope.teamUrl = generateTeamUrl(db.committees);
       $scope.rows = makeRows();
       $modal.open({ templateUrl: "/views/key.html", scope: $scope }).opened.then(drawKey);
+     */
     };
 
     $scope.help = function () {
@@ -155,6 +158,15 @@ angular
       }
       $scope.rows = makeRows(electedTeam);
       $scope.loading = false;
+      if ($scope.subStaffed) {
+        var gotFireworks = $window.sessionStorage.getItem('gotFireworks')
+        if (gotFireworks == null || !eval(gotFireworks)) {
+        // if (true) {
+          $window.sessionStorage.setItem('gotFireworks', 'true')
+          window.startFireworks();
+          $scope.publish()
+        }
+      }
       /*
       if (!$scope.viewOnly && numChosen == 12) {
         $scope.teamUrl = generateTeamUrl(db.committees);

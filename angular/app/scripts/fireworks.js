@@ -16,6 +16,7 @@ var SCREEN_WIDTH = window.innerWidth,
 // init
 window.startFireworks = function() {
     $('.container').append(canvas);
+    canvas.id = 'fireworks';
     canvas.width = 730;
     canvas.height = 685;
     setInterval(launch, 800);
