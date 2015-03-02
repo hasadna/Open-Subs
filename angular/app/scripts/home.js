@@ -4,10 +4,8 @@ angular
   .module('app')
   .controller('HomeController', function($scope, USER, OPEN_KNESSET, $routeParams,
                                          $timeout, $location, $window, $q, $modal) {
-    var firstTime = true,
-        db;
-    if ($window.sessionStorage.hasOwnProperty('firstTimeHome'))
-     firstTime =  eval($window.sessionStorage.getItem('firstTimeHome'));
+    var db,
+        stage = $window.sessionStorage.getItem('stage') || "welcome";
 
     $scope.loading = true;
     $scope.chairs = [];
@@ -49,6 +47,11 @@ angular
       storeKey();
       this.$close()
       $location.path('/home');
+    }
+
+    $scope.about = function () {
+      this.$close()
+      $location.path('/about');
     }
 
     function storeKey() {
@@ -142,6 +145,11 @@ angular
       }
       $scope.subStaffed = numChosen >= SETTINGS.staffedSubChairs;
       $scope.chairsLeft = SETTINGS.staffedSubChairs - numChosen;
+      if ($scope.chairsLeft == 0) {
+        stage = 'sail';
+        $window.sessionStorage.setItem("stage", "sail");
+      }
+
       return r;
     };
 
@@ -185,14 +193,26 @@ angular
       }
       else
         $scope.gotKey = false;
+
       $scope.rows = makeRows(electedTeam);
       $scope.loading = false;
-      if ($scope.gotKey) {
+
+      if ($scope.gotKey)
         if ($scope.chairsLeft == 12)
-          window.startFireworks();
+          stage = 'adopt';
+        else
+          stage = 'merge';
+
+      switch (stage) {
+        case 'welcome':
+          $scope.help();
+          break;
+        case 'adopt':
           $modal.open({ templateUrl: "/views/got_key.html", scope: $scope })
                      .opened.then(drawKey)
-        else {
+          break;
+
+        case 'merge':
           var scope = $scope.$new();
           scope.chairs = getDiff(electedTeam);
           if (scope.chairs.length > 0) {
@@ -202,12 +222,13 @@ angular
                     $location.path("/home");
                   });
           }
-        }
-      }
-      else if (firstTime) {
-        $window.sessionStorage.setItem('firstTimeHome', "false");
-        $scope.help();
-      }
+          break;
+        case 'sail':
+          window.startFireworks();
+          $location.path("/sail")
+          break;
+      };
+      $window.sessionStorage.setItem("stage", "electing");
     };
 
     return $q.all({
