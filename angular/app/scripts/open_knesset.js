@@ -173,6 +173,7 @@ angular.module('app')
       teamUrl: function() {
         // returns an object with `rel` and `abs` urls
         var r = {rel: "/key/"},
+            n = 0,
             port = $location.port();
 
         for (var i = 0; i < COMMITTEES_DATA.length; i++) {
@@ -182,12 +183,15 @@ angular.module('app')
           electedId = electedId ? electedId : 0;
           //if "null"
           electedId = electedId!="null" ? electedId : 0;
+          if (electedId != 0)
+            n ++;
           var cand_code = ('00' + parseInt(electedId).toString(36)).substr(-3);
           r.rel += cand_code;
           }
         r.abs = (port != 443 && port != 80)?
           'https://'+ $location.host()+':'+port+r.rel:
           'https://'+ $location.host()+r.rel;
+        r.n = n;
         return r
       }
     };

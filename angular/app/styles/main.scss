@@ -120,14 +120,14 @@ li { list-style: none; }
   padding-bottom: 3em;
     #chair-2 { top: 205px; right: 100px; }
     #chair-9 { top: 144px; right: 216px; }
-    #chair-4 { top: 132px; right: 307px; }
-    #chair-1 { top: 144px; right: 462px; }
-    #chair-15 { top: 205px; right: 576px; }
+    #chair-4 { top: 132px; right: 336px; }
+    #chair-1 { top: 143px; right: 459px; }
+    #chair-15 { top: 205px; right: 575px; }
     #chair-8 { top: 249px; right: 229px; }
-    #chair-5 { top: 247px; right: 338px; }
+    #chair-5 { top: 246px; right: 336px; }
     #chair-10 { top: 248px; right: 451px; }
     #chair-11 { top: 310px; right: 136px; }
-    #chair-6 { top: 353px; right: 269px; }
+    #chair-6 { top: 353px; right: 274px; }
     #chair-3 { top: 353px; right: 401px; }
     #chair-99 { top: 310px; right: 552px; }
     a:hover {
@@ -138,7 +138,7 @@ li { list-style: none; }
       padding-top: 4px;
       margin: 0.2em;
       text-align: center;
-      h2 { margin: 6px 0 0 0; font-size: 120%; color: #374a60; }
+      h2 { margin: 66px 0 0 0; font-size: 120%; color: #374a60; }
       p { font-weight: bold; text-align: center; height: 3em; }
       img {
         height:110px;
@@ -146,17 +146,18 @@ li { list-style: none; }
       .window {
         position: relative;
         img {
-          position: relative;
+          position: absolute;
           width:60px;
           height: 60px;
           overflow: hidden;
           border-radius: 50%;
-          margin: 0 auto;
+          top: 0;
+          right: 0;
         }
         img.covered {
           position: absolute;
-          top: 0px;
-          right: 0px;
+          top: 0;
+          right: 0;
           border: none;
         }
       }

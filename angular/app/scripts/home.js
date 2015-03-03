@@ -168,8 +168,10 @@ angular
         else
           $scope.badKey = true;
       }
-      else
+      else {
+        $scope.teamUrl = OPEN_KNESSET.teamUrl();
         $scope.gotKey = false;
+      }
 
       $scope.rows = makeRows(electedTeam);
       $scope.loading = false;
