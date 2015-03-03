@@ -27,16 +27,7 @@ angular
     $facebookProvider.setVersion("v2.2");
     $routeProvider
       .when('/splash', {
-        templateUrl: 'views/splash.html',
-        controller: function($scope, USER, $location) {
-          $scope.go = function() {
-            USER.login().then(function() {
-              $location.path('/home');
-            }, function() {
-              $location.path('/error/login/home');
-            });
-          }
-        }
+        templateUrl: 'views/splash.html'
       })
       .when('/about', {
         templateUrl: 'views/about.html',
@@ -81,8 +72,8 @@ angular
         templateUrl: 'views/candidate-feed.html',
         controller: 'CandidateController'
       })
-      .when('/error/login/:next*', {
-        templateUrl: 'views/error_login.html',
+      .when('/login/:next*', {
+        templateUrl: 'views/login.html',
         controller: function($scope, USER, $routeParams, $location) {
           USER.login().then(function() {
             $location.path('/'+$routeParams.next);

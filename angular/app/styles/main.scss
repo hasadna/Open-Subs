@@ -119,17 +119,17 @@ li { list-style: none; }
   background-image : url('/images/sub.jpg');
   padding-bottom: 3em;
     #chair-2 { top: 205px; right: 100px; }
-    #chair-9 { top: 144px; right: 216px; }
+    #chair-9 { top: 143px; right: 217px; }
     #chair-4 { top: 132px; right: 336px; }
     #chair-1 { top: 143px; right: 459px; }
     #chair-15 { top: 205px; right: 575px; }
     #chair-8 { top: 249px; right: 229px; }
     #chair-5 { top: 246px; right: 336px; }
-    #chair-10 { top: 248px; right: 451px; }
+    #chair-10 { top: 248px; right: 449px; }
     #chair-11 { top: 310px; right: 136px; }
     #chair-6 { top: 353px; right: 274px; }
     #chair-3 { top: 353px; right: 401px; }
-    #chair-99 { top: 310px; right: 552px; }
+    #chair-99 { top: 310px; right: 551px; }
     a:hover {
       text-decoration: none;
     }
@@ -178,6 +178,13 @@ aside { float: left; }
   clear: both;
   text-align: right;
   .license { float:left; text-align: left; }
+}
+.org, .message {
+  width: 80%;
+  margin: 0 auto 2em;
+  padding: 0.5em;
+  background-color: white;
+  border-radius: 5px;
 }
 .org {
   width: 80%;
@@ -241,9 +248,9 @@ aside { float: left; }
   .top {
     background-image: url('/images/committee_top.jpg');
     height: 250px;
-    p {
-      padding: 0 1em;
-    }
+    padding-top: 1em;
+    p { padding: 0 1em; }
+    h1 { margin-top: 0; }
   }
   .body {
     background-image: url('/images/committee_body.jpg');

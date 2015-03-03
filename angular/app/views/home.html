@@ -6,11 +6,11 @@
 
   <div ng-repeat="row in rows">
     <div class="chair" ng-repeat="chair in row" id="chair-{{chair.id}}" >
-      <a href="{{chair.absolute_url}}">
+      <a ng-click="go(chair)" href="">
           <ng-include src="'/views/chair_image.html'"></ng-include>
         <h2>{{chair.chosen.name}}</h2>
       </a>
     </div>
   </div>
 </div>
-<div class="clearfix"></div>
+<span id="spinner" ng-show="loading" us-spinner></span>

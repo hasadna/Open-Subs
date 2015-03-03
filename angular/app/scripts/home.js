@@ -20,6 +20,7 @@ angular
         }
       }
     };
+
     $scope.publish = function () {
       this.$close();
       storeKey();
@@ -52,6 +53,16 @@ angular
     $scope.about = function () {
       this.$close()
       $location.path('/about');
+    }
+
+    $scope.go = function (chair) {
+      $scope.loading = true;
+      var url = chair.absolute_url; // .substr(1);
+      USER.login().then(function() {
+        $location.path(url.substr(1));
+      }, function() {
+        $location.path('/login/'+url.substr(2));
+      });
     }
 
     function storeKey() {
