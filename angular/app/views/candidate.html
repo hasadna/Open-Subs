@@ -61,12 +61,4 @@
   <section class="feed" ng-if="candidate.hasFeed && !candidate.feedLoading && candidate.feedLength == -1">
     <p class="active">שגיאה בטעינת הסטטוסים</p>
   </section>
-  <div class="elect" ng-if="committee" class="clearfix">
-    <button ng-if="!candidate.block" class="btn btn-default btn-lg" ng-click="elect()">
-      מנו את {{candidate.name}} לראשות ועדת ה{{committee.name}}
-    </button>
-    <!-- move this to the next screen 
-    alert ng-if="candidate.block" class="" type="danger">לא ניתן לבחור במועמד ליותר מועדה אחת</alert>
-    -->
-  </div>
 </div>

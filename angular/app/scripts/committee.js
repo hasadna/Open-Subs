@@ -191,10 +191,10 @@ angular
       $window.sessionStorage.setItem('myOrgs', JSON.stringify(myOrgs.reverse()));
     }
 
-    $scope.elect = function () {
-        $window.sessionStorage.setItem('chair'+committee_id, this.candidate.id);
-        OPEN_KNESSET.storeChairSelection(committee_id, this.candidate.id);
-        bumpOrg(this.candidate.org.name)
+    $scope.elect = function (cand) {
+        $window.sessionStorage.setItem('chair'+committee_id, cand.id);
+        OPEN_KNESSET.storeChairSelection(committee_id, cand.id);
+        bumpOrg(cand.org.name)
         for (var i=0; i<$scope.candidatesArray.length; i++)
           $scope.candidatesArray[i].expanded = false;
         $location.hash('');
@@ -224,6 +224,7 @@ angular
     $scope.loaded = function (candidate) {
       // Checking if already elected
       candidate.block = false;
+      $scope.lastCandidate = candidate;
       for (var i=0;i<$scope.committees.length; i++) {
         var c = $scope.committees[i],
         electedId = $window.sessionStorage.getItem('chair'+c.id);

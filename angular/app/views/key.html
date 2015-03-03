@@ -3,7 +3,7 @@
     <h1 ng-if="subStaffed">מצאתם את המפתח!</h1>
     <h1 ng-if="(!subStaffed)">מפתח בליטוש</h1>
     <i ng-if="subStaffed" class="glyphicon glyphicon-link"></i>
-      <input type="text" value="{{teamUrl}}" autofocus readonly="readonly"></input>
+      <input class="url" type="text" value="{{url.abs}}" autofocus readonly="readonly"></input>
     <i class="glyphicon glyphicon-link"></i>
   </div>
   <div class="modal-body" id="key">
@@ -22,7 +22,7 @@
     <button class="btn btn-default btn-lg" ng-click="publish()" ng-disabled="(!subStaffed)">
        צוללים קדימה!
     </button>
-    <a ng-click="$close()">
+    <a href="/#home">
        בחזרה לצוללת
     </a>
     <p ng-hide="subStaffed">

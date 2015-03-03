@@ -200,17 +200,6 @@ aside { float: left; }
   .status { float: right; padding-left:0.5em; }
   .key, .text {font-weight: bold; }
   .party, .name {display:none; }
-  .elect {
-    z-index: 9;
-    position: fixed;
-    bottom: 40px;
-    right: 20%;
-    background-color: rgb(175, 234, 250);
-    width: 60%;
-    padding: 1em;
-    border-radius: 10px;
-    button { width: 100%; }
-  }
   .feed {
     padding: 1em 1em 0em 1em;
     ul { padding: 0 0 0.5em; }
@@ -245,6 +234,7 @@ aside { float: left; }
   .play:hover { background-position: -189px -18px; }
 }
 .loading { margin-top: 1em; height: 3em; position: relative; }
+.btn[disabled] { opacity: 0.5; }
 .ascii { font-family: monospace; }
 .committee {
   .top {
@@ -258,6 +248,17 @@ aside { float: left; }
     background-image: url('/images/committee_body.jpg');
     padding-bottom: 2em;
     .details { width: 80%;  margin: 0 auto 1em; }
+    .elect {
+      z-index: 9;
+      position: fixed;
+      bottom: 40px;
+      right: 20%;
+      background-color: #FCE321;
+      width: 60%;
+      padding: 1em;
+      border-radius: 10px;
+      button { width: 100%; }
+    }
   }
 }
 .loading { position: relative; }
@@ -345,7 +346,7 @@ section { position: relative; }
   .modal-footer {
     p { color: orange; }
   }
-  input, textarea { width: 80%; }
+  input, textarea { width: 60%; }
   .modal-body { height: 330px; }
 }
 
@@ -365,11 +366,15 @@ section { position: relative; }
   .modal-body {
     text-align: center;
     margin-top: 0;
+    padding: 45px;
     h3 { font-weight: bold; margin-top: 0; }
     section {
       margin: 0 auto;
       width: 400px;
-      button { background-color: #62FFF4; }
+      button {
+        background-color: #62FFF4;
+        padding: 2px 12px;
+      }
     }
   }
 }
@@ -411,4 +416,5 @@ section { position: relative; }
     }
   }
 }
+.url { text-align: left; }
 

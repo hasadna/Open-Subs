@@ -18,7 +18,7 @@ angular
             // looks like it's the last time we're running
             $interval.cancel(seq);
             $window.sessionStorage.setItem("stage", "electing");
-            $location.path('/ready');
+            $location.path(OPEN_KNESSET.teamUrl().rel);
           }
 
           $(".cycle").each(function () {

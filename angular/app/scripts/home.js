@@ -23,16 +23,16 @@ angular
     $scope.publish = function () {
       this.$close();
       storeKey();
-      $scope.teamUrl = generateTeamUrl();
+      $scope.teamUrl = generateTeamUrl().abs;
       $modal.open({ templateUrl: "/views/publish.html", scope: $scope }).result.then(function () {
         alert('כאילו פירסמתי');
       });
     };
 
     $scope.firstButton = function () {
-      $scope.teamUrl = generateTeamUrl();
-      $scope.rows = makeRows();
-      $modal.open({ templateUrl: "/views/key.html", scope: $scope }).opened.then(drawKey);
+      var url = OPEN_KNESSET.teamUrl();
+      console.log(url.rel);
+      $location.path(url.rel);
     };
 
     $scope.help = function () {
@@ -91,25 +91,6 @@ angular
           }
       });
     }
-
-    function generateTeamUrl() {
-      var electedTeam = "/#home/";
-      for (var i=0;i<db.committees.length;i++){
-        var comm_id = db.committees[i].id;
-        var cand_id = $window.sessionStorage.getItem('chair'+comm_id);
-        // if null
-        cand_id = cand_id ? cand_id : 0;
-        //if "null"
-        cand_id = cand_id!="null" ? cand_id : 0;
-        var cand_code = ('00' + parseInt(cand_id).toString(36)).substr(-3);
-        electedTeam += cand_code;
-        }
-      if ($location.port() != 80)
-        electedTeam = 'https://'+ $location.host()+':'+$location.port()+electedTeam;
-      else
-        electedTeam = 'https://'+ $location.host()+electedTeam;
-      return electedTeam;
-    };
 
     function makeRows(electedTeam) {
       var r = [[], []];
@@ -199,9 +180,11 @@ angular
         else
           stage = 'merge';
 
+      // default is to stay at state
       var nextStage = stage;
       switch (stage) {
         case 'welcome':
+          nextStage = 'electing';
           $scope.help();
           break;
 

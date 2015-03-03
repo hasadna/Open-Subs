@@ -45,7 +45,11 @@ angular
         templateUrl: 'views/dive.html',
         controller: 'DiveController'
       })
-      .when('/ready', {
+      .when('/key', {
+        templateUrl: 'views/key.html',
+        controller: 'ReadyController'
+      })
+      .when('/key/:team', {
         templateUrl: 'views/key.html',
         controller: 'ReadyController'
       })

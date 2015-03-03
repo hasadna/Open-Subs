@@ -3,7 +3,8 @@
 (function() {
 
 angular.module('app')
-  .factory('OPEN_KNESSET', function ($resource, $http, SETTINGS, $q, USER) {
+  .factory('OPEN_KNESSET', function ($resource, $http, SETTINGS, $q, USER,
+                                     $window, $location) {
 
     var _getCandidatesPage = function(relurl, candidates) {
       if (!candidates) candidates = {};
@@ -133,6 +134,12 @@ angular.module('app')
       },
       get_committees: function() {
         return $q(function(resolve) {
+          for (var i = 0; i < COMMITTEES_DATA.length; i++) {
+            var c = COMMITTEES_DATA[i],
+                electedId = eval($window.sessionStorage.getItem('chair'+c.id));
+            if (electedId)
+              c.electedId = electedId;
+          }
           resolve(COMMITTEES_DATA);
         });
       },
@@ -162,6 +169,26 @@ angular.module('app')
             //$location.path('/error/login'+$location.path());
           })
         }
+      },
+      teamUrl: function() {
+        // returns an object with `rel` and `abs` urls
+        var r = {rel: "/key/"},
+            port = $location.port();
+
+        for (var i = 0; i < COMMITTEES_DATA.length; i++) {
+          var c = COMMITTEES_DATA[i],
+              electedId = $window.sessionStorage.getItem('chair'+c.id);
+          // if null
+          electedId = electedId ? electedId : 0;
+          //if "null"
+          electedId = electedId!="null" ? electedId : 0;
+          var cand_code = ('00' + parseInt(electedId).toString(36)).substr(-3);
+          r.rel += cand_code;
+          }
+        r.abs = (port != 443 && port != 80)?
+          'https://'+ $location.host()+':'+port+r.rel:
+          'https://'+ $location.host()+r.rel;
+        return r
       }
     };
     return OPEN_KNESSET;
