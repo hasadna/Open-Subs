@@ -10,7 +10,7 @@ angular
     function drawKey () {
         var canvas = document.getElementById('key-canvas');
         canvas.width = 560;
-        canvas.height = 300;
+        canvas.height = 427;
         var ctx = canvas.getContext('2d');
         var back= new Image();
         back.src = "/images/key.png";
@@ -29,12 +29,17 @@ angular
                   c.chosen = { name: 'כיסא ריק' };
 
             ctx.save();
-            ctx.font = "16pt Alef";
-            ctx.fillStyle = '#80470E';
-            ctx.textAlign = "right";
-            ctx.translate(canvas.width - step*24, 116);
+            ctx.translate(canvas.width - step*30, 116);
             ctx.rotate((Math.PI/2)*3);
-            ctx.fillText(c.chosen.name, 0, 0)
+            ctx.font = "16pt Alef";
+            ctx.textAlign = "right";
+            var m = ctx.measureText(c.chosen.name)
+            ctx.fillStyle = '#FCC221';
+            ctx.fillRect(10, 5, 0-m.width-20, -28);
+            // ctx.fillStyle = '#FCD421';
+
+            ctx.fillStyle = '#80470E';
+            ctx.fillText(c.chosen.name, 0, -2)
             ctx.restore();
             step++;
           }

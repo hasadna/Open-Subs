@@ -1,12 +1,11 @@
 <section class="key">
-  <div class="modal-header">
     <h1 ng-if="subStaffed">מצאתם את המפתח שלכם!</h1>
     <h1 ng-if="(!subStaffed)">מפתח בליטוש</h1>
     <i ng-if="subStaffed" class="glyphicon glyphicon-link"></i>
       <input class="url" type="text" value="{{url.abs}}" autofocus readonly="readonly"></input>
     <i class="glyphicon glyphicon-link"></i>
   </div>
-  <div class="modal-body" id="key">
+  <div>
     <canvas id="key-canvas"></canvas>
     <!--
     <div class="key-row row{{$index}}" ng-repeat="row in rows">
@@ -17,19 +16,21 @@
       </div>
     </div>
     -->
-  </div>
-  <div class="modal-footer">
-    <button class="btn btn-default btn-lg" ng-click="publish()" ng-disabled="(!subStaffed)">
-       צוללים קדימה!
-    </button>
-    <a href="/#home">
-       בחזרה לצוללת
-    </a>
+    <div class="share"  ng-disabled="(!subStaffed)">
+      <form>
+      <textarea rows="3" placeholder="ספר לחברים למה הנבחרת שלך מסוגלת" required></textarea>
+      <div class="pull-left">
+        <a href="/#home">בחזרה לצוללת</a>
+        <button class="btn btn-default btn-lg" ng-click="publish()">
+           פרסמו
+        </button>
+      </div>
+    </form>
+    </div>
     <p ng-hide="subStaffed">
       מצטערת, צוללת זקוקה לצוות מלא כדי להפוך למבצעית. <br />
       המשיכו ללטש - עוד {{chairsLeft}} נבחרים/ות ויוצאים לדרך
     <p>
-  </div>
 </section>
 <script>
   $(document).ready( function () {

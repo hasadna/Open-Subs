@@ -349,22 +349,22 @@ aside { float: left; }
 section { position: relative; }
 .key-row { height: 10em;}
 .key {
-  .modal-header, .modal-footer { text-align: center;}
   margin: 0 auto;
-  .modal-footer {
-    p { color: orange; }
+  input { width: 60%; }
+  canvas {
+    float: left;
+    width: 560px;
+    height: 430px;
   }
-  input, textarea { width: 60%; }
-  .modal-body { height: 330px; }
+  .share {
+    margin: -100px 100px 1em; 
+    float: right;
+    height: auto;
+    textarea  { width: 100%; }
+  }
+  p { color: orange; }
 }
 
-#key-canvas {
-  width: 560px;
-  height: 300px;
-  // background-image: url('/images/key.png');
-  // background-repeat: no-repeat;
-  // background-position: 0 70px;
-}
 .home-help {
   .modal-content {
     height: 470px;
