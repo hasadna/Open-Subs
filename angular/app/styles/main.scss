@@ -471,6 +471,8 @@ section { position: relative; }
 #sea {
   background-image : url('/images/sea.png');
   position: relative;
+  background-repeat: no-repeat;
+  background-color: #00A99D;
 }
 // Animations!
 //   contributors: Benny, Noya

@@ -108,7 +108,7 @@ angular
           diff.push({name: c.name,
                    id: c.id,
                    chosen: myChairs[j],
-                   suggested: db.candidates[key.chairs[j]].name,
+                   suggested: key.chairs[j].name,
                    suggestedId: key.chairs[j],
                   });
         }
