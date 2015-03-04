@@ -184,6 +184,7 @@ angular
         $scope.gotKey = false;
       }
 
+      //TODO: we don't need makeRows anymore
       $scope.rows = makeRows(electedTeam);
       $scope.loading = false;
 

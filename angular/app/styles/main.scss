@@ -1,5 +1,8 @@
 // bower:scss
 // endbower
+$lightSub: #FCE321;
+$medSub: #FCd421;
+$darkSub: #FCC221;
 
 .browsehappy {
   margin: 0.2em 0;
@@ -123,7 +126,7 @@ li { list-style: none; }
     #chair-4 { top: 132px; right: 336px; }
     #chair-1 { top: 143px; right: 459px; }
     #chair-15 { top: 205px; right: 575px; }
-    #chair-8 { top: 249px; right: 229px; }
+    #chair-8 { top: 247px; right: 228px; }
     #chair-5 { top: 246px; right: 336px; }
     #chair-10 { top: 248px; right: 449px; }
     #chair-11 { top: 310px; right: 136px; }
@@ -261,7 +264,7 @@ aside { float: left; }
       position: fixed;
       bottom: 40px;
       right: 20%;
-      background-color: #FCE321;
+      background-color: $lightSub;
       width: 60%;
       padding: 1em;
       border-radius: 10px;
@@ -355,21 +358,23 @@ section { position: relative; }
   .chair-name { text-align: right; }
 }
 .key {
-  height: 400px;
+  // maybe? background-image : url('/images/committee_top.jpg');
+  height: 430px;
   margin: 0 auto;
   input { width: 60%; }
   canvas {
-    float: left;
+    margin-right: 30px;
     width: 560px;
     height: 430px;
+    padding-bottom: 1em;
   }
   .share {
-    margin: -100px 100px 1em; 
+    margin: -100px 100px 1em 200px;
     float: right;
     height: auto;
     textarea  { width: 100%; }
   }
-  p { color: orange; }
+  p { color: $darkSub; }
 }
 
 .home-help {

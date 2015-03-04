@@ -7,7 +7,11 @@ angular
     var db,
         myChairs = [],
         diff = [],
-        key = {chairs: [], abs: "", rel: ""};
+        key = {chairs: {}, abs: "", rel: ""};
+
+    $scope.firstButton = function () {
+      $location.path('/home')
+    };
 
     $scope.adopt = function (chair) {
       var i = diff.indexOf(chair);
@@ -29,10 +33,9 @@ angular
 
         // Make sure the image is loaded first otherwise nothing will draw.
         var step = 1;
-        for (var i=0; i < key.chairs.length; i++) {
+        for (var i=0; i < db.committees.length; i++) {
             var c = db.committees[i],
-                e = key.chairs[i],
-                chosen = (e)?db.candidates[e]:{ name: 'כיסא ריק' };
+                chosen = key.chairs[c.id] || { name: 'כיסא ריק' };
 
             ctx.save();
             ctx.translate(canvas.width - step*30, 116);
@@ -59,60 +62,64 @@ angular
 
       db = res;
 
+      // parsing the key from the url
+      var cs = $routeParams.team;
+      if (cs) {
+        cs = cs.match(/([a-z0-9]{3})/g);
+        if (cs.length == 12) {
+          for (var i=0; i<db.committees.length; i++) {
+            var id = parseInt(cs[i],36);
+            var j = db.committees[i].id;
+            key.chairs[j] = db.candidates[id];
+            if (id > 0)
+              key.length ++
+          }
+        }
+        else {
+          $log.error("got a bad key in the url - "+$routeParams.team);
+          $location.path('/error/1/home');
+        }
+      }
+      $scope.key = key;
       // add the `abs and `rel` url properties to `key`
       key.rel = $location.url();
       key.abs = ($location.port() == 443)?
         'https://'+ $location.host()+key.rel:
         'https://'+ $location.host()+':'+$location.port()+key.rel;
 
-      var len = 0;
+      var emptyChairs = 12;
       for (var i=0; i < db.committees.length; i++) {
-        myChairs[i] = db.candidates[$window.sessionStorage.getItem(toKey(i))];
-        if (myChairs[i] & myChairs[i] != 0)
-          len++;
+        var j = db.committees[i].id;
+        var s = $window.sessionStorage.getItem(toKey(j));
+        if (s && eval(s)) {
+          myChairs[j] = db.candidates[eval(s)];
+          emptyChairs--;
+        }
       }
       $scope.myChairs = myChairs;
-      $scope.myChairsLen = len;
+      $scope.emptyChairs = emptyChairs;
       // get an array with diffrences between session's key
       // and `key.chairs`
-      for (var i=0; i < myChairs.length; i++) {
-        if (myChairs[i] != key.chairs[i]) {
-          var c = db.committees[i];
-          console.log(myChairs[i]);
+      for (var i=0; i < db.committees.length; i++) {
+        var c = db.committees[i];
+        var j = db.committees[i].id;
+        if (myChairs[j] != key.chairs[j]) {
+          console.log(myChairs[j]);
           diff.push({name: c.name,
                    id: c.id,
-                   chosen: myChairs[i],
-                   suggested: db.candidates[key.chairs[i]].name,
-                   suggestedId: key.chairs[i],
+                   chosen: myChairs[j],
+                   suggested: db.candidates[key.chairs[j]].name,
+                   suggestedId: key.chairs[j],
                   });
         }
       }
-      $scope.diff = diff;
+      $scope.diff = (diff.length)?diff:0;
       $scope.key = key;
       $window.sessionStorage.setItem("stage", 'ready');
       $timeout(drawKey);
     };
 
-    var cs = $routeParams.team;
-    if (cs) {
-      cs = cs.match(/([a-z0-9]{3})/g);
-      if (cs.length == 12) {
-        key.length = 0;
-        key.chairs = [];
-        for (var i=0; i<12; i++) {
-          var id = parseInt(cs[i],36);
-          key.chairs[i] = id;
-          if (id > 0)
-            key.length ++
-        }
-      }
-      else {
-        $log.error("got a bad key in the url - "+$routeParams.team);
-        $location.path('/error/1/home');
-      }
-    }
-    $scope.key = key;
-
+    $scope.buttonSub = true;
     return $q.all({
       candidates: OPEN_KNESSET.get_candidates(),
       committees: OPEN_KNESSET.get_committees()
