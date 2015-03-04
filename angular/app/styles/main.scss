@@ -113,10 +113,17 @@ body {
   }
 }
 // app styles
+@font-face {
+  font-family: noto;
+  src: url('/fonts/NotoSansHebrew-Regular.ttf');
+}
+
+@import url(//fonts.googleapis.com/css?family=Noto+Sans:400,700,400italic,700italic&subset=latin,latin-ext);
 .avatar { height: 110px; }
 li { list-style: none; }
 .container { position: relative; text-align: center; padding: 0; }
 .sub {
+  font-family: noto;
   height: 470px;
   position: relative;
   background-image : url('/images/sub.jpg');
@@ -141,7 +148,7 @@ li { list-style: none; }
       padding-top: 4px;
       margin: 0.2em;
       text-align: center;
-      h2 { margin: 66px 0 0 0; font-size: 120%; color: #374a60; }
+      h2 { margin: 66px 0 0 0; font-size: 100%; color: #3c0508; }
       p { font-weight: bold; text-align: center; height: 3em; }
       img {
         height:110px;
@@ -246,7 +253,6 @@ aside { float: left; }
 }
 .loading { margin-top: 1em; height: 3em; position: relative; }
 .btn[disabled] { opacity: 0.5; }
-.ascii { font-family: monospace; }
 .committee {
   .top {
     background-image: url('/images/committee_top.jpg');
@@ -400,6 +406,7 @@ section { position: relative; }
 }
 .about {
   text-align: right;
+  .research { width: 40%; }
   dd { padding-right: 4em; }
 }
 #fireworks { position: absolute; top:0; right:0; }
