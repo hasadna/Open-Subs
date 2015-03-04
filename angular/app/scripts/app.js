@@ -38,17 +38,13 @@ angular
       })
       .when('/key', {
         templateUrl: 'views/key.html',
-        controller: 'ReadyController'
+        controller: 'KeyController'
       })
       .when('/key/:team', {
         templateUrl: 'views/key.html',
-        controller: 'ReadyController'
+        controller: 'KeyController'
       })
       .when('/home', {
-        templateUrl: 'views/home.html',
-        controller: 'HomeController'
-      })
-      .when('/home/:team', {
         templateUrl: 'views/home.html',
         controller: 'HomeController'
       })

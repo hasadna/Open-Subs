@@ -348,7 +348,14 @@ aside { float: left; }
 }
 section { position: relative; }
 .key-row { height: 10em;}
+.merge {
+  clear: both;
+  table { width: 75%; margin: 0.5em auto;}
+  th {text-align: center; }
+  .chair-name { text-align: right; }
+}
 .key {
+  height: 400px;
   margin: 0 auto;
   input { width: 60%; }
   canvas {

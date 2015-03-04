@@ -1,8 +1,10 @@
 <section class="key">
-    <h1 ng-if="subStaffed">מצאתם את המפתח שלכם!</h1>
-    <h1 ng-if="(!subStaffed)">מפתח בליטוש</h1>
-    <i ng-if="subStaffed" class="glyphicon glyphicon-link"></i>
-      <input class="url" type="text" value="{{url.abs}}" autofocus readonly="readonly"></input>
+    <h1 ng-if="diff">השוואת מפתחות</h1>
+    <h1 ng-if="!diff && myChairsLen == 12">מצאתם את המפתח!</h1>
+    <h1 ng-if="!diff && myChairsLen < 12">מפתח בליטוש</h1>
+    <span ng-if="diff">שלהם:</span>
+    <i class="glyphicon glyphicon-link"></i>
+      <input class="url" type="text" value="{{key.abs}}" autofocus readonly="readonly"></input>
     <i class="glyphicon glyphicon-link"></i>
   </div>
   <div>
@@ -16,22 +18,52 @@
       </div>
     </div>
     -->
-    <div class="share"  ng-disabled="(!subStaffed)">
+    <div class="share"  ng-if="(!diff)">
       <form>
-      <textarea rows="3" placeholder="ספר לחברים למה הנבחרת שלך מסוגלת" required></textarea>
-      <div class="pull-left">
-        <a href="/#home">בחזרה לצוללת</a>
-        <button class="btn btn-default btn-lg" ng-click="publish()">
-           פרסמו
-        </button>
-      </div>
-    </form>
+        <textarea rows="3" placeholder="ספר לחברים למה הנבחרת שלך מסוגלת" required></textarea>
+        <div class="pull-left">
+          <a href="/#home">בחזרה לצוללת</a>
+          <button class="btn btn-default btn-lg" ng-click="publish()">
+             פרסמו
+          </button>
+        </div>
+      </form>
+      <p ng-hide="subStaffed">
+        מצטערת, צוללת זקוקה לצוות מלא כדי להפוך למבצעית. <br />
+        המשיכו ללטש - עוד {{chairsLeft}} נבחרים/ות ויוצאים לדרך
+      <p>
     </div>
-    <p ng-hide="subStaffed">
-      מצטערת, צוללת זקוקה לצוות מלא כדי להפוך למבצעית. <br />
-      המשיכו ללטש - עוד {{chairsLeft}} נבחרים/ות ויוצאים לדרך
-    <p>
 </section>
+<section class="merge" ng-if="diff">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>ועדה</th>
+          <th>הבחירה שלכם</th>
+          <th colspan="2">הבחירה שלהם</th>
+        </tr>
+      </thead>
+      <tr ng-repeat="chair in diff">
+        <td class="chair-name">{{chair.name}}</td>
+        <td ng-if="chair" class="person">{{chair.chosen.name}}</th>
+        <td ng-if="!chair" class="person">כסא ריק</th>
+        <td>
+          {{chair.suggested}}
+        </td>
+        <td>
+          <button class="btn btn-default" ng-click="adopt(chair)"
+            data-toggle="tooltip" title="מנו את {{chair.suggested}}">
+            <span ng-if="chair.chosen">שנו</span>
+            <span ng-if="(!chair.chosen)">מנו</span>
+          </button>
+        </td>
+      </tr>
+    </table>
+
+</section>
+    <a class="btn btn-default btn-lg" href="/#home">
+       בחזרה לצוללת
+    </a>
 <script>
   $(document).ready( function () {
     $("input").focus();
