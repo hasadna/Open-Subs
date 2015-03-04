@@ -17,7 +17,7 @@ describe('when going to the root url', function() {
     expect(browser.driver.getCurrentUrl()).toMatch('/#/splash');
   });
 
-  describe('when clicking the button', function() {
+  describe('when clicking the play button', function() {
 
     beforeAll(function() {
       element(by.css('div.splash a.play')).click();
