@@ -188,7 +188,7 @@ angular
         }
         if (cycle == SHRINK_CYCLE) {
           $scope.diving = true;
-          $scope.diving = false;
+          $('#sub').css({'animation-play-state': "running"});
         }
         $(".cycle").each(function () {
           var src = $(this).attr('src');
@@ -202,6 +202,8 @@ angular
     };
 
     function onDBReady(res) {
+      // TODO: Rinse this code - there's a better version at key.js
+      //       that needs to turned into a `chairs` service
       // Applying elected from url
       var electedTeam = $routeParams.team;
       db = res;

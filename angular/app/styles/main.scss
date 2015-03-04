@@ -132,7 +132,7 @@ li { list-style: none; }
 
   // animation when the sub is filled
   animation-play-state: paused;
-  animation-duration: 18s;
+  animation-duration: 4s;
   animation-fill-mode: forwards;
   animation-name: shrink;
 
@@ -459,9 +459,9 @@ section { position: relative; }
     position: absolute;
   }
   #sub {
+    animation-play-state: paused;
     animation-duration: 15s;
     animation-name: dive;
-    animation-iteration-count: infinite;
     position: absolute;
     width: 200px;
   }
@@ -476,7 +476,6 @@ section { position: relative; }
 }
 // Animations!
 //   contributors: Benny, Noya
-/*
 @keyframes dive {
     0% {
       top: 220px;
@@ -486,37 +485,30 @@ section { position: relative; }
       top: 350px;
       left: 560px;
     }
+    40% {
+      left:393px;
+      top: 330px;
+    }
+    60% {
+      left:326px;
+      top: 330px;
+    }
+    80% {
+      left:132px;
+      top: 382px;
+    }
     100% {
       left:39px;
       top: 51px;
     }
 }
-*/
 @keyframes shrink {
   from {
     transform: scale(1);
   }
-  10% {
+  to {
     // transform: translate(560px, 100px);
     transform: scale(0.27);
   }
-  30% {
-    transform: scale(0.27);
-    position:absolute;
-      top: 220px;
-      right: 360px;
-    }
-  60% {
-    transform: scale(0.27);
-    position:absolute;
-      top: 350px;
-      left: 560px;
-    }
-  100% {
-    transform: scale(0.27);
-    position:absolute;
-      left:39px;
-      top: 51px;
-    }
 }
 
