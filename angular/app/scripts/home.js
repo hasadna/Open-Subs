@@ -164,6 +164,7 @@ angular
       if (this.chairs.length == 0)
         this.$close();
     }
+
     function onDBReady(res) {
       // Applying elected from url
       var electedTeam = $routeParams.team;
@@ -209,6 +210,7 @@ angular
             break;
 
         case 'dive':
+          document.getElementById('song').play();
           window.startFireworks();
           $timeout(function () {
             window.stopFireworks();
