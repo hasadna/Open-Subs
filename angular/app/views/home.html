@@ -1,21 +1,32 @@
+<!-- TODO: rinse, so `ctrl` will be auto-included -->
+<div class="ctrl" ng-include="'/views/ctrl.html'"></div>
+<alert ng-if="badKey" type="danger">
+  הקישור של המפתח שגוי. מתחילה עם צוללת ריקה.
+</alert>
+
+<div id="sea">
+  <section class="focus" ng-hide="diving">
+   <div class="sub">
+    <img class="background" src="/images/sub.png"/>
+    <div ng-repeat="row in rows">
+      <div class="chair" ng-repeat="chair in row" id="chair-{{chair.id}}" >
+        <a ng-click="go(chair)" href="">
+            <ng-include src="'/views/chair_image.html'"></ng-include>
+          <h2>{{chair.chosen.name}}</h2>
+        </a>
+      </div>
+    </div>
+   </div>
+  </section>
+  <section ng-show="diving" class="dive">
+    <img id="sub" class="cycle" src="/images/SubA.png" />
+    <img id="diver" class="cycle" src="/images/DiverA.png" />
+    <img id="triton" src="/images/triton.png" />
+  </section>
+</div>
+<span id="spinner" ng-show="loading" us-spinner></span>
 <audio id="song" src="/audio/yellow_submarine.mp3">
   <alert type="danger">
     מצטערת, דפדפנכם לא תומך במוזיקה ואני לא יכולה לנגן
   </alert>
 </audio>
-<div class="ctrl" ng-include="'/views/ctrl.html'"> </div>
-<div class="sub">
-  <alert ng-if="badKey" type="danger">
-    הקישור של המפתח שגוי. מתחילה עם צוללת ריקה.
-  </alert>
-
-  <div ng-repeat="row in rows">
-    <div class="chair" ng-repeat="chair in row" id="chair-{{chair.id}}" >
-      <a ng-click="go(chair)" href="">
-          <ng-include src="'/views/chair_image.html'"></ng-include>
-        <h2>{{chair.chosen.name}}</h2>
-      </a>
-    </div>
-  </div>
-</div>
-<span id="spinner" ng-show="loading" us-spinner></span>

@@ -3,6 +3,8 @@
 $lightSub: #FCE321;
 $medSub: #FCd421;
 $darkSub: #FCC221;
+$land: #2A5E80;
+$windowFrame: #836B07;
 
 .browsehappy {
   margin: 0.2em 0;
@@ -15,7 +17,8 @@ $darkSub: #FCC221;
 body {
   padding-top: 20px;
   padding-bottom: 20px;
-  font-family: "Alef Hebrew",
+  font-family: noto,
+               "Alef Hebrew",
                “Helvetica Neue”,
                Helvetica,
                Arial,
@@ -123,56 +126,86 @@ body {
 li { list-style: none; }
 .container { position: relative; text-align: center; padding: 0; }
 .sub {
-  font-family: noto;
+  position: absolute;
   height: 470px;
-  position: relative;
-  background-image : url('/images/sub.jpg');
-  padding-bottom: 3em;
-    #chair-2 { top: 205px; right: 100px; }
-    #chair-9 { top: 143px; right: 217px; }
-    #chair-4 { top: 132px; right: 336px; }
-    #chair-1 { top: 143px; right: 459px; }
-    #chair-15 { top: 205px; right: 575px; }
-    #chair-8 { top: 247px; right: 228px; }
-    #chair-5 { top: 246px; right: 336px; }
-    #chair-10 { top: 248px; right: 449px; }
-    #chair-11 { top: 310px; right: 136px; }
-    #chair-6 { top: 353px; right: 274px; }
-    #chair-3 { top: 353px; right: 401px; }
-    #chair-99 { top: 310px; right: 551px; }
-    a:hover {
-      text-decoration: none;
+  width: 730px;
+
+  // animation when the sub is filled
+  animation-play-state: paused;
+  animation-duration: 18s;
+  animation-fill-mode: forwards;
+  animation-name: shrink;
+
+  .background {
+    display: block;
+    position: absolute;
+    right:-12px;
+    top: -1px;
+  }
+  // chair positioning, initial thanks to Daniel & Avihai
+  #chair-2 { top: 205px; right: 100px; }
+  #chair-9 { top: 143px; right: 217px; }
+  #chair-4 { top: 132px; right: 336px; }
+  #chair-1 { top: 143px; right: 459px; }
+  #chair-15 { top: 205px; right: 575px; }
+  #chair-8 { top: 247px; right: 228px; }
+  #chair-5 { top: 246px; right: 336px; }
+  #chair-10 { top: 248px; right: 449px; }
+  #chair-11 { top: 310px; right: 136px; }
+  #chair-6 { top: 353px; right: 274px; }
+  #chair-3 { top: 353px; right: 401px; }
+  #chair-99 { top: 310px; right: 551px; }
+
+  a:hover {
+    text-decoration: none;
+  }
+  .chair {
+    z-index: 5;
+    position: absolute;
+    padding-top: 4px;
+    margin: 0.2em;
+    text-align: center;
+    h2 {
+      margin: 66px 0 0 0;
+      font-size: 100%;
+      color: $lightSub;
+      background-color: $windowFrame;
+      border-radius: 5px;
+      opacity: 0.9;
+      width: 88px;
+      padding: 2px;
     }
-    .chair {
-      position: absolute;
-      padding-top: 4px;
-      margin: 0.2em;
-      text-align: center;
-      h2 { margin: 66px 0 0 0; font-size: 100%; color: #3c0508; }
-      p { font-weight: bold; text-align: center; height: 3em; }
+    p { font-weight: bold; text-align: center; height: 3em; }
+    img {
+      height:110px;
+    }
+    .window {
+      position: relative;
       img {
-        height:110px;
+        position: absolute;
+        width:60px;
+        height: 60px;
+        overflow: hidden;
+        border-radius: 50%;
+        top: 0;
+        right: 0;
       }
-      .window {
-        position: relative;
-        img {
-          position: absolute;
-          width:60px;
-          height: 60px;
-          overflow: hidden;
-          border-radius: 50%;
-          top: 0;
-          right: 0;
-        }
-        img.covered {
-          position: absolute;
-          top: 0;
-          right: 0;
-          border: none;
-        }
+      img.covered {
+        position: absolute;
+        top: 0;
+        right: 0;
+        border: none;
       }
+    }
   }
 }
+.focus {
+  perspective: 1200px;
+  position: relative;
+  width: 730px;
+  height: 470px;
+}
+// .focus { animation-move: zoomOut; }
 aside { float: left; }
 #chair-form {
   z-index: 2;
@@ -259,7 +292,6 @@ aside { float: left; }
     height: 250px;
     padding-top: 1em;
     p { padding: 0 1em; }
-    h1 { margin-top: 0; }
   }
   .body {
     background-image: url('/images/committee_body.jpg');
@@ -327,7 +359,7 @@ aside { float: left; }
   position: fixed;
   width: 158px;
   height: 52px;
-  top: 36px;
+  top: 87px;
   background-color: rgb(175, 234, 250);
   padding: 0 1em;
   border-radius: 3px;
@@ -365,8 +397,9 @@ section { position: relative; }
 }
 .key {
   // maybe? background-image : url('/images/committee_top.jpg');
-  height: 430px;
+  height: 470px;
   margin: 0 auto;
+  h1 { color: $lightSub; padding-top: 0.5em; }
   input { width: 60%; }
   canvas {
     margin-right: 30px;
@@ -406,42 +439,82 @@ section { position: relative; }
 }
 .about {
   text-align: right;
-  .research { width: 40%; }
+  .research { width: 40%; padding-right: 1em; }
   dd { padding-right: 4em; }
 }
 #fireworks { position: absolute; top:0; right:0; }
 .dive {
   position: relative;
-  background-image : url('/images/sea.png');
-  background-size: 100%, 100%;
   width: 730px;
   height: 490px;
+  // img { display: block; }
   #diver {
     position: absolute;
     width: 100px;
     display: none;
   }
   #triton {
+    display: none;
     width: 180px;
     position: absolute;
   }
   #sub {
-    animation-duration: 3s;
+    animation-duration: 15s;
     animation-name: dive;
-    animation-iteration-count: 100;
-    animation-direction: alternate;
+    animation-iteration-count: infinite;
     position: absolute;
-    right: 120px;
     width: 200px;
-  }
-  @keyframes dive {
-    from {
-      top: 130px;
-    }
-    to {
-      top: 350px;
-    }
   }
 }
 .url { text-align: left; }
+// our background is a sea
+#sea {
+  background-image : url('/images/sea.png');
+  position: relative;
+}
+// Animations!
+//   contributors: Benny, Noya
+/*
+@keyframes dive {
+    0% {
+      top: 220px;
+      right: 360px;
+    }
+    20% {
+      top: 350px;
+      left: 560px;
+    }
+    100% {
+      left:39px;
+      top: 51px;
+    }
+}
+*/
+@keyframes shrink {
+  from {
+    transform: scale(1);
+  }
+  10% {
+    // transform: translate(560px, 100px);
+    transform: scale(0.27);
+  }
+  30% {
+    transform: scale(0.27);
+    position:absolute;
+      top: 220px;
+      right: 360px;
+    }
+  60% {
+    transform: scale(0.27);
+    position:absolute;
+      top: 350px;
+      left: 560px;
+    }
+  100% {
+    transform: scale(0.27);
+    position:absolute;
+      left:39px;
+      top: 51px;
+    }
+}
 

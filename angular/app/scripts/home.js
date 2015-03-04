@@ -2,8 +2,9 @@
 
 angular
   .module('app')
-  .controller('HomeController', function($scope, USER, OPEN_KNESSET, $routeParams,
-                                         $timeout, $location, $window, $q, $modal) {
+  .controller('HomeController', function(USER, OPEN_KNESSET, $scope,
+                                         $interval, $routeParams, $modal,
+                                         $timeout, $location, $window, $q) {
     var db,
         stage = $window.sessionStorage.getItem('stage') || "welcome";
 
@@ -130,7 +131,7 @@ angular
           win.empty = false;
         }
         else {
-          win.chosen = { name: 'כיסא ריק' };
+          win.chosen = { name: '?' };
           win.empty = true;
         }
         r[row].push (win);
@@ -164,6 +165,41 @@ angular
       if (this.chairs.length == 0)
         this.$close();
     }
+
+    function startShow () {
+      var RATE = 200,
+          SHRINK_CYCLE = 20,
+          LEN = (1000 * 10)/ RATE,
+          cycle = 0;
+          var song = document.getElementById('song');
+      song.play();
+      $('.sub').css({'animation-play-state': "running"});
+      //$('.focus').css({'animation-play-state': "running"});
+
+      // setup the sequencer
+      $scope.diving = false;
+      var seq = $interval(function () {
+        if (LEN < cycle++) {
+          // looks like it's the last time we're running
+          $interval.cancel(seq);
+          $window.sessionStorage.setItem("stage", "ashore");
+          song.pause();
+          $location.path(OPEN_KNESSET.teamUrl().rel);
+        }
+        if (cycle == SHRINK_CYCLE) {
+          $scope.diving = true;
+          $scope.diving = false;
+        }
+        $(".cycle").each(function () {
+          var src = $(this).attr('src');
+          var convert = {'A': 'B', 'B': 'A'};
+          src = src.replace(/([AB])/, function (match) {
+            return convert[match];
+          });
+          $(this).attr('src', src);
+        })
+      }, RATE);
+    };
 
     function onDBReady(res) {
       // Applying elected from url
@@ -204,19 +240,10 @@ angular
           break;
 
         case 'electing':
-          if ($scope.chairsLeft <= 0)
-            nextStage = "dive"
-          else
-            break;
-
-        case 'dive':
-          document.getElementById('song').play();
-          window.startFireworks();
-          $timeout(function () {
-            window.stopFireworks();
-            $location.path("/dive")
-          }, 7000);
-
+          if ($scope.chairsLeft <= 0) {
+            // if we have no chairs left start the show
+            $timeout(startShow, 3000);
+          }
           break;
 
         case 'adopt':
@@ -234,6 +261,10 @@ angular
                     $location.path("/home");
                   });
           }
+          break;
+
+        case 'ashore':
+          // life ashore are simple - the state machine rests
           break;
 
       };
