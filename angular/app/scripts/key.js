@@ -15,7 +15,7 @@ angular
 
     $scope.adopt = function (chair) {
       var i = diff.indexOf(chair);
-      $window.sessionStorage.setItem(toKey(i.id), chair.suggestedId);
+      $window.sessionStorage.setItem(toKey(chair.id), chair.suggested.id);
       diff.splice(i, 1);
     }
 
@@ -108,8 +108,7 @@ angular
           diff.push({name: c.name,
                    id: c.id,
                    chosen: myChairs[j],
-                   suggested: key.chairs[j].name,
-                   suggestedId: key.chairs[j],
+                   suggested: key.chairs[j]
                   });
         }
       }

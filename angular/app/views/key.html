@@ -49,11 +49,11 @@
         <td ng-if="chair" class="person">{{chair.chosen.name}}</th>
         <td ng-if="!chair" class="person">כסא ריק</th>
         <td>
-          {{chair.suggested}}
+          {{chair.suggested.name}}
         </td>
         <td>
           <button class="btn btn-default" ng-click="adopt(chair)"
-            data-toggle="tooltip" title="מנו את {{chair.suggested}}">
+            data-toggle="tooltip" title="מנו את {{chair.suggested.name}}">
             <span ng-if="chair.chosen">שנו</span>
             <span ng-if="(!chair.chosen)">מנו</span>
           </button>
