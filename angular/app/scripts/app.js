@@ -174,7 +174,7 @@ angular
     }
   })
 
-  .run( function( SETTINGS ) {
+  .run( function( SETTINGS, $rootScope ) {
     // expose the configuration on window - this is used for testing
     window.SETTINGS = SETTINGS;
     (function(d, s, id){
@@ -186,10 +186,22 @@ angular
     }(document, 'script', 'facebook-jssdk'));
   })
 
-
-  .controller('AppController', function($scope) {
-
+  .controller('AppController', function($scope, $rootScope, $location, $window) {
+    // if the user is not logged in to facebook he will be redirected to login screen
+    // in this cases the user looses his place in the game (e.g. if he was watching a certain committee, he will need to find it again)
+    // this $routeChangeStart handler "remembers" the last path and redirects to it from root path.
+    $rootScope.$on("$routeChangeStart", function () {
+      if ($location.path().length < 3) {
+        var lastpath = $window.sessionStorage.getItem('lastpath');
+        if (lastpath) {
+          $location.path(lastpath);
+        }
+      } else {
+        $window.sessionStorage.setItem('lastpath', $location.path());
+      }
+    });
   })
+
   .directive('ngReallyClick', [function() {
     /**
      * A generic confirmation for risky actions.
