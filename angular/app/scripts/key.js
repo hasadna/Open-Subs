@@ -13,6 +13,19 @@ angular
       $location.path('/home')
     };
 
+    $scope.adoptKey = function (goHome) {
+      for (var i=0; i < db.committees.length; i++) {
+        var c = db.committees[i];
+        $window.sessionStorage.setItem(toKey(c.id), key.chairs[c.id].id);
+      }
+      if (goHome)
+        $location.path('/home');
+      else {
+        $scope.diff = 0;
+        $scope.emptyChairs = 0;
+      }
+
+    }
     $scope.adopt = function (chair) {
       var i = diff.indexOf(chair);
       $window.sessionStorage.setItem(toKey(chair.id), chair.suggested.id);
