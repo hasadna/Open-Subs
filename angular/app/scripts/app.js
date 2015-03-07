@@ -147,14 +147,14 @@ angular
           });
         });
       },
-      fbapi: function(url) {
+      fbapi: function(path, method, params) {
         var self = this;
         return $q(function(resolve, reject) {
           self.login().then(function(res) {
-            $facebook.api(url).then(function(response) {
+            $facebook.api(path, method, params).then(function(response) {
               resolve(response);
             }, function(error) {
-              console.log('FBapi error: ' + error.message + '\n  url:' + url);
+              console.log('FBapi error: ' + error.message + '\n  url:' + path);
               reject(error, self.ERROR_FBAPI);
             });
           }, function(error) {

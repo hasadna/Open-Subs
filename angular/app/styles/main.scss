@@ -398,7 +398,7 @@ section { position: relative; }
 }
 .key {
   // maybe? background-image : url('/images/committee_top.jpg');
-  height: 470px;
+  height: 530px;
   margin: 0 auto;
   h1 { color: $lightSub; padding-top: 0.5em; }
   input { width: 60%; }
@@ -409,8 +409,11 @@ section { position: relative; }
     padding-bottom: 1em;
   }
   .share {
-    margin: -100px 100px 1em 200px;
-    float: right;
+    z-index: 100;
+    position:absolute;
+    top: 400px;
+    right: 20px;
+    width: 480px;
     height: auto;
     textarea  { width: 100%; }
   }

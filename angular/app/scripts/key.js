@@ -3,7 +3,7 @@
 angular
   .module('app')
   .controller('KeyController', function($scope, $timeout, OPEN_KNESSET,
-                  $routeParams, $location, $window, $q, $log) {
+                  $facebook, USER, $routeParams, $location, $window, $q, $log) {
     var db,
         myChairs = [],
         diff = [],
@@ -19,6 +19,20 @@ angular
       diff.splice(i, 1);
     }
 
+    $scope.publish = function (message) {
+      $facebook.login('publish_actions').then (function () {
+        message += '\nהמפתח שלי: ';
+        for (var i=0; i < db.committees.length; i++) {
+          if (i !=0) message += ', ';
+          var c = db.committees[i];
+          var j = db.committees[i].id;
+          message += myChairs[j].name + ' ב' + c.name;
+        }
+        USER.fbapi('/feed', 'post',
+                   {message: message,
+                    link: 'https://osubs.org/#' + $location.url()})
+      });
+    }
     function drawKey () {
         var canvas = $window.document.getElementById('key-canvas');
         canvas.width = 560;

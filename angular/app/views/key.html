@@ -25,10 +25,10 @@
   -->
   <div class="share"  ng-if="!diff && !emptyChairs">
     <form>
-      <textarea rows="3" placeholder="היו גם אתם קבלני קולות וספרו לחברה על הנבחרת שלכם" required></textarea>
+      <textarea rows="3" ng-model='message' placeholder="היו גם אתם קבלני קולות וספרו לחברה על הנבחרת שלכם"></textarea>
       <div class="pull-left">
         <a href="/#published">מעדיף לשמור על הפרטיות שלי</a>
-        <button class="btn btn-default btn-lg" ng-click="publish()">
+        <button class="btn btn-default btn-lg" ng-click="publish(message)">
            פרסמו המפתח
         </button>
       </div>
