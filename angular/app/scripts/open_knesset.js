@@ -156,7 +156,7 @@ angular.module('app')
         });
       },
       storeChairSelection: function(committee_id, candidate_id) {
-        if (!SETTINGS.offline) {
+        if (SETTINGS.storeElections) {
           USER.login().then(function(res) {
             // accessToken expiresIn userID
             $http.post(SETTINGS.backend + '/users/fbstore/opensubs/', {

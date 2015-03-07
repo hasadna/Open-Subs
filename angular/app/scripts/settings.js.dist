@@ -13,6 +13,8 @@ if (!window.SETTINGS_LOADED) {
       return {
         // you should run open knesset on ssl because otherwise facebook might cause problems
         backend: 'https://localhost:8000',
+        storeElections: false,
+        // TODO: next setting is not really used
         // what's the minimum staff size need to sail the sub?
         staffedSubChairs: 3,
         // set to true if you want to run without a backend, using fake data
