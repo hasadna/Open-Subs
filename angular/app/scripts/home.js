@@ -169,12 +169,11 @@ angular
     function startShow () {
       var RATE = 200,
           SHRINK_CYCLE = 20,
-          LEN = (1000 * 10)/ RATE,
+          LEN = (1000 * 18)/ RATE,
           cycle = 0;
           var song = document.getElementById('song');
       song.play();
       $('.sub').css({'animation-play-state': "running"});
-      //$('.focus').css({'animation-play-state': "running"});
 
       // setup the sequencer
       $scope.diving = false;
@@ -186,10 +185,15 @@ angular
           song.pause();
           $location.path(OPEN_KNESSET.teamUrl().rel);
         }
-        if (cycle == SHRINK_CYCLE) {
-          $scope.diving = true;
-          $('#sub').css({'animation-play-state': "running"});
+        /* adding bubbles...
+        if (cycle%10 == 0) {
+          var img = $('<img>', {src: "/images/bubbles.png", class: 'bubbles'});
+          var pos = $('.sub').position();
+          console.log(pos)
+          img.css({left: pos.left, top:pos.top});
+          $('.focus').append(img);
         }
+        */
         $(".cycle").each(function () {
           var src = $(this).attr('src');
           var convert = {'A': 'B', 'B': 'A'};
@@ -244,7 +248,7 @@ angular
         case 'electing':
           if ($scope.chairsLeft <= 0) {
             // if we have no chairs left start the show
-            $timeout(startShow, 3000);
+            $timeout(startShow, 1000);
           }
           break;
 

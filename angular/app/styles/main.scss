@@ -127,12 +127,14 @@ li { list-style: none; }
 .container { position: relative; text-align: center; padding: 0; }
 .sub {
   position: absolute;
-  height: 470px;
-  width: 730px;
+  top: 0;
+  right: 0;
+  // height: 470px;
+  // width: 730px;
 
   // animation when the sub is filled
   animation-play-state: paused;
-  animation-duration: 4s;
+  animation-duration: 19s;
   animation-fill-mode: forwards;
   animation-name: shrink;
 
@@ -200,11 +202,27 @@ li { list-style: none; }
   }
 }
 .focus {
-  perspective: 1200px;
+  // perspective: 1200px;
   position: relative;
   width: 730px;
   height: 470px;
+  .bubbles {
+    display: block;
+    position: absolute;
+    width: 200px;
+    z-index:100;
+    animation-play-state: running;
+    animation-duration: 2s;
+    animation-name: bubble;
+    animation-timing-function: linear
+  }
 }
+#bub1 { right: 80px; }
+#bub2 { right: 140px; }
+#bub3 { right: 180px; }
+#bub4 { right: 220px; }
+#bub5 { right: 260px; }
+#bub6 { right: 300px; }
 // .focus { animation-move: zoomOut; }
 aside { float: left; }
 #chair-form {
@@ -450,7 +468,9 @@ section { position: relative; }
 .dive {
   position: relative;
   width: 730px;
-  height: 490px;
+  height: 470px;
+  // width: 730px;
+  // height: 490px;
   // img { display: block; }
   #diver {
     position: absolute;
@@ -461,13 +481,6 @@ section { position: relative; }
     display: none;
     width: 180px;
     position: absolute;
-  }
-  #sub {
-    animation-play-state: paused;
-    animation-duration: 15s;
-    animation-name: dive;
-    position: absolute;
-    width: 200px;
   }
 }
 .url { text-align: left; }
@@ -483,7 +496,7 @@ section { position: relative; }
 @keyframes dive {
     0% {
       top: 220px;
-      right: 360px;
+      left: 360px;
     }
     20% {
       top: 350px;
@@ -510,9 +523,33 @@ section { position: relative; }
   from {
     transform: scale(1);
   }
+  20% {
+    right: 100px;
+    top: 330px;
+    transform: scale(0.27);
+  }
+  30% {
+    transform: scale(0.55);
+    right: 200px;
+    top: 230px;
+  }
+  40% {
+    transform: scale(0.40);
+    right: 300px;
+    top: 280px;
+  }
   to {
-    // transform: translate(560px, 100px);
+    right: 400px;
+    top: 60px;
     transform: scale(0.27);
   }
 }
-
+@keyframes bubble {
+  from {
+    top: 300px;
+  }
+  to {
+    top: 90px;
+    opacity: 0;
+  }
+}

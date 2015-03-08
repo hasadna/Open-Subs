@@ -147,7 +147,6 @@ angular
       }
       $scope.diff = (diff.length)?diff:0;
       $scope.key = key;
-      $window.sessionStorage.setItem("stage", 'ready');
       $timeout(drawKey);
     };
 
