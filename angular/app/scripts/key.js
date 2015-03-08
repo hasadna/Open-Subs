@@ -44,9 +44,15 @@ angular
           var j = db.committees[i].id;
           message += myChairs[j].name + ' ב' + c.name;
         }
+        $scope.loading = true;
         USER.fbapi('/feed', 'post',
                    {message: message,
-                    link: 'https://osubs.org/#' + $location.url()})
+                    link: 'https://osubs.org/#' + $location.url()}).then (function (response) {
+                      $location.path('/home');
+                    }, function (error) {
+                      $scope.error = error.message;
+                      $scope.loading = false;
+                    });
       });
     }
     $scope.help = function () {
@@ -137,7 +143,6 @@ angular
         var c = db.committees[i];
         var j = db.committees[i].id;
         if (myChairs[j] != key.chairs[j]) {
-          console.log(myChairs[j]);
           diff.push({name: c.name,
                    id: c.id,
                    chosen: myChairs[j],

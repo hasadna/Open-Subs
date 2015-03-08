@@ -1,5 +1,7 @@
 <div class="ctrl" ng-include="'/views/ctrl.html'"> </div>
+<alert ng-if="error" type="error" close="1">אופס! משהו השתבש - {{error}}</alert>
 <div id="sea">
+  <span id="spinner" ng-show="loading" us-spinner></span>
  <section class="key">
   <h1 ng-if="diff">מפתח של חברים</h1>
   <h1 ng-if="!diff && !emptyChairs">מצאתם את המפתח!</h1>
@@ -60,7 +62,7 @@
       </tr>
     </table>
    </section>
-   <div class="share"  ng-if="emptyChairs == 12">
+   <div class="share"  ng-if="emptyChairs == 12 && diff">
     <button class="btn btn-default btn-lg" ng-click="adoptKey()">
          אמצו את המפתח כמות שהוא
     </button>
