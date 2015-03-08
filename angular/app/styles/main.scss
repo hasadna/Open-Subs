@@ -114,8 +114,13 @@ body {
   .jumbotron {
     border-bottom: 0;
   }
+  #mobile-warning { display: none; }
 }
 // app styles
+@media only screen and (max-width: 768px) {
+   #mobile-warning { margin: 0.5em auto; }
+  .container { display: none; }
+}
 @font-face {
   font-family: noto;
   src: url('/fonts/NotoSansHebrew-Regular.ttf');
