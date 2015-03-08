@@ -25,16 +25,16 @@
   -->
   <div class="share"  ng-if="!diff && !emptyChairs">
     <form>
-      <textarea rows="3" ng-model='message' placeholder="היו גם אתם קבלני קולות וספרו לחברה על הנבחרת שלכם"></textarea>
+      <textarea rows="3" ng-model='message' placeholder="היו גם אתם קבלני קולות וספרו לחברים על הנבחרת שלכם"></textarea>
       <div class="pull-left">
-        <a href="/#published">מעדיף לשמור על הפרטיות שלי</a>
+        <a href="/#home">מעדיף לשמור על הפרטיות שלי</a>
         <button class="btn btn-default btn-lg" ng-click="publish(message)">
            פרסמו המפתח
         </button>
       </div>
     </form>
   </div>
-  <section class="merge" ng-if="diff.length && diff.length < 12">
+  <section class="merge" ng-if="diff.length && emptyChairs < 12">
     <table class="table">
       <thead>
         <tr>
@@ -60,7 +60,7 @@
       </tr>
     </table>
    </section>
-   <div class="share"  ng-if="diff.length == 12">
+   <div class="share"  ng-if="emptyChairs == 12">
     <button class="btn btn-default btn-lg" ng-click="adoptKey()">
          אמצו את המפתח כמות שהוא
     </button>

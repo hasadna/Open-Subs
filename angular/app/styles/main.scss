@@ -397,8 +397,7 @@ section { position: relative; }
   .chair-name { text-align: right; }
 }
 .key {
-  // maybe? background-image : url('/images/committee_top.jpg');
-  height: 530px;
+  height: auto;
   margin: 0 auto;
   h1 { color: $lightSub; padding-top: 0.5em; }
   input { width: 60%; }
@@ -416,6 +415,7 @@ section { position: relative; }
     width: 480px;
     height: auto;
     textarea  { width: 100%; }
+    a { color: $lightSub; }
   }
   p { color: $darkSub; }
 }

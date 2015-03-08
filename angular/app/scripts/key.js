@@ -2,7 +2,7 @@
 
 angular
   .module('app')
-  .controller('KeyController', function($scope, $timeout, OPEN_KNESSET,
+  .controller('KeyController', function($scope, $timeout, OPEN_KNESSET, modal,
                   $facebook, USER, $routeParams, $location, $window, $q, $log) {
     var db,
         myChairs = [],
@@ -28,8 +28,11 @@ angular
     }
     $scope.adopt = function (chair) {
       var i = diff.indexOf(chair);
+      if (!myChairs[chair.id])
+        $scope.emptyChairs--;
       $window.sessionStorage.setItem(toKey(chair.id), chair.suggested.id);
       diff.splice(i, 1);
+      $scope.emptyChairs--;
     }
 
     $scope.publish = function (message) {
@@ -46,6 +49,9 @@ angular
                     link: 'https://osubs.org/#' + $location.url()})
       });
     }
+    $scope.help = function () {
+      modal.show('/views/key-help.html')
+    };
     function drawKey () {
         var canvas = $window.document.getElementById('key-canvas');
         canvas.width = 560;
