@@ -38,13 +38,13 @@
         <a href="/#splash"><img src="/images/logo.png" alt="הלוגו של המפתחות של הצוללת" /></a>
       </div>
 
-      <div class="ctrl">
-        <button ng-disabled="firstButton.disabled"
-                 class="btn btn-default navbar-btn"
-                 ng-click="firstButton()">
-          <i class="glyphicon"
-             ng-class="{'glyphicon-screenshot': buttonPublish,
-                        'glyphicon-home': buttonSub}"></i>
+      <!-- this is till in the sons 
+      <div class="ctrl" ng-hide="hideCtrl">
+        <button class="btn btn-default navbar-btn" ui-sref="key">
+          <i class="glyphicon glyphicon-screenshot"></i>
+        </button>
+        <button class="btn btn-default navbar-btn" ui-sref="home">
+          <i class="glyphicon glyphicon-home"></i>
         </button>
         <button class="btn btn-default navbar-btn" ng-click="help()">
           <i class="glyphicon glyphicon-question-sign"></i>
@@ -54,6 +54,7 @@
           <i class="glyphicon glyphicon-trash"></i>
         </button>
       </div>
+      -->
       <div ui-view=""></div>
 
       <div class="footer">
@@ -137,7 +138,11 @@
     <!-- setting the control panel position -->
     <script>
       $(document).ready(function () {
-        $('.ctrl').css({ right: $('.container').offset().left });
+        function fixCtrl() {
+          $('.ctrl').css({ left: $('.container').offset().left })
+        };
+        $(window).resize (fixCtrl);
+        fixCtrl();
       });
     </script>
     <script>
