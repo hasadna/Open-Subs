@@ -2,7 +2,7 @@
 
 angular
   .module('app')
-  .controller('DiveController', function($scope, USER, OPEN_KNESSET, $routeParams,
+  .controller('DiveController', function($scope, USER, OPEN_KNESSET,
                                          $interval, $location, $window, $q, $modal) {
     var db;
 

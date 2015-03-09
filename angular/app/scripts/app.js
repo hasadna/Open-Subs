@@ -7,7 +7,7 @@ angular
     'ngCookies',
     'ngMessages',
     'ngResource',
-    'ngRoute',
+    'ui.router',
     'ngSanitize',
     'ngTouch',
     'angular-jwt',
@@ -20,59 +20,64 @@ angular
     'ui.bootstrap'
   ])
 
-  .config(function ($routeProvider, $resourceProvider, $facebookProvider) {
+  .config(function ($stateProvider, $resourceProvider, $urlRouterProvider,
+                    $facebookProvider) {
     $resourceProvider.defaults.stripTrailingSlashes = false;
     $facebookProvider.setAppId(window.OPEN_SUBS_FB_APP_ID);
     $facebookProvider.setPermissions("public_profile,email");
     $facebookProvider.setVersion("v2.2");
-    $routeProvider
-      .when('/splash', {
-        templateUrl: 'views/splash.html'
+    // routing
+    $urlRouterProvider.otherwise("splash");
+    $stateProvider
+     .state('splash', {
+       url: '/splash',
+       templateUrl: 'views/splash.html'
       })
-      .when('/about', {
+      .state('about', {
         templateUrl: 'views/about.html',
       })
-      .when('/dive', {
+      .state('dive', {
+        url: '/dive',
         templateUrl: 'views/dive.html',
         controller: 'DiveController'
       })
-      .when('/key', {
+      .state('key', {
+        url: '/key/:team?',
         templateUrl: 'views/key.html',
         controller: 'KeyController'
       })
-      .when('/key/:team', {
-        templateUrl: 'views/key.html',
-        controller: 'KeyController'
-      })
-      .when('/home', {
+      .state('home', {
+        url: '/home',
         templateUrl: 'views/home.html',
         controller: 'HomeController'
       })
-      .when('/game/last', {
+      .state('fin', {
+        url: '/game',
         templateUrl: 'views/game_last.html',
         controller: 'GameLastController',
         reloadOnSearch: false
       })
-      .when('/game/:level', {
+      .state('game', {
+        url: '/game/:level',
         templateUrl: 'views/committee.html',
         controller: 'CommitteeController',
         reloadOnSearch: false
       })
-      .when('/committee/:id/:stage?', {
+      .state('committee', {
+        url: '/committee/:id/:stage?',
         templateUrl: 'views/committee.html',
         controller: 'CommitteeController',
         reloadOnSearch: false
       })
       // TODO: refactor to /person/:id
-      .when('/candidate/:id', {
+      .state('candidate', {
+        url: '/candidate/:id',
         templateUrl: 'views/candidate-feed.html',
         controller: 'CandidateController'
       })
-      .when('/error/:type/:next', {
+      .state('error', {
+        url: '/error/:type/:next',
         templateUrl: 'views/error.html'
-      })
-      .otherwise({
-        redirectTo: '/splash'
       })
     ;
   })

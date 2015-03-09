@@ -38,7 +38,7 @@ describe('when clicking the elect button on the welcome page', function (){
     // clicking drive
     element(by.css('div.modal-dialog button.drive')).click();
   });
-  it('should hide the help', function () {
+  it('should show the sub', function () {
     browser.isElementPresent(element(by.css('section.sub')));
     // expect(element(by.css('section.welcome')).visible()).toBe(false);
   });

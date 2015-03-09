@@ -3,7 +3,7 @@
 angular
   .module('app')
   .controller('KeyController', function($scope, $timeout, OPEN_KNESSET, modal,
-                  $facebook, USER, $routeParams, $location, $window, $q, $log) {
+                  $facebook, USER, $stateParams, $location, $window, $q, $log) {
     var db,
         myChairs = [],
         diff = [],
@@ -102,7 +102,7 @@ angular
       db = res;
 
       // parsing the key from the url
-      var cs = $routeParams.team;
+      var cs = $stateParams.team;
       if (cs) {
         cs = cs.match(/([a-z0-9]{3})/g);
         if (cs.length == 12) {
@@ -115,7 +115,7 @@ angular
           }
         }
         else {
-          $log.error("got a bad key in the url - "+$routeParams.team);
+          $log.error("got a bad key in the url - "+$stateParams.team);
           $location.path('/error/1/home');
         }
       }

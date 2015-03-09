@@ -117,10 +117,12 @@ body {
   #mobile-warning { display: none; }
 }
 // app styles
+/*
 @media only screen and (max-width: 768px) {
    #mobile-warning { margin: 0.5em auto; }
   .container { display: none; }
 }
+*/
 @font-face {
   font-family: noto;
   src: url('/fonts/NotoSansHebrew-Regular.ttf');
@@ -296,14 +298,14 @@ aside { float: left; }
   background-image: url('/images/splash.png');
   width: 100%;
   height: 470px;
-  .play { background-color: transparent;
+  .play {
+    background-color: transparent;
     background-image: url('/images/play.png');
     background-position: -42px -18px;
     height: 66px;
     width: 100px;
     position: absolute;
     top: 330px;
-    right: 292px;
   }
   .play:hover { background-position: -189px -18px; }
 }

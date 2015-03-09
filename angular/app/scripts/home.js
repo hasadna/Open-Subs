@@ -3,7 +3,7 @@
 angular
   .module('app')
   .controller('HomeController', function(USER, OPEN_KNESSET, $scope,
-                                         $interval, $routeParams, $modal,
+                                         $interval, $stateParams, $modal,
                                          $timeout, $location, $window, $q) {
     var db,
         stage = $window.sessionStorage.getItem('stage') || "welcome";
@@ -217,7 +217,7 @@ angular
       // TODO: Rinse this code - there's a better version at key.js
       //       that needs to turned into a `chairs` service
       // Applying elected from url
-      var electedTeam = $routeParams.team;
+      var electedTeam = $stateParams.team;
       db = res;
       $scope.committees = db.committees
       if (electedTeam) {

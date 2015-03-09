@@ -27,21 +27,34 @@
     <![endif]-->
 
     <!-- Add your site or application content here -->
-    <div id="mobile-warning">
-      <h1>מצטערים, המשחק לא עובד על ניידים</h1>
-   </div>
     <div class="container">
       <div class="header">
         <div class="timer">
           <header>זמן עד...</header>
-          <timer end-time="1426532400000" max-time-unit="'day'" interval="1000">
-            <span>{{days}}+{{hhours}}:{{mminutes}}</span>
+          <timer end-time="1426572000000" max-time-unit="'day'" interval="1000">
+            <span>ש-{{hhours}}:{{mminutes}}-{{days}}</span>
           </timer>
         </div>
         <a href="/#splash"><img src="/images/logo.png" alt="הלוגו של המפתחות של הצוללת" /></a>
       </div>
 
-      <div ng-view=""></div>
+      <div class="ctrl">
+        <button ng-disabled="firstButton.disabled"
+                 class="btn btn-default navbar-btn"
+                 ng-click="firstButton()">
+          <i class="glyphicon"
+             ng-class="{'glyphicon-screenshot': buttonPublish,
+                        'glyphicon-home': buttonSub}"></i>
+        </button>
+        <button class="btn btn-default navbar-btn" ng-click="help()">
+          <i class="glyphicon glyphicon-question-sign"></i>
+        </button>
+        <button class="btn btn-default navbar-btn" ng-really-click="reset()"
+          ng-really-message="האם לנקות את הכסאות?">
+          <i class="glyphicon glyphicon-trash"></i>
+        </button>
+      </div>
+      <div ui-view=""></div>
 
       <div class="footer">
         <div class="license">
@@ -99,6 +112,7 @@
     <script src="bower_components/ng-facebook/ngFacebook.js"></script>
     <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
     <script src="bower_components/angucomplete-alt/angucomplete-alt.js"></script>
+    <script src="bower_components/ui-router/release/angular-ui-router.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 

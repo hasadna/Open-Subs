@@ -3,18 +3,18 @@
 angular
   .module('app')
   .controller('CommitteeController', function($location, $scope, $window,
-                                              OPEN_KNESSET, $routeParams, $q,
+                                              OPEN_KNESSET, $stateParams, $q,
                                               USER, $anchorScroll, DATA, modal) {
     var INITIAL_ORG_LIMIT = 11,
-        committee_id = $routeParams.id,
-        game_level = $routeParams.level,
+        committee_id = $stateParams.id,
+        game_level = $stateParams.level,
         game_mode = false,
         electedId = $window.sessionStorage.getItem('chair'+committee_id),
         myOrgs = JSON.parse($window.sessionStorage.getItem('myOrgs')) || [];
 
     $scope.modal = modal;
     $scope.buttonSub = true;
-    $scope.stage = $routeParams.stage || $window.sessionStorage['stage'];
+    $scope.stage = $stateParams.stage || $window.sessionStorage['stage'];
 
     $scope.startElecting = function () {
       $scope.stage = 'electing';
@@ -155,7 +155,7 @@ angular
     $scope.$watch(function (scope) { return scope.selectedChair; },
                   function (new_value, old_value) {
       var cand, org;
-      $scope.loading = true;
+      // $scope.loading = true;
       if (new_value) {
         // Looking for the corresponding candidate object in the real candidateArray
         for (var orgId=0; orgId < $scope.candidates.length; orgId++){
