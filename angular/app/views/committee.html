@@ -1,5 +1,5 @@
 <div class="ctrl" ng-include="'/views/ctrl.html'"> </div>
-<div class="committee">
+<div class="committee" ng-if="stage=='electing'">
   <section class="top">
     <h1>{{committee.name}}</h1>
     <h4 ng-if="chair">יושב/ת הראש שלכם: {{chair.name}}</h4>
@@ -51,5 +51,10 @@
     <h3 ng-if="lastCandidate.block">מצטערת, {{lastCandidate.name}} נבחר לועדה אחרת</h3>
   </div>
   </div>
-</section>
+  </section>
+</div>
+<div class="committee" ng-if="stage=='novice'">
+  <section class="help">
+    <div class="message" ng-include ="'/views/committee-help.html'"></div>
+  </section>
 </div>

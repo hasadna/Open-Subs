@@ -56,13 +56,21 @@ angular
       $location.path('/about');
     }
 
+    //TODO: delete this function as the committee controller is doing all that
     $scope.go = function (chair) {
       $scope.loading = true;
       var url = chair.absolute_url; // .substr(1);
       USER.login().then(function() {
-        $location.path(url.substr(1));
+        $scope.loggedIn = true;
       }, function() {
-        $location.path('/login/'+url.substr(2));
+        $scope.loggedIn = false;
+      }).then(function () {
+        if (stage == 'novice') {
+          $location.path(url.substr(2)+'/novice');
+          $window.sessionStorage.setItem("stage", "electing");
+        }
+        else
+          $location.path(url.substr(1));
       });
     }
 
@@ -241,7 +249,7 @@ angular
       var nextStage = stage;
       switch (stage) {
         case 'welcome':
-          nextStage = 'electing';
+          nextStage = 'novice';
           $scope.help();
           break;
 
@@ -274,6 +282,7 @@ angular
           break;
 
       };
+      stage = nextStage;
       $window.sessionStorage.setItem("stage", nextStage);
     };
 

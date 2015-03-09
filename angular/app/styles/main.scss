@@ -245,18 +245,18 @@ aside { float: left; }
   text-align: right;
   .license { float:left; text-align: left; }
 }
-.org, .message {
+.message {
   width: 80%;
-  margin: 0 auto 2em;
   padding: 0.5em;
-  background-color: white;
+  margin: 0 auto;
+  background-color: $medSub;
   border-radius: 5px;
 }
 .org {
   width: 80%;
   margin: 0 auto 2em;
   padding: 0.5em;
-  background-color: white;
+  background-color: $medSub;
   border-radius: 5px;
   li { display: inline; }
   li.relation { display: block; text-align: right;}
@@ -310,11 +310,20 @@ aside { float: left; }
 .loading { margin-top: 1em; height: 3em; position: relative; }
 .btn[disabled] { opacity: 0.5; }
 .committee {
-  .top {
+  .help, .top {
     background-image: url('/images/committee_top.jpg');
-    height: 250px;
+    background-color: #2e445c;
+    background-repeat: no-repeat;
     padding-top: 1em;
+    margin: 0 auto;
     p { padding: 0 1em; }
+  }
+  .help {
+    height: auto;
+    padding: 2em;
+  }
+  .top {
+    height: 250px;
   }
   .body {
     background-image: url('/images/committee_body.jpg');

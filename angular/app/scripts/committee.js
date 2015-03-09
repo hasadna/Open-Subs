@@ -14,7 +14,12 @@ angular
 
     $scope.modal = modal;
     $scope.buttonSub = true;
+    $scope.stage = $routeParams.stage || $window.sessionStorage['stage'];
 
+    $scope.startElecting = function () {
+      $scope.stage = 'electing';
+      $window.sessionStorage.setItem('stage', 'electing');
+    };
     var _isTopOrg = function(org) {
       var istop = false;
       angular.forEach(DATA.topOrgsStartWith, function(toporg) {
@@ -219,7 +224,7 @@ angular
       $scope.firstTime = false;
     };
     $scope.help = function () {
-      modal.show('/views/committee-help.html')
+     $scope.stage = 'novice';
     };
     $scope.loaded = function (candidate) {
       // Checking if already elected
@@ -278,6 +283,13 @@ angular
       }
       else
         candidate.hasFeed = false;
+    }
+
+    // startup code for the view
+    if ($scope.stage == 'novice') {
+      USER.login().then(function() {
+          $scope.loading = false;
+      })
     }
   }
 );

@@ -58,7 +58,7 @@ angular
         controller: 'CommitteeController',
         reloadOnSearch: false
       })
-      .when('/committee/:id', {
+      .when('/committee/:id/:stage?', {
         templateUrl: 'views/committee.html',
         controller: 'CommitteeController',
         reloadOnSearch: false
@@ -68,21 +68,6 @@ angular
         templateUrl: 'views/candidate-feed.html',
         controller: 'CandidateController'
       })
-      .when('/login/:next*', {
-        templateUrl: 'views/login.html',
-        controller: function($scope, USER, $routeParams, $location) {
-          USER.login().then(function() {
-            $location.path('/'+$routeParams.next);
-          });
-          $scope.ok = function() {
-            USER.register().then(function() {
-              $location.path('/'+$routeParams.next);
-            }, function() {
-              $scope.failed = true;
-            });
-          }
-        }
-      })
       .when('/error/:type/:next', {
         templateUrl: 'views/error.html'
       })
@@ -91,7 +76,6 @@ angular
       })
     ;
   })
-
   .factory('DATA', function() {
     return {
       'topOrgsStartWith': [

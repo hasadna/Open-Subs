@@ -10,7 +10,7 @@
     <img class="background" src="/images/sub.png"/>
     <div ng-repeat="row in rows">
       <div class="chair" ng-repeat="chair in row" id="chair-{{chair.id}}" >
-        <a ng-click="go(chair)" href="">
+        <a href="{{chair.absolute_url}}">
             <ng-include src="'/views/chair_image.html'"></ng-include>
           <h2>{{chair.chosen.name}}</h2>
         </a>
