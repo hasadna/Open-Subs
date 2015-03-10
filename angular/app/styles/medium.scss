@@ -2,8 +2,10 @@
 
 #sea { height: 1200px;}
 
+.focus { width: auto; }
 .sub {
   padding-top: 100px;
+  width: 98%;
   .background { display: none; }
   #chair-2,
   #chair-9,
@@ -19,7 +21,7 @@
   #chair-99 {
     float: right;
     position: inherit;
-    width: 40%;
+    width: 180px;
     margin: 1%;
     height: 160px;
   }
@@ -42,6 +44,7 @@
       width:120px;
     }
     .window {
+      position:relative;
       margin-top: 10px;
       img { margin-right: 34%; }
     }
