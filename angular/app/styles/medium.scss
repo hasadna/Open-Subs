@@ -1,0 +1,49 @@
+@import 'colors';
+
+#sea { height: 1200px;}
+
+.sub {
+  padding-top: 100px;
+  .background { display: none; }
+  #chair-2,
+  #chair-9,
+  #chair-4,
+  #chair-1,
+  #chair-15,
+  #chair-8,
+  #chair-5,
+  #chair-10,
+  #chair-11,
+  #chair-6,
+  #chair-3,
+  #chair-99 {
+    float: right;
+    position: inherit;
+    width: 40%;
+    margin: 1%;
+    height: 160px;
+  }
+  .chairs { width: 95%; }
+  .chair {
+    h3 { display: block;
+      font-size: 16px;
+      color: $lightSub;
+      background-color: $windowFrame;
+      border-radius: 5px;
+      opacity: 0.9;
+      padding: 2px;
+      margin: 0 auto;
+      width:120px;
+    }
+    h2 {
+      margin: 0 auto;
+      margin-top: 80px;
+      font-size: 18px;
+      width:120px;
+    }
+    .window {
+      margin-top: 10px;
+      img { margin-right: 34%; }
+    }
+  }
+}

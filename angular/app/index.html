@@ -20,6 +20,11 @@
     <link rel="stylesheet" href="styles/main.css">
     <link rel="stylesheet" href="styles/angucomplete.css">
     <!-- endbuild -->
+    <link rel="stylesheet"
+          media="screen and (max-width: 490px)" href="styles/small.css" />
+    <link rel="stylesheet"
+          media="screen and (max-width: 680px)" href="styles/medium.css" />
+
   </head>
   <body ng-app="app" ng-controller="AppController">
     <!--[if lt IE 7]>
@@ -137,12 +142,13 @@
 
     <!-- setting the control panel position -->
     <script>
+      function fixCtrl() {
+        $('.ctrl').css({ left: $('.container').offset().left })
+      }
+      fixCtrl();
       $(document).ready(function () {
-        function fixCtrl() {
-          $('.ctrl').css({ left: $('.container').offset().left })
-        };
         $(window).resize (fixCtrl);
-        fixCtrl();
+        // $(window).trigger('resize');
       });
     </script>
     <script>

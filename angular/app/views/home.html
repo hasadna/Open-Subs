@@ -8,16 +8,20 @@
   <section class="focus" ng-hide="diving">
    <div class="sub">
     <img class="background" src="/images/sub.png"/>
-    <div ng-repeat="row in rows">
+    <div class="chairs">
+     <div ng-repeat="row in rows">
       <div class="chair" ng-repeat="chair in row" id="chair-{{chair.id}}" >
         <a href="{{chair.absolute_url}}">
+          <h3>{{chair.name}}</h3>
             <ng-include src="'/views/chair_image.html'"></ng-include>
           <h2>{{chair.chosen.name}}</h2>
         </a>
+       </div>
       </div>
     </div>
    </div>
   </section>
+  <div class="clearfix"></div>
 </div>
 <span id="spinner" ng-show="loading" us-spinner></span>
 <audio id="song" src="/audio/yellow_submarine.mp3">
