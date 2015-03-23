@@ -34,7 +34,8 @@ angular
        templateUrl: 'views/splash.html'
       })
       .state('about', {
-        templateUrl: 'views/about.html',
+        url: '/about',
+        templateUrl: 'views/about.html'
       })
       .state('dive', {
         url: '/dive',
