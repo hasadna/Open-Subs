@@ -11,7 +11,7 @@
     <div class="chairs">
      <div ng-repeat="row in rows">
       <div class="chair" ng-repeat="chair in row" id="chair-{{chair.id}}" >
-        <a href="{{chair.absolute_url}}">
+        <a id="mychair-{{chair.id}}" href="{{chair.absolute_url}}">
           <h3>{{chair.name}}</h3>
             <ng-include src="'/views/chair_image.html'"></ng-include>
           <h2>{{chair.chosen.name}}</h2>
