@@ -386,12 +386,12 @@ aside { float: left; }
 .ctrl {
   z-index: 9;
   position: fixed;
-  height: 52px;
-  top: 87px;
+  height: 47px;
+  top: 35px;
+  margin-right: 16px; 
   background-color: rgb(175, 234, 250);
-  padding: 0 1em;
+  padding: 0 0.5em;
   border-radius: 3px;
-  // margin-right: 16px;
 }
 .tooth {
   h3, h4 {

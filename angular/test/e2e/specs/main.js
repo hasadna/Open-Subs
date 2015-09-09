@@ -12,7 +12,7 @@ describe('when going to the root url', function() {
   it('should have offline and noFacebook', function() {
     // currently the test only supports testing with offline mode and without facebook
     expect(browser.executeScript(function() {
-      return (!SETTINGS.backend && !SETTINGS.noFacebook)
+      return (SETTINGS.offline && SETTINGS.noFacebook)
     })).toBeTruthy();
   });
 
@@ -33,6 +33,7 @@ describe('when clicking the play button', function() {
 
 });
 
+
 describe('when clicking the elect button on the welcome page', function (){
   beforeAll(function() {
     // clicking drive
@@ -43,3 +44,52 @@ describe('when clicking the elect button on the welcome page', function (){
     // expect(element(by.css('section.welcome')).visible()).toBe(false);
   });
 });
+
+describe('check clicking id 4 comitee', function() {
+  beforeAll(function() {
+    browser.get('/');
+    element(by.css('div.splash a.play')).click();
+    //element(by.css('div.modal-dialog button.drive')).click();
+    //element(by.css('div.modal-dialog button.drive')).click();
+    // clicking maketa class
+    element(by.id('mychair-4')).click();
+  });
+
+  it('should open comitee', function() {
+    browser.isElementPresent(element(by.css('section.sub')));
+  });
+
+});
+
+describe('check clicking publish', function() {
+  beforeAll(function() {
+    
+    // clicking maketa class
+    element(by.id('publish')).click();
+  });
+
+  it('should open publish', function() {
+    browser.isElementPresent(element(by.css('section.sub')));
+  });
+
+});
+
+
+
+describe('check clicking maketa', function() {
+  beforeAll(function() {
+    browser.get('/');
+    // clicking maketa class
+    element(by.css('div.license a.maketa')).click();
+  });
+
+
+
+  it('should open maketa', function() {
+    expect(browser.driver.getCurrentUrl()).toMatch('/#/about');
+  });
+
+});
+
+
+
