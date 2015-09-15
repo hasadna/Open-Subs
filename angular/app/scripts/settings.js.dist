@@ -16,7 +16,7 @@ if (!window.SETTINGS_LOADED) {
         storeElections: false,
         // TODO: next setting is not really used
         // what's the minimum staff size need to sail the sub?
-        staffedSubChairs: 3,
+        staffedSubChairs: 12,
         // TODO: remove this and use !SETTINGS.backend instead
         offline:true,
         // disable facebook integration - useful for automated testing
