@@ -58,10 +58,19 @@
       </button>
     </div>
   </section>
+  <!-- Feed is not quite there yet
   <div ng-if="candidate.hasFeed && candidate.feedLoading" class="loading">
     <span us-spinner></span>
   </div>
   <section class="feed" ng-if="candidate.hasFeed && !candidate.feedLoading && candidate.feedLength == -1">
     <p class="active">שגיאה בטעינת הסטטוסים</p>
   </section>
+  -->
+  <div class="clearfix">
+    <button ng-if="!lastCandidate.block" class="btn btn-default btn-lg"
+      ng-click="elect(lastCandidate)">
+      מנו את {{candidate.name}} לראשות {{committee.name}}
+    </button>
+    <h3 ng-if="lastCandidate.block">מצטערת, {{candidate.name}} נבחר לועדה אחרת</h3>
+  </div>
 </div>
