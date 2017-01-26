@@ -69,7 +69,7 @@ module.exports = function (grunt) {
     // The actual grunt server settings
     connect: {
       options: {
-        protocol: 'https',
+        protocol: 'http',
         port: 9000,
         hostname: 'localhost',
         livereload: 35729,
