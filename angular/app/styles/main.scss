@@ -229,10 +229,6 @@ li { list-style: none; }
 aside { float: left; }
 #chair-form {
   z-index: 2;
-  transform: rotate(4deg);
-  position:absolute;
-  right:165px;
-  top:140px;
   width: 40%;
   margin: 0.5em auto 3em;
 }
@@ -388,7 +384,7 @@ aside { float: left; }
   position: fixed;
   height: 47px;
   top: 35px;
-  margin-right: 16px; 
+  margin-right: 16px;
   background-color: rgb(175, 234, 250);
   padding: 0 0.5em;
   border-radius: 3px;
@@ -403,7 +399,7 @@ aside { float: left; }
     width:12em;
   }
   h3 {
-    transform: rotate(-90deg); 
+    transform: rotate(-90deg);
     transform-origin: right top 0;
     top: 180px;
     width:12em;
