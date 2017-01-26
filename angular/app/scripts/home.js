@@ -254,10 +254,6 @@ angular
           break;
 
         case 'electing':
-          if ($scope.chairsLeft <= 0) {
-            // if we have no chairs left start the show
-            $timeout(startShow, 1000);
-          }
           break;
 
         case 'adopt':
